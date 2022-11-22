@@ -3,10 +3,13 @@ package unisa.diem.swproject.model;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public interface Shape {
+public interface Shape extends Cloneable {
+    Shape clone();
     boolean contains(double x, double y);
 
     void draw(GraphicsContext gc);
+
+    void remove(GraphicsContext gc);
 
     void redraw(GraphicsContext gc, double zoom);
 
@@ -22,7 +25,7 @@ public interface Shape {
 
     void stroke(GraphicsContext gc, double width, Color color);
 
-    double getZIndex();
+    int getZIndex();
 
     void setZIndex(GraphicsContext gc, int zIndex);
 }

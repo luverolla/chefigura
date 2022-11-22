@@ -7,12 +7,22 @@ public class CustomShape extends BaseShape {
     private ShapeGroup group;
 
     @Override
+    public Shape clone() {
+        return null;
+    }
+
+    @Override
     public boolean contains(double x, double y) {
         return false;
     }
 
     @Override
     public void draw(GraphicsContext gc) {
+
+    }
+
+    @Override
+    public void remove(GraphicsContext gc) {
 
     }
 
@@ -52,7 +62,7 @@ public class CustomShape extends BaseShape {
     }
 
     @Override
-    public double getZIndex() {
+    public int getZIndex() {
         return 0;
     }
 

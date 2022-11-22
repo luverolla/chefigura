@@ -6,6 +6,19 @@ import javafx.scene.paint.Color;
 public class ShapeGroup extends BaseShape {
     private Iterable<Shape> shapes;
 
+    public ShapeGroup(Iterable<Shape> shapes) {
+        this.shapes = shapes;
+    }
+
+    public Iterable<Shape> getShapes() {
+        return shapes;
+    }
+
+    @Override
+    public Shape clone() {
+        return (Shape)super.clone();
+    }
+
     @Override
     public boolean contains(double x, double y) {
         return false;
@@ -13,6 +26,11 @@ public class ShapeGroup extends BaseShape {
 
     @Override
     public void draw(GraphicsContext gc) {
+
+    }
+
+    @Override
+    public void remove(GraphicsContext gc) {
 
     }
 
@@ -52,7 +70,7 @@ public class ShapeGroup extends BaseShape {
     }
 
     @Override
-    public double getZIndex() {
+    public int getZIndex() {
         return 0;
     }
 
