@@ -1,45 +1,28 @@
 package unisa.diem.swproject.model;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 
 public class Sheet extends Canvas {
     private String name;
     private SheetFormat format;
     private double zoomLevel;
     private Tool currentTool;
+    private ShapeManager shapeManager;
 
-    public Sheet(String name, SheetFormat format, double zoomLevel, Tool currentTool) {
+    public Sheet(String name, SheetFormat format, GraphicsContext gc, CommandManager cm) {
         this.name = name;
         this.format = format;
-        this.zoomLevel = zoomLevel;
-        this.currentTool = currentTool;
+        this.zoomLevel = 1;
+        this.currentTool = null;
+        this.shapeManager = new ShapeManager(gc, cm);
     }
-    public void drawGrid(Graphics g, double size) {
-        nrows = format.getHeight() / size;
-        ncolumns = format.getWidth() / size;
+    public void drawGrid(double size) {
 
-        //draw the rows
-        for (int i = 0; i < nrows; i++) {
-            g.drawLine(0, i * size, format.getWidth(), i * size);
-        }
-
-        //draw the columns
-        for (int i = 0; i < ncolumns; i++) {
-            g.drawLine(i * size, 0, i * size, format.getHeight());
-        }
     }
 
     public void zoom(double factor) {
-
-        //Zoom in
-        if (factor < 0) {
-            zoomLevel *= factor;
-            redraw();
-        }
-        //Zoom out
-        if (factor > 0) {
-            zoomLevel /= factor;
-            redraw();
-        }
+        this.zoomLevel *= factor;
+        this.shapeManager.redraw();
     }
 }
