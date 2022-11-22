@@ -1,6 +1,6 @@
 package unisa.diem.swproject.model;
 
-public class ShapeToolCommand implements Command {
+public class ShapeToolCommand extends BaseCommand {
     private final Tool tool;
 
     private Shape shape;

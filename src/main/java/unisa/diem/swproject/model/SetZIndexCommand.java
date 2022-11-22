@@ -1,7 +1,5 @@
 package unisa.diem.swproject.model;
 
-import javafx.scene.canvas.GraphicsContext;
-
 public class SetZIndexCommand extends BaseCommand {
     private final ShapeManager shapeManager;
     private final Shape shape;

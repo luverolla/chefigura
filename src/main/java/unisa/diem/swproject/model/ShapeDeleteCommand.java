@@ -2,7 +2,7 @@ package unisa.diem.swproject.model;
 
 import javafx.scene.canvas.GraphicsContext;
 
-public class ShapeDeleteCommand {
+public class ShapeDeleteCommand extends BaseCommand {
     private final Shape shape;
     private final GraphicsContext gc;
 
@@ -15,11 +15,15 @@ public class ShapeDeleteCommand {
         return shape;
     }
 
-    public void execute() {
+    @Override
+    public int execute() {
         shape.remove(gc);
+        return 0;
     }
 
-    public void rollback() {
+    @Override
+    public int rollback() {
         shape.draw(gc);
+        return 0;
     }
 }

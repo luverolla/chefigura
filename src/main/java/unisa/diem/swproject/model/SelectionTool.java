@@ -1,7 +1,7 @@
 package unisa.diem.swproject.model;
 
 public class SelectionTool implements Tool {
-    private ShapeManager shapeManager;
+    private final ShapeManager shapeManager;
     private Shape selected;
 
     public SelectionTool(ShapeManager sm){
@@ -11,7 +11,7 @@ public class SelectionTool implements Tool {
 
     @Override
     public void mouseDown(double mouseX, double mouseY) {
-        this.selected = this.shapeManager.getSelectedShape(mouseX, mouseY);
+        this.selected = this.shapeManager.selectShape(mouseX, mouseY);
     }
 
     @Override

@@ -1,8 +1,5 @@
 package unisa.diem.swproject.model;
 
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -12,6 +12,7 @@ public class ShapeManager {
 
     private final CommandManager commandManager;
     private Shape copiedShape;
+    private Shape selectedShape;
 
     public ShapeManager(GraphicsContext context, CommandManager commandManager) {
         this.shapes = new ArrayList<>();
@@ -54,11 +55,15 @@ public class ShapeManager {
         copiedShape = s;
     }
 
-    void pasteShape() {
+    void pasteShape(boolean cut) {
         if (copiedShape != null) {
-            Command command = new PasteShapeCommand(copiedShape, this);
+            Command command = new PasteShapeCommand(copiedShape, cut, this);
             command.execute();
         }
+    }
+
+    void resetCopiedShape() {
+        copiedShape = null;
     }
 
     void groupShapes(Iterable<Shape> shapes) {
@@ -93,8 +98,16 @@ public class ShapeManager {
         command.execute();
     }
 
-    Shape getSelectedShape(double mouseX, double mouseY) {
+    Shape selectShape(double mouseX, double mouseY) {
         return shapes.stream().filter(s -> s.contains(mouseX, mouseY)).findFirst().orElse(null);
+    }
+
+    void setSelectedShape(Shape s) {
+       this.selectedShape = s;
+    }
+
+    Shape getSelectedShape() {
+       return this.selectedShape;
     }
 
     void importCustomShape(String libraryName) {
