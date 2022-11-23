@@ -1,17 +1,25 @@
-package unisa.diem.swproject.model;
+package unisa.diem.swproject.model.tools;
+
+import unisa.diem.swproject.model.Shape;
+import unisa.diem.swproject.model.ShapeManager;
+import unisa.diem.swproject.model.Tool;
 
 public class SelectionTool implements Tool {
     private final ShapeManager shapeManager;
     private Shape selected;
 
-    public SelectionTool(ShapeManager sm){
+    private String hint;
+
+    public SelectionTool(ShapeManager sm) {
         this.shapeManager = sm;
         this.selected = null;
+        this.hint = "Select a shape";
     }
 
     @Override
     public void mouseDown(double mouseX, double mouseY) {
         this.selected = this.shapeManager.selectShape(mouseX, mouseY);
+        hint = this.selected == null ? "Select a shape" : "Shape selected";
     }
 
     @Override
@@ -39,6 +47,11 @@ public class SelectionTool implements Tool {
     public int revert() {
         this.shapeManager.setSelectedShape(null);
         return 0;
+    }
+
+    @Override
+    public String getCurrentHint() {
+        return hint;
     }
 
     @Override

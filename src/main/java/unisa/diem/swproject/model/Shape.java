@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public interface Shape extends Cloneable {
-    Shape clone();
+    Shape clone() throws CloneNotSupportedException;
     boolean contains(double x, double y);
 
     void draw(GraphicsContext gc);

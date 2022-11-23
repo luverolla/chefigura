@@ -1,6 +1,8 @@
-package unisa.diem.swproject.model;
+package unisa.diem.swproject.model.commands;
 
 import javafx.scene.canvas.GraphicsContext;
+import unisa.diem.swproject.model.BaseCommand;
+import unisa.diem.swproject.model.Shape;
 
 public class ShapeDeleteCommand extends BaseCommand {
     private final Shape shape;

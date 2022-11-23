@@ -13,5 +13,8 @@ public interface Tool {
 
     int revert();
 
+    // tells the user what to do next
+    String getCurrentHint();
+
     Shape getShape();
 }

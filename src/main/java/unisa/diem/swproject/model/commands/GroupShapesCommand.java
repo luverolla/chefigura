@@ -1,4 +1,9 @@
-package unisa.diem.swproject.model;
+package unisa.diem.swproject.model.commands;
+
+import unisa.diem.swproject.model.BaseCommand;
+import unisa.diem.swproject.model.Shape;
+import unisa.diem.swproject.model.ShapeGroup;
+import unisa.diem.swproject.model.ShapeManager;
 
 public class GroupShapesCommand extends BaseCommand {
     private final ShapeManager shapeManager;

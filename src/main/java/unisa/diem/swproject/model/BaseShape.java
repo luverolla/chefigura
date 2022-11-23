@@ -14,4 +14,9 @@ public abstract class BaseShape implements Shape {
     public void setZIndex(GraphicsContext gc, int zIndex) {
         this.zIndex = zIndex;
     }
+
+    @Override
+    public Shape clone() throws CloneNotSupportedException {
+        return (Shape) super.clone();
+    }
 }

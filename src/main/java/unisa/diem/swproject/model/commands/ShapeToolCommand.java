@@ -1,4 +1,8 @@
-package unisa.diem.swproject.model;
+package unisa.diem.swproject.model.commands;
+
+import unisa.diem.swproject.model.BaseCommand;
+import unisa.diem.swproject.model.Shape;
+import unisa.diem.swproject.model.Tool;
 
 public class ShapeToolCommand extends BaseCommand {
     private final Tool tool;
