@@ -51,7 +51,7 @@ public class ShapeManager {
         copiedShape = s;
     }
 
-    public void pasteShape(boolean cut) {
+    public void pasteShape(boolean cut) throws CloneNotSupportedException {
         if (copiedShape != null) {
             Command command = new PasteShapeCommand(copiedShape, cut, this);
             command.execute();
@@ -62,7 +62,7 @@ public class ShapeManager {
         copiedShape = null;
     }
 
-    public void groupShapes(Iterable<Shape> shapes)  {
+    public void groupShapes(Iterable<Shape> shapes) throws CloneNotSupportedException {
         Command command = new GroupShapesCommand(shapes, this);
         command.execute();
     }
@@ -72,24 +72,24 @@ public class ShapeManager {
         command.rollback();
     }
 
-    public void moveToFront(Shape s)  {
+    public void moveToFront(Shape s) throws CloneNotSupportedException {
         int maxZIndex = shapes.stream().max(Comparator.comparing(Shape::getZIndex)).get().getZIndex();
         Command command = new SetZIndexCommand(this, s, maxZIndex + 1);
         command.execute();
     }
 
-    public void moveToBack(Shape s)  {
+    public void moveToBack(Shape s) throws CloneNotSupportedException {
         int minZIndex = shapes.stream().max(Comparator.comparing(Shape::getZIndex).reversed()).get().getZIndex();
         Command command = new SetZIndexCommand(this, s, minZIndex == 0 ? 0 : minZIndex - 1);
         command.execute();
     }
 
-    public void moveForward(Shape s)  {
+    public void moveForward(Shape s) throws CloneNotSupportedException {
         Command command = new SetZIndexCommand(this, s, s.getZIndex() + 1);
         command.execute();
     }
 
-    public void moveBackward(Shape s)  {
+    public void moveBackward(Shape s) throws CloneNotSupportedException {
         Command command = new SetZIndexCommand(this, s, s.getZIndex() - 1);
         command.execute();
     }
