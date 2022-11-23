@@ -15,8 +15,8 @@ public class ShapeGroup extends BaseShape {
     }
 
     @Override
-    public Shape clone() {
-        return (Shape)super.clone();
+    public Shape clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     @Override

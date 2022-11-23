@@ -31,4 +31,12 @@ public class Project {
             e.printStackTrace();
         }
     }
+
+    public void addSheet(Sheet sheet) {
+        sheets.add(sheet);
+    }
+
+    public Sheet getSheet() {
+        return sheets.get(0);
+    }
 }

@@ -30,7 +30,7 @@ public class ShapeManager {
             shape.draw(context);
     }
 
-    public void draw(Tool t) {
+    public void draw(Tool t) throws CloneNotSupportedException {
         ShapeToolCommand command = new ShapeToolCommand(t);
         commandManager.execute(command);
         shapes.add(command.getShape());

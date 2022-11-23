@@ -5,7 +5,7 @@ public abstract class BaseCommand implements Command {
     public Command then(Command next) {
         return new Command() {
             @Override
-            public int execute() {
+            public int execute() throws CloneNotSupportedException {
                 int result = BaseCommand.this.execute();
                 if (result == 0) {
                     result = next.execute();
