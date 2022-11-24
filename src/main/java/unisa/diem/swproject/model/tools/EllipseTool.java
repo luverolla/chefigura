@@ -46,7 +46,7 @@ public class EllipseTool implements Tool {
             sm.redraw();
             sm.getGraphicsContext().save();
             sm.getGraphicsContext().setStroke(Color.GRAY);
-            sm.getGraphicsContext().strokeOval(center.getX(), center.getY(), radiusX, radiusY);
+            sm.getGraphicsContext().strokeOval(center.getX() - radiusX, center.getY() - radiusY, radiusX * 2, radiusY * 2);
             sm.getGraphicsContext().restore();
         }
     }
@@ -58,9 +58,9 @@ public class EllipseTool implements Tool {
 
     @Override
     public int apply() {
-        double radiusX = Math.abs(center.getX() - radius.getX());
-        double radiusY = Math.abs(center.getY() - radius.getY());
         if(center != null) {
+            double radiusX = Math.abs(center.getX() - radius.getX());
+            double radiusY = Math.abs(center.getY() - radius.getY());
             shape = new EllipseShape(center, radiusX, radiusY);
             sm.draw(shape);
             center = null;
