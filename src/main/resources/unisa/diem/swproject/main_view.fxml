@@ -48,6 +48,7 @@
                             <AnchorPane minHeight="0.0" minWidth="0.0">
                                 <HBox>
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Rectangle" userData="rectangle" />
+                                    <Button mnemonicParsing="false" onAction="#selectTool" text="Ellipse" userData="ellipse" />
                                 </HBox>
                             </AnchorPane>
                         </TitledPane>
