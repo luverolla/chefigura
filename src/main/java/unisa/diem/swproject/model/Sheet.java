@@ -42,6 +42,14 @@ public class Sheet extends Canvas {
         this.shapeManager.redraw();
     }
 
+    public void setCurrentTool(Tool t) {
+        this.currentTool = t;
+    }
+
+    public Tool getCurrentTool() {
+        return currentTool;
+    }
+
     public Project getProject() {
         return project;
     }
@@ -59,6 +67,8 @@ public class Sheet extends Canvas {
 
         setHeight(height);
         setWidth(width);
+
+        gc.clearRect(0, 0, width, height);
 
         gc.setFill(Color.WHITE);
         gc.fillRect(0, 0, width, height);

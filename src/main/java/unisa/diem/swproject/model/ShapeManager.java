@@ -26,6 +26,8 @@ public class ShapeManager {
     }
 
     public void redraw() {
+        Sheet area = (Sheet) context.getCanvas();
+        area.buildDrawingArea();
         for (Shape shape : shapes)
             shape.draw(context);
     }
