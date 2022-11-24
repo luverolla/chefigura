@@ -49,6 +49,7 @@
                                 <HBox>
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Rectangle" userData="rectangle" />
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Ellipse" userData="ellipse" />
+                                    <Button mnemonicParsing="false" onAction="#selectTool" text="Line Segment" userData="segment" />
                                 </HBox>
                             </AnchorPane>
                         </TitledPane>

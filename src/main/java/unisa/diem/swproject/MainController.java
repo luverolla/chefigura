@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import unisa.diem.swproject.model.*;
+import unisa.diem.swproject.model.tools.EllipseTool;
+import unisa.diem.swproject.model.tools.LineSegmentTool;
 import unisa.diem.swproject.model.tools.RectangleTool;
 
 import java.util.Map;
@@ -21,7 +23,9 @@ public class MainController {
         project.addSheet(sheet);
 
         toolMap = Map.ofEntries(
-            Map.entry("rectangle", new RectangleTool(sheet.shapeManager()))
+            Map.entry("rectangle", new RectangleTool(sheet.shapeManager())),
+            Map.entry("ellipse", new EllipseTool(sheet.shapeManager())),
+            Map.entry("segment", new LineSegmentTool(sheet.shapeManager()))
         );
     }
 
