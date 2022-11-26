@@ -6,14 +6,19 @@ import java.util.List;
 
 public class Project {
     private String name;
-    private List<Sheet> sheets;
-    private CommandManager commandManager;
+    private final List<Sheet> sheets;
+    private final CommandManager commandManager;
 
     public Project(String name) {
         this.name = name;
         this.sheets = new ArrayList<>();
         this.commandManager = new CommandManager();
     }
+
+    public CommandManager commandManager() {
+        return commandManager;
+    }
+
     public Project load(String fileName) {
         Project p = null;
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {

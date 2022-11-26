@@ -2,8 +2,10 @@ package unisa.diem.swproject;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.paint.Color;
 import unisa.diem.swproject.model.*;
 import unisa.diem.swproject.model.tools.EllipseTool;
 import unisa.diem.swproject.model.tools.LineSegmentTool;
@@ -19,7 +21,7 @@ public class MainController {
 
     public MainController() {
         project = new Project("Untitled");
-        Sheet sheet = new Sheet("Sheet 1", SheetFormat.A4, null);
+        Sheet sheet = new Sheet("Sheet 1", SheetFormat.A4, project.commandManager());
         project.addSheet(sheet);
 
         toolMap = Map.ofEntries(

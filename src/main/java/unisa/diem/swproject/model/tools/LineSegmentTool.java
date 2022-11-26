@@ -47,6 +47,7 @@ public class LineSegmentTool implements Tool {
             sm.getGraphicsContext().save(); // Save the current state of the canvas
             sm.getGraphicsContext().setStroke(Color.GRAY); // Set the color of the line to gray
             sm.getGraphicsContext().strokeLine(start.getX(), start.getY(), mouseX, mouseY); // Draw the line segment on the canvas
+            sm.getGraphicsContext().restore();
         }
     }
 
