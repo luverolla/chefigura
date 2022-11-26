@@ -6,7 +6,6 @@ import unisa.diem.swproject.model.ShapeManager;
 
 public class PasteShapeCommand extends BaseCommand {
     private final Shape original;
-
     private Shape cloned;
     private final ShapeManager sm;
 
@@ -18,13 +17,7 @@ public class PasteShapeCommand extends BaseCommand {
         this.cut = cut;
     }
 
-    public int execute() throws CloneNotSupportedException {
-        cloned = original.clone();
-        sm.draw(cloned);
-
-        if(cut)
-            sm.resetCopiedShape();
-
+    public int execute() {
         return 0;
     }
 

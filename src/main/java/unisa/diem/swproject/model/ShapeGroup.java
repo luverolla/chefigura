@@ -1,11 +1,15 @@
 package unisa.diem.swproject.model;
 
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class ShapeGroup extends BaseShape {
     private Iterable<Shape> shapes;
 
+    private ShapeGroup(ShapeGroup sg) {
+        this.shapes = sg.shapes;
+    }
     public ShapeGroup(Iterable<Shape> shapes) {
         this.shapes = shapes;
     }
@@ -14,9 +18,13 @@ public class ShapeGroup extends BaseShape {
         return shapes;
     }
 
+    public void setShapes(Iterable<Shape> shapes) {
+        this.shapes = shapes;
+    }
+
     @Override
-    public Shape clone() throws CloneNotSupportedException {
-        return super.clone();
+    public Shape clone()  {
+        return new ShapeGroup(this);
     }
 
     @Override
@@ -77,5 +85,20 @@ public class ShapeGroup extends BaseShape {
     @Override
     public void setZIndex(GraphicsContext gc, int zIndex) {
 
+    }
+
+    @Override
+    public void setStrokeColor(GraphicsContext gc, Color color) {
+
+    }
+
+    @Override
+    public void setStrokeWidth(GraphicsContext gc, double width) {
+
+    }
+
+    @Override
+    public Point2D mouseIsOnAnchor(double x, double y) {
+        return null;
     }
 }

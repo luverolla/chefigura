@@ -12,7 +12,7 @@ public class CommandManager {
         undoStack = new ArrayDeque<>();
     }
 
-    public int execute(Command command) throws CloneNotSupportedException { // this method is defined as an int in order to use the return value for unit testing
+    public int execute(Command command) { // this method is defined as an int in order to use the return value for unit testing
         command.execute();
         commandStack.push(command);
         return 1;
@@ -36,5 +36,9 @@ public class CommandManager {
         command.execute();
         commandStack.push(command);
         return 1;
+    }
+
+    public Command lastCommand() {
+        return commandStack.peek();
     }
 }

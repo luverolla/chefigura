@@ -25,6 +25,16 @@ public class ShapeManager {
         return context;
     }
 
+    public void add(Shape s) {
+        shapes.add(s);
+        s.draw(context);
+    }
+
+    public void remove(Shape s) {
+        shapes.remove(s);
+        redraw();
+    }
+
     public void redraw() {
         Sheet area = (Sheet) context.getCanvas();
         area.buildDrawingArea();
@@ -32,15 +42,9 @@ public class ShapeManager {
             shape.draw(context);
     }
 
-    public void draw(Tool t) throws CloneNotSupportedException {
-        ShapeToolCommand command = new ShapeToolCommand(t);
-        commandManager.execute(command);
-        shapes.add(command.getShape());
-    }
-
     public void draw(Shape s) {
-        s.draw(context);
-        shapes.add(s);
+        ShapeDrawCommand command = new ShapeDrawCommand(s, this);
+        commandManager.execute(command);
     }
 
     public void deleteShape(Shape s) {
@@ -114,5 +118,13 @@ public class ShapeManager {
 
     public void exportCustomShape(CustomShape s, String libraryName)  {
 
+    }
+
+    public int countShapes() {
+        return shapes.size();
+    }
+
+    public boolean shapeIsPresent(Shape s) {
+        return shapes.contains(s);
     }
 }
