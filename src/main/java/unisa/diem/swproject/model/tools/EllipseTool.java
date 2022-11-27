@@ -6,20 +6,22 @@ import unisa.diem.swproject.model.Shape;
 import unisa.diem.swproject.model.ShapeManager;
 import unisa.diem.swproject.model.shapes.EllipseShape;
 
-public class EllipseTool implements ShapeTool {
+public class EllipseTool implements ClosedShapeTool {
 
     private Point2D center;
     private Point2D radius;
     private final ShapeManager sm;
     private Shape shape;
     private Color strokeColor;
+    private Color fillColor;
 
-    public EllipseTool(ShapeManager sm, Color strokeColor) {
+    public EllipseTool(ShapeManager sm, Color strokeColor, Color fillColor) {
         this.sm = sm;
         this.center = null;
         this.radius = null;
         this.shape = null;
         this.strokeColor = strokeColor;
+        this.fillColor = fillColor;
     }
 
     public EllipseTool(ShapeManager sm) {
@@ -28,6 +30,7 @@ public class EllipseTool implements ShapeTool {
         this.radius = null;
         this.shape = null;
         this.strokeColor = Color.BLACK;
+        this.fillColor = Color.TRANSPARENT;
     }
 
     @Override
@@ -59,7 +62,7 @@ public class EllipseTool implements ShapeTool {
         if(center != null && radius != null && sm.getGraphicsContext() != null) {
             double radiusX = Math.abs(center.getX() - radius.getX());
             double radiusY = Math.abs(center.getY() - radius.getY());
-            shape = new EllipseShape(strokeColor, center, radiusX, radiusY);
+            shape = new EllipseShape(strokeColor, fillColor, center, radiusX, radiusY);
             sm.draw(shape);
             center = null;
             radius = null;
@@ -75,5 +78,10 @@ public class EllipseTool implements ShapeTool {
     @Override
     public void setStrokeColor(Color strokeColor) {
         this.strokeColor = strokeColor;
+    }
+
+    @Override
+    public void setFillColor(Color fillColor) {
+        this.fillColor = fillColor;
     }
 }

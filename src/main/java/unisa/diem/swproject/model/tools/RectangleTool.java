@@ -7,7 +7,7 @@ import unisa.diem.swproject.model.ShapeManager;
 import unisa.diem.swproject.model.Tool;
 import unisa.diem.swproject.model.shapes.RectangleShape;
 
-public class RectangleTool implements ShapeTool {
+public class RectangleTool implements ClosedShapeTool {
 
     private Point2D start;
     private Point2D end;
@@ -15,12 +15,15 @@ public class RectangleTool implements ShapeTool {
     private final ShapeManager sm;
     private Color strokeColor;
 
-    public RectangleTool(ShapeManager sm, Color strokeColor) {
+    private Color fillColor;
+
+    public RectangleTool(ShapeManager sm, Color strokeColor, Color fillColor) {
         this.sm = sm;
         this.start = null;
         this.end = null;
         this.shape = null;
         this.strokeColor = strokeColor;
+        this.fillColor = fillColor;
     }
 
     public RectangleTool(ShapeManager sm) {
@@ -29,6 +32,7 @@ public class RectangleTool implements ShapeTool {
         this.end = null;
         this.shape = null;
         this.strokeColor = Color.BLACK;
+        this.fillColor = Color.TRANSPARENT;
     }
 
     @Override
@@ -85,7 +89,7 @@ public class RectangleTool implements ShapeTool {
     @Override
     public void apply() {
         if(start != null && end != null && sm.getGraphicsContext() != null) {
-            shape = new RectangleShape(strokeColor, start, end);
+            shape = new RectangleShape(strokeColor, fillColor, start, end);
             sm.draw(shape);
             start = null;
             end = null;
@@ -102,5 +106,10 @@ public class RectangleTool implements ShapeTool {
     @Override
     public void setStrokeColor(Color strokeColor) {
         this.strokeColor = strokeColor;
+    }
+
+    @Override
+    public void setFillColor(Color fillColor) {
+        this.fillColor = fillColor;
     }
 }

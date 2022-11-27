@@ -6,10 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ScrollPane;
 import unisa.diem.swproject.model.*;
-import unisa.diem.swproject.model.tools.EllipseTool;
-import unisa.diem.swproject.model.tools.LineSegmentTool;
-import unisa.diem.swproject.model.tools.RectangleTool;
-import unisa.diem.swproject.model.tools.ShapeTool;
+import unisa.diem.swproject.model.tools.*;
 
 import java.util.Map;
 
@@ -46,6 +43,13 @@ public class MainController {
             for(Tool t: toolMap.values()) {
                 if(t instanceof ShapeTool) {
                     ((ShapeTool) t).setStrokeColor(newValue);
+                }
+            }
+        });
+        fillColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            for(Tool t: toolMap.values()) {
+                if(t instanceof ClosedShapeTool) {
+                    ((ClosedShapeTool) t).setFillColor(newValue);
                 }
             }
         });

@@ -16,6 +16,5 @@ public class ShapeDrawCommand extends BaseCommand {
     @Override
     public void execute() {
         sm.add(shape);
-        shape.draw(sm.getGraphicsContext());
     }
 }
