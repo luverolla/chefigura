@@ -10,8 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class RectangleToolTest {
-    ;
-
     CommandManager commandManager = new CommandManager();
     ShapeManager shapeManager = new ShapeManager(null, commandManager);
     RectangleTool rectangleTool = new RectangleTool(shapeManager);

@@ -16,12 +16,6 @@ public class LineSegmentShape extends BaseShape {
         this.end = end;
     }
 
-    public LineSegmentShape(Point2D start, Point2D end) {
-        super();
-        this.start = start;
-        this.end = end;
-    }
-
     @Override
     public void draw(GraphicsContext gc) {
         gc.save();

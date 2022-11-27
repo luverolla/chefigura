@@ -4,7 +4,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import unisa.diem.swproject.model.BaseClosedShape;
-import unisa.diem.swproject.model.BaseShape;
 
 public class EllipseShape extends BaseClosedShape {
 
@@ -13,13 +12,6 @@ public class EllipseShape extends BaseClosedShape {
     private final double radiusY;
     public EllipseShape(Color strokeColor, Color fillColor, Point2D center, double radiusX, double radiusY) {
         super(strokeColor, fillColor);
-        this.center = center;
-        this.radiusX = radiusX;
-        this.radiusY = radiusY;
-    }
-
-    public EllipseShape(Point2D center, double radiusX, double radiusY) {
-        super();
         this.center = center;
         this.radiusX = radiusX;
         this.radiusY = radiusY;

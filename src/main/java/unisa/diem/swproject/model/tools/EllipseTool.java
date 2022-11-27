@@ -15,15 +15,6 @@ public class EllipseTool implements ClosedShapeTool {
     private Color strokeColor;
     private Color fillColor;
 
-    public EllipseTool(ShapeManager sm, Color strokeColor, Color fillColor) {
-        this.sm = sm;
-        this.center = null;
-        this.radius = null;
-        this.shape = null;
-        this.strokeColor = strokeColor;
-        this.fillColor = fillColor;
-    }
-
     public EllipseTool(ShapeManager sm) {
         this.sm = sm;
         this.center = null;

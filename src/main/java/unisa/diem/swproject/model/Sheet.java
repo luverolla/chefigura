@@ -10,15 +10,13 @@ public class Sheet extends Canvas {
 
     static final double DRAW_AREA_HEIGHT = 400;
     static final double DRAW_AREA_WIDTH = 400;
-    private String name;
-    private SheetFormat format;
+    private final SheetFormat format;
     private Tool currentTool;
     private final ShapeManager shapeManager;
     private final GraphicsContext gc;
 
-    public Sheet(String name, SheetFormat format, CommandManager cm) {
+    public Sheet(SheetFormat format, CommandManager cm) {
         this.gc = getGraphicsContext2D();
-        this.name = name;
         this.format = format;
         this.currentTool = null;
         this.shapeManager = new ShapeManager(this.getGraphicsContext2D(), cm);

@@ -1,10 +1,10 @@
 package unisa.diem.swproject.model.commands;
 
-import unisa.diem.swproject.model.BaseCommand;
+import unisa.diem.swproject.model.Command;
 import unisa.diem.swproject.model.Shape;
 import unisa.diem.swproject.model.ShapeManager;
 
-public class ShapeDrawCommand extends BaseCommand {
+public class ShapeDrawCommand implements Command {
     private final Shape shape;
     private final ShapeManager sm;
 

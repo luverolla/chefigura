@@ -4,7 +4,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import unisa.diem.swproject.model.Shape;
 import unisa.diem.swproject.model.ShapeManager;
-import unisa.diem.swproject.model.Tool;
 import unisa.diem.swproject.model.shapes.RectangleShape;
 
 public class RectangleTool implements ClosedShapeTool {
@@ -16,15 +15,6 @@ public class RectangleTool implements ClosedShapeTool {
     private Color strokeColor;
 
     private Color fillColor;
-
-    public RectangleTool(ShapeManager sm, Color strokeColor, Color fillColor) {
-        this.sm = sm;
-        this.start = null;
-        this.end = null;
-        this.shape = null;
-        this.strokeColor = strokeColor;
-        this.fillColor = fillColor;
-    }
 
     public RectangleTool(ShapeManager sm) {
         this.sm = sm;

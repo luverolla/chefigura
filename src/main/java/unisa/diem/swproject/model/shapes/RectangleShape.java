@@ -4,7 +4,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import unisa.diem.swproject.model.BaseClosedShape;
-import unisa.diem.swproject.model.BaseShape;
 
 public class RectangleShape extends BaseClosedShape {
 

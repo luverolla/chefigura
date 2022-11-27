@@ -14,14 +14,6 @@ public class LineSegmentTool implements ShapeTool {
     private Shape shape;
     private Color strokeColor;
 
-    public LineSegmentTool(ShapeManager sm, Color strokeColor) {
-        this.sm = sm;
-        this.start = null;
-        this.end = null;
-        this.shape = null;
-        this.strokeColor = strokeColor;
-    }
-
     public LineSegmentTool(ShapeManager sm) {
         this.sm = sm;
         this.start = null;

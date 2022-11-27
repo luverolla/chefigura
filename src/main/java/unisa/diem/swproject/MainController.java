@@ -20,8 +20,8 @@ public class MainController {
     public ColorPicker fillColorPicker;
 
     public MainController() {
-        project = new Project("Untitled");
-        Sheet sheet = new Sheet("Sheet 1", SheetFormat.NONE, project.commandManager());
+        project = new Project();
+        Sheet sheet = new Sheet(SheetFormat.NONE, project.commandManager());
         project.addSheet(sheet);
 
         toolMap = Map.ofEntries(

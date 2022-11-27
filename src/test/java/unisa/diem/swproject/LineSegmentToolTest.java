@@ -1,6 +1,5 @@
 package unisa.diem.swproject;
 
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import unisa.diem.swproject.model.CommandManager;
@@ -10,7 +9,7 @@ import unisa.diem.swproject.model.tools.LineSegmentTool;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class LineSegmentToolTest { ;
+public class LineSegmentToolTest {
 
     CommandManager commandManager = new CommandManager();
     ShapeManager shapeManager = new ShapeManager(null,commandManager);
