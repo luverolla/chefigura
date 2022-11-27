@@ -43,11 +43,18 @@ public class LineSegmentTool implements Tool {
 
     @Override
     public void apply() {
-        if (start != null && end != null) {
+        if (start != null && end != null && sm.getGraphicsContext() != null) {
             shape = new LineSegmentShape(start, end);
             sm.draw(shape);
             start = null;
             end = null;
         }
+    }
+
+    public Point2D getStart() {
+        return start;
+    }
+    public Point2D getEnd() {
+        return end;
     }
 }

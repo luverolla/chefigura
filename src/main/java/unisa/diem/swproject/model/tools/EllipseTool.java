@@ -46,7 +46,7 @@ public class EllipseTool implements Tool {
 
     @Override
     public void apply() {
-        if(center != null) {
+        if(center != null && radius != null && sm.getGraphicsContext() != null) {
             double radiusX = Math.abs(center.getX() - radius.getX());
             double radiusY = Math.abs(center.getY() - radius.getY());
             shape = new EllipseShape(center, radiusX, radiusY);
@@ -54,5 +54,11 @@ public class EllipseTool implements Tool {
             center = null;
             radius = null;
         }
+    }
+    public Point2D getCenter() {
+        return center;
+    }
+    public Point2D getEnd() {
+        return radius;
     }
 }

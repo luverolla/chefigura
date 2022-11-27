@@ -26,6 +26,9 @@ public class RectangleTool implements Tool {
             start = new Point2D(mouseX, mouseY);
         } else {
             end = new Point2D(mouseX, mouseY);
+            if(sm.getGraphicsContext() == null) {
+                return;
+            }
             sm.redraw();
             if(end.getX() < start.getX()) {
                 double tmp = start.getX();
@@ -70,11 +73,18 @@ public class RectangleTool implements Tool {
 
     @Override
     public void apply() {
-        if(start != null && end != null) {
+        if(start != null && end != null && sm.getGraphicsContext() != null) {
             shape = new RectangleShape(start, end);
             sm.draw(shape);
             start = null;
             end = null;
         }
+    }
+
+    public Point2D getStart() {
+        return start;
+    }
+    public Point2D getEnd() {
+        return end;
     }
 }
