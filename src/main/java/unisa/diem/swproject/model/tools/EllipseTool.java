@@ -35,9 +35,6 @@ public class EllipseTool implements Tool {
     }
 
     @Override
-    public void mouseUp(double mouseX, double mouseY) {}
-
-    @Override
     public void mouseDrag(double mouseX, double mouseY) {
         if(center != null && radius == null) {
             Point2D current = new Point2D(mouseX, mouseY);
@@ -52,12 +49,7 @@ public class EllipseTool implements Tool {
     }
 
     @Override
-    public boolean isShapeTool() {
-        return true;
-    }
-
-    @Override
-    public int apply() {
+    public void apply() {
         if(center != null) {
             double radiusX = Math.abs(center.getX() - radius.getX());
             double radiusY = Math.abs(center.getY() - radius.getY());
@@ -65,28 +57,6 @@ public class EllipseTool implements Tool {
             sm.draw(shape);
             center = null;
             radius = null;
-            return 0;
         }
-        return -1;
-    }
-
-    @Override
-    public int revert() {
-        if(shape != null) {
-            sm.deleteShape(shape);
-            shape = null;
-            return 0;
-        }
-        return -1;
-    }
-
-    @Override
-    public String getCurrentHint() {
-        return hint;
-    }
-
-    @Override
-    public Shape getShape() {
-        return shape;
     }
 }

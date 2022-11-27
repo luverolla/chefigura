@@ -1,6 +1,7 @@
 package unisa.diem.swproject.model;
 
 public class SheetFormat {
+
     private final String name;
     private final double width, height;
 
@@ -18,5 +19,5 @@ public class SheetFormat {
         return width;
     }
 
-    public static SheetFormat A4 = new SheetFormat("A4", 210, 297);
+    public static SheetFormat NONE = new SheetFormat("None", 0, 0);
 }

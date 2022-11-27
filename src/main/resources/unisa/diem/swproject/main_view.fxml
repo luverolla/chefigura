@@ -1,42 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.input.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unisa.diem.swproject.MainController">
     <MenuBar>
         <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" text="Close" />
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-            <MenuItem mnemonicParsing="false" text="Undo">
-                <accelerator>
-                    <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                </accelerator>
-            </MenuItem>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-            <MenuItem mnemonicParsing="false" text="About" />
-        </Menu>
-        <Menu mnemonicParsing="false" text="View">
-            <MenuItem mnemonicParsing="false" text="Zoom in">
-                <accelerator>
-                    <KeyCodeCombination alt="UP" code="PLUS" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                </accelerator>
-            </MenuItem>
-            <MenuItem mnemonicParsing="false" text="Zoom out">
-                <accelerator>
-                    <KeyCodeCombination alt="UP" code="MINUS" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                </accelerator>
-            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Clear" onAction="#onSheetClear" />
         </Menu>
     </MenuBar>
 
     <GridPane fx:id="root" VBox.Vgrow="ALWAYS" VBox.vgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints percentWidth="70" />
-            <ColumnConstraints percentWidth="30" />
+            <ColumnConstraints percentWidth="85" />
+            <ColumnConstraints percentWidth="15" />
         </columnConstraints>
 
         <ScrollPane fx:id="canvasContainer" GridPane.vgrow="ALWAYS" />
@@ -44,41 +21,14 @@
             <VBox fx:id="shapesPalette" prefHeight="200.0" prefWidth="100.0">
                 <Accordion>
                     <panes>
-                        <TitledPane animated="false" text="System library">
+                        <TitledPane animated="false" text="Tools">
                             <AnchorPane minHeight="0.0" minWidth="0.0">
-                                <HBox>
+                                <VBox>
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Rectangle" userData="rectangle" />
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Ellipse" userData="ellipse" />
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Line Segment" userData="segment" />
-                                </HBox>
+                                </VBox>
                             </AnchorPane>
-                        </TitledPane>
-                        <TitledPane animated="false" text="User library #1">
-                            <AnchorPane minHeight="0.0" minWidth="0.0" />
-                        </TitledPane>
-                        <TitledPane animated="false" text="User library #2">
-                            <AnchorPane minHeight="0.0" minWidth="0.0" />
-                        </TitledPane>
-                    </panes>
-                </Accordion>
-            </VBox>
-            <VBox fx:id="shapeProperties" visible="false">
-                <Accordion>
-                    <panes>
-                        <TitledPane animated="false" prefHeight="504.0" prefWidth="185.0" text="General">
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                <HBox>
-                                    <Button mnemonicParsing="false" text="Rettangolo" />
-                                    <Button mnemonicParsing="false" text="Zoom in" />
-                                    <Button mnemonicParsing="false" text="Zoom out" />
-                                </HBox>
-                            </AnchorPane>
-                        </TitledPane>
-                        <TitledPane animated="false" text="Layout">
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </TitledPane>
-                        <TitledPane animated="false" prefHeight="511.0" prefWidth="185.0" text="Style">
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                         </TitledPane>
                     </panes>
                 </Accordion>

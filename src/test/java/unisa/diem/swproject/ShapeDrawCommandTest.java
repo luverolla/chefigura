@@ -8,10 +8,8 @@ import unisa.diem.swproject.model.shapes.RectangleShape;
 
 public class ShapeDrawCommandTest {
     final CommandManager cm = new CommandManager();
-    final Sheet sheet = new Sheet("test-sheet", SheetFormat.A4, cm);
-
+    final Sheet sheet = new Sheet("test-sheet", SheetFormat.NONE, cm);
     final Shape testRectangle = new RectangleShape(new Point2D(0, 0), new Point2D(10, 10));
-
     final ShapeDrawCommand command = new ShapeDrawCommand(testRectangle, sheet.shapeManager());
 
     @Test

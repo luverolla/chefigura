@@ -10,36 +10,22 @@ public class Sheet extends Canvas {
 
     static final double DRAW_AREA_HEIGHT = 400;
     static final double DRAW_AREA_WIDTH = 400;
-
     private String name;
     private SheetFormat format;
-    private double zoomLevel;
     private Tool currentTool;
     private final ShapeManager shapeManager;
-
     private final GraphicsContext gc;
-
-    private Project project;
 
     public Sheet(String name, SheetFormat format, CommandManager cm) {
         this.gc = getGraphicsContext2D();
         this.name = name;
         this.format = format;
-        this.zoomLevel = 1;
         this.currentTool = null;
         this.shapeManager = new ShapeManager(this.getGraphicsContext2D(), cm);
-    }
-    public void drawGrid(double size) {
-
     }
 
     public ShapeManager shapeManager() {
         return shapeManager;
-    }
-
-    public void zoom(double factor) {
-        this.zoomLevel *= factor;
-        this.shapeManager.redraw();
     }
 
     public void setCurrentTool(Tool t) {
@@ -48,10 +34,6 @@ public class Sheet extends Canvas {
 
     public Tool getCurrentTool() {
         return currentTool;
-    }
-
-    public Project getProject() {
-        return project;
     }
 
     public SheetFormat getFormat() {
@@ -73,8 +55,10 @@ public class Sheet extends Canvas {
         gc.setFill(Color.WHITE);
         gc.fillRect(0, 0, width, height);
 
-        double padX = Converter.toPixels((DRAW_AREA_WIDTH - getFormat().getWidth()) / 2, DPI);
-        double padY = Converter.toPixels((DRAW_AREA_HEIGHT - getFormat().getHeight()) / 2, DPI);
-        gc.strokeRect(padX, padY, sheetWidth, sheetHeight);
+        if(format != SheetFormat.NONE) {
+            double padX = Converter.toPixels((DRAW_AREA_WIDTH - getFormat().getWidth()) / 2, DPI);
+            double padY = Converter.toPixels((DRAW_AREA_HEIGHT - getFormat().getHeight()) / 2, DPI);
+            gc.strokeRect(padX, padY, sheetWidth, sheetHeight);
+        }
     }
 }

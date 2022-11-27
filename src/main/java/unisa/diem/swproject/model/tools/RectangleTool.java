@@ -13,7 +13,6 @@ public class RectangleTool implements Tool {
     private Point2D end;
     private String hint;
     private Shape shape;
-
     private final ShapeManager sm;
 
     public RectangleTool(ShapeManager sm) {
@@ -47,13 +46,7 @@ public class RectangleTool implements Tool {
     }
 
     @Override
-    public void mouseUp(double mouseX, double mouseY) {
-
-    }
-
-    @Override
     public void mouseDrag(double mouseX, double mouseY) {
-
         if(start != null && end == null) {
             sm.redraw();
             sm.getGraphicsContext().save();
@@ -80,39 +73,12 @@ public class RectangleTool implements Tool {
     }
 
     @Override
-    public boolean isShapeTool() {
-        return true;
-    }
-
-    @Override
-    public int apply() {
+    public void apply() {
         if(start != null && end != null) {
             shape = new RectangleShape(start, end);
             sm.draw(shape);
             start = null;
             end = null;
-            return 0;
         }
-        return -1;
-    }
-
-    @Override
-    public int revert() {
-        if(shape != null) {
-            sm.deleteShape(shape);
-            shape = null;
-            return 0;
-        }
-        return -1;
-    }
-
-    @Override
-    public String getCurrentHint() {
-        return hint;
-    }
-
-    @Override
-    public Shape getShape() {
-        return shape;
     }
 }

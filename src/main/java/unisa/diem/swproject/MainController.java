@@ -16,12 +16,11 @@ import java.util.Map;
 public class MainController {
 
     private final Project project;
-
     private final Map<String, Tool> toolMap;
 
     public MainController() {
         project = new Project("Untitled");
-        Sheet sheet = new Sheet("Sheet 1", SheetFormat.A4, project.commandManager());
+        Sheet sheet = new Sheet("Sheet 1", SheetFormat.NONE, project.commandManager());
         project.addSheet(sheet);
 
         toolMap = Map.ofEntries(
@@ -46,12 +45,6 @@ public class MainController {
             }
         });
 
-        sheet.setOnMouseReleased(e -> {
-            if (sheet.getCurrentTool() != null) {
-                sheet.getCurrentTool().mouseUp(e.getX(), e.getY());
-            }
-        });
-
         sheet.setOnMouseMoved(e -> {
             if (sheet.getCurrentTool() != null) {
                 sheet.getCurrentTool().mouseDrag(e.getX(), e.getY());
@@ -70,5 +63,11 @@ public class MainController {
         } else {
             project.getSheet().setCurrentTool(chosen);
         }
+    }
+
+    @FXML
+    public void onSheetClear(ActionEvent actionEvent) {
+        Sheet sheet = project.getSheet();
+        sheet.shapeManager().clear();
     }
 }
