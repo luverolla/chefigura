@@ -47,6 +47,7 @@
                                         </value>
                                     </ColorPicker>
                                 </VBox>
+                            </AnchorPane>
                         </TitledPane>
                     </panes>
                 </Accordion>
