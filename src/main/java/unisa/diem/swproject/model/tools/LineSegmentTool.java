@@ -4,20 +4,30 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import unisa.diem.swproject.model.Shape;
 import unisa.diem.swproject.model.ShapeManager;
-import unisa.diem.swproject.model.Tool;
 import unisa.diem.swproject.model.shapes.LineSegmentShape;
 
-public class LineSegmentTool implements Tool {
+public class LineSegmentTool implements ShapeTool {
 
     private Point2D start;
     private Point2D end;
     private final ShapeManager sm;
     private Shape shape;
+    private Color strokeColor;
+
+    public LineSegmentTool(ShapeManager sm, Color strokeColor) {
+        this.sm = sm;
+        this.start = null;
+        this.end = null;
+        this.shape = null;
+        this.strokeColor = strokeColor;
+    }
 
     public LineSegmentTool(ShapeManager sm) {
         this.sm = sm;
         this.start = null;
         this.end = null;
+        this.shape = null;
+        this.strokeColor = Color.BLACK;
     }
 
     @Override
@@ -44,7 +54,7 @@ public class LineSegmentTool implements Tool {
     @Override
     public void apply() {
         if (start != null && end != null && sm.getGraphicsContext() != null) {
-            shape = new LineSegmentShape(start, end);
+            shape = new LineSegmentShape(strokeColor, start, end);
             sm.draw(shape);
             start = null;
             end = null;
@@ -56,5 +66,10 @@ public class LineSegmentTool implements Tool {
     }
     public Point2D getEnd() {
         return end;
+    }
+
+    @Override
+    public void setStrokeColor(Color strokeColor) {
+        this.strokeColor = strokeColor;
     }
 }

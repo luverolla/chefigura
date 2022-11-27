@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShapeManager {
+
     private final List<Shape> shapes;
     private final GraphicsContext context;
     private final CommandManager commandManager;
@@ -24,11 +25,6 @@ public class ShapeManager {
     public void add(Shape s) {
         shapes.add(s);
         s.draw(context);
-    }
-
-    public void remove(Shape s) {
-        shapes.remove(s);
-        redraw();
     }
 
     public void redraw() {

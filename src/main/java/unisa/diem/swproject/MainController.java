@@ -2,14 +2,14 @@ package unisa.diem.swproject;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.paint.Color;
 import unisa.diem.swproject.model.*;
 import unisa.diem.swproject.model.tools.EllipseTool;
 import unisa.diem.swproject.model.tools.LineSegmentTool;
 import unisa.diem.swproject.model.tools.RectangleTool;
+import unisa.diem.swproject.model.tools.ShapeTool;
 
 import java.util.Map;
 
@@ -17,6 +17,10 @@ public class MainController {
 
     private final Project project;
     private final Map<String, Tool> toolMap;
+    @FXML
+    public ColorPicker strokeColorPicker;
+    @FXML
+    public ColorPicker fillColorPicker;
 
     public MainController() {
         project = new Project("Untitled");
@@ -38,6 +42,13 @@ public class MainController {
         Sheet sheet = project.getSheet();
         canvasContainer.setContent(sheet);
         sheet.buildDrawingArea();
+        strokeColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            for(Tool t: toolMap.values()) {
+                if(t instanceof ShapeTool) {
+                    ((ShapeTool) t).setStrokeColor(newValue);
+                }
+            }
+        });
 
         sheet.setOnMousePressed(e -> {
             if (sheet.getCurrentTool() != null) {
@@ -66,7 +77,7 @@ public class MainController {
     }
 
     @FXML
-    public void onSheetClear(ActionEvent actionEvent) {
+    public void onSheetClear() {
         Sheet sheet = project.getSheet();
         sheet.shapeManager().clear();
     }

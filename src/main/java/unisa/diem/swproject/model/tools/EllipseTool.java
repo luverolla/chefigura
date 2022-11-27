@@ -4,20 +4,30 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import unisa.diem.swproject.model.Shape;
 import unisa.diem.swproject.model.ShapeManager;
-import unisa.diem.swproject.model.Tool;
 import unisa.diem.swproject.model.shapes.EllipseShape;
 
-public class EllipseTool implements Tool {
+public class EllipseTool implements ShapeTool {
 
     private Point2D center;
     private Point2D radius;
     private final ShapeManager sm;
     private Shape shape;
+    private Color strokeColor;
+
+    public EllipseTool(ShapeManager sm, Color strokeColor) {
+        this.sm = sm;
+        this.center = null;
+        this.radius = null;
+        this.shape = null;
+        this.strokeColor = strokeColor;
+    }
 
     public EllipseTool(ShapeManager sm) {
         this.sm = sm;
         this.center = null;
+        this.radius = null;
         this.shape = null;
+        this.strokeColor = Color.BLACK;
     }
 
     @Override
@@ -49,7 +59,7 @@ public class EllipseTool implements Tool {
         if(center != null && radius != null && sm.getGraphicsContext() != null) {
             double radiusX = Math.abs(center.getX() - radius.getX());
             double radiusY = Math.abs(center.getY() - radius.getY());
-            shape = new EllipseShape(center, radiusX, radiusY);
+            shape = new EllipseShape(strokeColor, center, radiusX, radiusY);
             sm.draw(shape);
             center = null;
             radius = null;
@@ -60,5 +70,10 @@ public class EllipseTool implements Tool {
     }
     public Point2D getEnd() {
         return radius;
+    }
+
+    @Override
+    public void setStrokeColor(Color strokeColor) {
+        this.strokeColor = strokeColor;
     }
 }

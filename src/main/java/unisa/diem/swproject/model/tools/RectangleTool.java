@@ -7,17 +7,28 @@ import unisa.diem.swproject.model.ShapeManager;
 import unisa.diem.swproject.model.Tool;
 import unisa.diem.swproject.model.shapes.RectangleShape;
 
-public class RectangleTool implements Tool {
+public class RectangleTool implements ShapeTool {
 
     private Point2D start;
     private Point2D end;
     private Shape shape;
     private final ShapeManager sm;
+    private Color strokeColor;
+
+    public RectangleTool(ShapeManager sm, Color strokeColor) {
+        this.sm = sm;
+        this.start = null;
+        this.end = null;
+        this.shape = null;
+        this.strokeColor = strokeColor;
+    }
 
     public RectangleTool(ShapeManager sm) {
         this.sm = sm;
         this.start = null;
         this.end = null;
+        this.shape = null;
+        this.strokeColor = Color.BLACK;
     }
 
     @Override
@@ -74,7 +85,7 @@ public class RectangleTool implements Tool {
     @Override
     public void apply() {
         if(start != null && end != null && sm.getGraphicsContext() != null) {
-            shape = new RectangleShape(start, end);
+            shape = new RectangleShape(strokeColor, start, end);
             sm.draw(shape);
             start = null;
             end = null;
@@ -86,5 +97,10 @@ public class RectangleTool implements Tool {
     }
     public Point2D getEnd() {
         return end;
+    }
+
+    @Override
+    public void setStrokeColor(Color strokeColor) {
+        this.strokeColor = strokeColor;
     }
 }

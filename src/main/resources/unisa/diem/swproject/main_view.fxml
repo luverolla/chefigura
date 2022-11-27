@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.paint.Color?>
 <VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unisa.diem.swproject.MainController">
     <MenuBar>
         <Menu mnemonicParsing="false" text="File">
@@ -29,6 +30,23 @@
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Line Segment" userData="segment" />
                                 </VBox>
                             </AnchorPane>
+                        </TitledPane>
+                        <TitledPane animated="false" text="Colors">
+                            <AnchorPane minHeight="0.0" minWidth="0.0">
+                                <VBox>
+                                    <Label text="Stroke" />
+                                    <ColorPicker fx:id="strokeColorPicker">
+                                        <value>
+                                            <Color blue="0.0" green="0.0" red="0.0" />
+                                        </value>
+                                    </ColorPicker>
+                                    <Label text="Fill" />
+                                    <ColorPicker fx:id="fillColorPicker">
+                                        <value>
+                                            <Color blue="0.0" green="0.0" red="0.0" opacity="0.0"/>
+                                        </value>
+                                    </ColorPicker>
+                                </VBox>
                         </TitledPane>
                     </panes>
                 </Accordion>
