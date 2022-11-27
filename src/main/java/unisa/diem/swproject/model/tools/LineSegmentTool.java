@@ -11,7 +11,6 @@ public class LineSegmentTool implements Tool {
 
     private Point2D start;
     private Point2D end;
-    private String hint;
     private final ShapeManager sm;
     private Shape shape;
 
@@ -19,18 +18,15 @@ public class LineSegmentTool implements Tool {
         this.sm = sm;
         this.start = null;
         this.end = null;
-        this.hint = "Select the start point of the line segment";
     }
 
     @Override
     public void mouseDown(double mouseX, double mouseY) {
         if (start == null) {
             start = new Point2D(mouseX, mouseY);
-            hint = "Select the end point of the line segment";
         } else if (end == null) {
             end = new Point2D(mouseX, mouseY);
             apply();
-            hint = "Select the start point of the line segment";
         }
     }
 

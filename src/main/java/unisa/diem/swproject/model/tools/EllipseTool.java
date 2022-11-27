@@ -11,7 +11,6 @@ public class EllipseTool implements Tool {
 
     private Point2D center;
     private Point2D radius;
-    private String hint;
     private final ShapeManager sm;
     private Shape shape;
 
@@ -19,18 +18,15 @@ public class EllipseTool implements Tool {
         this.sm = sm;
         this.center = null;
         this.shape = null;
-        this.hint = "Select the center point of the ellipse";
     }
 
     @Override
     public void mouseDown(double mouseX, double mouseY) {
         if(center == null) {
             center = new Point2D(mouseX, mouseY);
-            hint = "Select the end point of the ellipse";
         } else {
             radius = new Point2D(mouseX, mouseY );
             apply();
-            hint = "Select the center point of the ellipse";
         }
     }
 

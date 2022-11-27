@@ -11,7 +11,6 @@ public class RectangleTool implements Tool {
 
     private Point2D start;
     private Point2D end;
-    private String hint;
     private Shape shape;
     private final ShapeManager sm;
 
@@ -19,14 +18,12 @@ public class RectangleTool implements Tool {
         this.sm = sm;
         this.start = null;
         this.end = null;
-        this.hint = "Select the start point of the rectangle";
     }
 
     @Override
     public void mouseDown(double mouseX, double mouseY) {
         if(start == null) {
             start = new Point2D(mouseX, mouseY);
-            hint = "Select the end point of the rectangle";
         } else {
             end = new Point2D(mouseX, mouseY);
             sm.redraw();
@@ -41,7 +38,6 @@ public class RectangleTool implements Tool {
                 end = new Point2D(end.getX(), tmp);
             }
             apply();
-            hint = "Select the start point of the rectangle";
         }
     }
 
