@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import unisa.diem.swproject.model.CommandManager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class CommandManagerTest {
     private final CommandManager cm = new CommandManager();
@@ -12,10 +13,10 @@ public class CommandManagerTest {
 
     @Test
     public void testExecute() {
-        assert cm.lastCommand() == null;
+        assertNull(cm.lastCommand());
         cm.execute(cs);
         assertEquals(1, CommandSample.count);
         assert cm.lastCommand().equals(cs);
-        assert cm.lastCommand() == null;
+        assertNull(cm.lastCommand());
     }
 }
