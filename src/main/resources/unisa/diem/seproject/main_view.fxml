@@ -4,9 +4,11 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.paint.Color?>
-<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unisa.diem.swproject.MainController">
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unisa.diem.seproject.MainController">
     <MenuBar>
         <Menu mnemonicParsing="false" text="File">
+            <MenuItem fx:id="fileChooserRef" mnemonicParsing="false" text="Load" onAction="#handleLoad" />
+            <MenuItem mnemonicParsing="false" text="Save" onAction="#handleSave" />
             <MenuItem mnemonicParsing="false" text="Clear" onAction="#onSheetClear" />
         </Menu>
     </MenuBar>
