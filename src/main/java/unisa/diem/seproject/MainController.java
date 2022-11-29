@@ -1,34 +1,36 @@
-package unisa.diem.swproject;
+package unisa.diem.seproject;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import unisa.diem.swproject.model.*;
-import unisa.diem.swproject.model.tools.*;
+
+import unisa.diem.seproject.model.*;
+import unisa.diem.seproject.model.extensions.Color;
+import unisa.diem.seproject.model.tools.*;
 
 import java.util.Map;
 
 public class MainController {
 
     private final Project project;
-    private final Map<String, Tool> toolMap;
+    private Map<String, Tool> toolMap;
     @FXML
     public ColorPicker strokeColorPicker;
     @FXML
     public ColorPicker fillColorPicker;
 
-    public MainController() {
-        project = new Project();
-        Sheet sheet = new Sheet(SheetFormat.NONE, project.commandManager());
-        project.addSheet(sheet);
+    @FXML
+    public MenuItem fileChooserRef;
 
-        toolMap = Map.ofEntries(
-            Map.entry("rectangle", new RectangleTool(sheet.shapeManager())),
-            Map.entry("ellipse", new EllipseTool(sheet.shapeManager())),
-            Map.entry("segment", new LineSegmentTool(sheet.shapeManager()))
-        );
+    public MainController() {
+        CommandManager commandManager = new CommandManager();
+        project = new Project(commandManager);
+        Sheet sheet = new Sheet(SheetFormat.NONE, commandManager);
+        project.addSheet(sheet);
     }
 
     @FXML
@@ -36,31 +38,43 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        Sheet sheet = project.getSheet();
-        canvasContainer.setContent(sheet);
-        sheet.buildDrawingArea();
+        _init(project.getSheet());
+    }
+
+    private void _init(Sheet sheet) {
+        Canvas canvas = new Canvas();
+        sheet.buildDrawingArea(canvas);
+        canvasContainer.setContent(canvas);
+        sheet.shapeManager().redraw();
+
+        toolMap = Map.ofEntries(
+                Map.entry("rectangle", new RectangleTool(sheet.shapeManager())),
+                Map.entry("ellipse", new EllipseTool(sheet.shapeManager())),
+                Map.entry("segment", new LineSegmentTool(sheet.shapeManager()))
+        );
+
         strokeColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             for(Tool t: toolMap.values()) {
                 if(t instanceof ShapeTool) {
-                    ((ShapeTool) t).setStrokeColor(newValue);
+                    ((ShapeTool) t).setStrokeColor(new Color(newValue));
                 }
             }
         });
         fillColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             for(Tool t: toolMap.values()) {
                 if(t instanceof ClosedShapeTool) {
-                    ((ClosedShapeTool) t).setFillColor(newValue);
+                    ((ClosedShapeTool) t).setFillColor(new Color(newValue));
                 }
             }
         });
 
-        sheet.setOnMousePressed(e -> {
+        canvas.setOnMousePressed(e -> {
             if (sheet.getCurrentTool() != null) {
                 sheet.getCurrentTool().mouseDown(e.getX(), e.getY());
             }
         });
 
-        sheet.setOnMouseMoved(e -> {
+        canvas.setOnMouseMoved(e -> {
             if (sheet.getCurrentTool() != null) {
                 sheet.getCurrentTool().mouseDrag(e.getX(), e.getY());
             }
