@@ -13,10 +13,20 @@ public class CommandManagerTest {
 
     @Test
     public void testExecute() {
-        assertNull(cm.lastCommand());
+        assertNull(cm.lastExecutedCommand());
         cm.execute(cs);
         assertEquals(1, CommandSample.count);
-        assert cm.lastCommand().equals(cs);
-        assertNull(cm.lastCommand());
+        assert cm.lastExecutedCommand().equals(cs);
+    }
+
+    @Test
+    public void testRollback() {
+        assertNull(cm.lastUndoneCommand());
+        cm.execute(cs);
+        assertEquals(2, CommandSample.count);
+        cm.rollback();
+        assertEquals(1, CommandSample.count);
+        assert cm.lastUndoneCommand().equals(cs);
+        assertNull(cm.lastExecutedCommand());
     }
 }

@@ -17,4 +17,9 @@ public class ShapeDrawCommand implements Command {
     public void execute() {
         sm.add(shape);
     }
+
+    @Override
+    public void rollback() {
+        return;
+    }
 }

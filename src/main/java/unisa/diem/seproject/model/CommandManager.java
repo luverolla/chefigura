@@ -5,9 +5,11 @@ import java.util.Deque;
 
 public class CommandManager {
     private final Deque<Command> commandStack;
+    private final Deque<Command> undoStack;
 
     public CommandManager() {
         commandStack = new ArrayDeque<>();
+        undoStack = new ArrayDeque<>();
     }
 
     public void execute(Command command) {
@@ -15,10 +17,20 @@ public class CommandManager {
         commandStack.push(command);
     }
 
-    public Command lastCommand() { //Used for testing purposes only
+    public void rollback() {
         if (commandStack.isEmpty()) {
-            return null;
+            return;
         }
-        return commandStack.remove();
+        Command command = commandStack.pop();
+        command.rollback();
+        undoStack.push(command);
+    }
+
+    public Command lastExecutedCommand() { //Used for testing purposes only
+        return commandStack.peekFirst();
+    }
+
+    public Command lastUndoneCommand() { //Used for testing purposes only
+        return undoStack.peekFirst();
     }
 }

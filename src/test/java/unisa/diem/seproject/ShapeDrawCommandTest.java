@@ -14,10 +14,10 @@ public class ShapeDrawCommandTest {
     final ShapeDrawCommand command = new ShapeDrawCommand(testRectangle, sheet.shapeManager());
 
     @Test
-    public void executeCommand() {
+    public void testExecute() {
         cm.execute(command);
         assert sheet.shapeManager().countShapes() == 1;
         assert sheet.shapeManager().shapeIsPresent(testRectangle);
-        assert cm.lastCommand() != null;
+        assert cm.lastExecutedCommand().equals(command);
     }
 }

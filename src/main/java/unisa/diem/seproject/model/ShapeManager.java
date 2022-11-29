@@ -36,7 +36,8 @@ public class ShapeManager implements Serializable {
 
     public void add(Shape s) {
         shapes.add(s);
-        s.draw(context);
+        if(context != null)
+            s.draw(context);
     }
 
     public void redraw() {
