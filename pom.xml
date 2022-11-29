@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>unisa.diem</groupId>
-    <artifactId>swproject</artifactId>
+    <artifactId>seproject</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>project</name>
 
@@ -61,7 +61,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>unisa.diem.swproject/unisa.diem.swproject.HelloApplication</mainClass>
+                            <mainClass>unisa.diem.swproject/unisa.diem.seproject.HelloApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

@@ -3,6 +3,6 @@ module unisa.diem.swproject {
     requires javafx.fxml;
 
 
-    opens unisa.diem.swproject to javafx.fxml;
-    exports unisa.diem.swproject;
+    opens unisa.diem.seproject to javafx.fxml;
+    exports unisa.diem.seproject;
 }
