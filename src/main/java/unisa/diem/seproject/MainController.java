@@ -8,15 +8,17 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 
+import javafx.stage.FileChooser;
 import unisa.diem.seproject.model.*;
 import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.tools.*;
 
+import java.io.File;
 import java.util.Map;
 
 public class MainController {
 
-    private final Project project;
+    private Project project;
     private Map<String, Tool> toolMap;
     @FXML
     public ColorPicker strokeColorPicker;
@@ -98,5 +100,29 @@ public class MainController {
     public void onSheetClear() {
         Sheet sheet = project.getSheet();
         sheet.shapeManager().clear();
+    }
+
+    @FXML
+    public void handleLoad() {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Load project");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Project files", "*.proj"));
+        File file = fc.showOpenDialog(fileChooserRef.getParentPopup().getScene().getWindow());
+        if (file != null) {
+            project = Project.load(file);
+            assert project != null;
+            _init(project.getSheet());
+        }
+    }
+
+    @FXML
+    public void handleSave() {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Save project");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Project files", "*.proj"));
+        File file = project.getFile() != null ? project.getFile() : fc.showSaveDialog(fileChooserRef.getParentPopup().getScene().getWindow());
+        if (file != null) {
+            Project.save(project, file);
+        }
     }
 }
