@@ -1,4 +1,4 @@
-package unisa.diem.swproject;
+package unisa.diem.seproject;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

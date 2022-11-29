@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class SheetFormat implements Serializable {
     private final double width, height;
 
-    private SheetFormat(double width, double height) {
+    public SheetFormat(double width, double height) {
         this.width = width;
         this.height = height;
     }
