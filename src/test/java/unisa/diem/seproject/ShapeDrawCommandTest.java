@@ -1,6 +1,7 @@
 package unisa.diem.seproject;
 
 import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import unisa.diem.seproject.model.*;
 import unisa.diem.seproject.model.commands.ShapeDrawCommand;
@@ -18,8 +19,7 @@ public class ShapeDrawCommandTest {
     @DisplayName("Test execute of a draw command")
     public void testExecute() {
         cm.execute(command);
-        assert sheet.shapeManager().getShapes().contains(testRectangle);
-        assert cm.lastExecutedCommand().equals(command);
+        assertTrue(sheet.shapeManager().getShapes().contains(testRectangle));
     }
 
     @Test
@@ -27,7 +27,6 @@ public class ShapeDrawCommandTest {
     public void testRollback() {
         cm.execute(command);
         cm.rollback();
-        assert !sheet.shapeManager().getShapes().contains(testRectangle);
-        assert cm.lastUndoneCommand().equals(command);
+        assertFalse(sheet.shapeManager().getShapes().contains(testRectangle));
     }
 }

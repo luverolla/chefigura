@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.stage.FileChooser;
 
 import unisa.diem.seproject.model.*;
+import unisa.diem.seproject.model.commands.ShapeDeleteCommand;
 import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.tools.*;
 
@@ -76,14 +77,16 @@ public class MainController {
                 if(project.getSheet().shapeManager().selectedShapeProperty.get() != null) {
                     Shape shape = project.getSheet().shapeManager().selectedShapeProperty.get();
                     MenuItem paste = new MenuItem("Paste");
-                    paste.setOnAction(event1 -> commandManager.execute(new ShapePasteCommand(project.getSheet().shapeManager(), shape)));
+                    //paste.setOnAction(event1 -> commandManager.execute(new ShapePasteCommand(project.getSheet().shapeManager(), shape)));
                     contextMenu.getItems().add(paste);
                     if (shape.contains(x, y)) {
                         MenuItem cut = new MenuItem("Cut");
                         MenuItem copy = new MenuItem("Copy");
-                        cut.setOnAction(event1 -> commandManager.execute(new ShapeCutCommand(project.getSheet().shapeManager(), shape)));
+                        MenuItem delete = new MenuItem("Delete");
+                        //cut.setOnAction(event1 -> commandManager.execute(new ShapeCutCommand(project.getSheet().shapeManager(), shape)));
                         copy.setOnAction(event1 -> project.getSheet().shapeManager().copyShape(shape));
-                        contextMenu.getItems().addAll(cut, copy);
+                        delete.setOnAction(event1 -> commandManager.execute(new ShapeDeleteCommand(project.getSheet().shapeManager(), shape)));
+                        contextMenu.getItems().addAll(cut, copy, delete);
                         contextMenu.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());
                     }
                 }
