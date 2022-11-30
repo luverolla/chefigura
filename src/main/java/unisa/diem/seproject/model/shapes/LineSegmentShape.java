@@ -2,6 +2,7 @@ package unisa.diem.seproject.model.shapes;
 
 import javafx.scene.canvas.GraphicsContext;
 
+import unisa.diem.seproject.model.Bounds;
 import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.BaseShape;
 import unisa.diem.seproject.model.extensions.Point;
@@ -29,7 +30,43 @@ public class LineSegmentShape extends BaseShape {
 
     @Override
     public boolean contains(double mouseX, double mouseY) {
-        return mouseX >= start.getX() && mouseX <= end.getX() && mouseY <= start.getY() && mouseY >= end.getY();
+        double startX = start.getX();
+        double startY = start.getY();
+        double endX = end.getX();
+        double endY = end.getY();
+        double minX = Math.min(startX, endX);
+        double minY = Math.min(startY, endY);
+        double maxX = Math.max(startX, endX);
+        double maxY = Math.max(startY, endY);
+        return (mouseX >= minX && mouseX <= maxX && mouseY >= minY && mouseY <= maxY);
+    }
+
+    @Override
+    public void move(double deltaX, double deltaY) {
+
+    }
+
+    @Override
+    public void resize(double deltaX, double deltaY) {
+
+    }
+
+    @Override
+    public void setStrokeColor(Color strokeColor) {
+
+    }
+
+    @Override
+    public Bounds getBounds() {
+        double startX = start.getX();
+        double startY = start.getY();
+        double endX = end.getX();
+        double endY = end.getY();
+        double minX = Math.min(startX, endX);
+        double minY = Math.min(startY, endY);
+        double maxX = Math.max(startX, endX);
+        double maxY = Math.max(startY, endY);
+        return new Bounds(new Point(minX, minY), new Point(maxX, maxY));
     }
 
     @Serial

@@ -2,6 +2,7 @@ package unisa.diem.seproject.model.shapes;
 
 import javafx.scene.canvas.GraphicsContext;
 
+import unisa.diem.seproject.model.Bounds;
 import unisa.diem.seproject.model.extensions.Point;
 import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.BaseClosedShape;
@@ -38,6 +39,26 @@ public class RectangleShape extends BaseClosedShape {
     @Override
     public boolean contains(double mouseX, double mouseY) {
         return mouseX >= start.getX() && mouseX <= end.getX() && mouseY >= start.getY() && mouseY <= end.getY();
+    }
+
+    @Override
+    public void move(double deltaX, double deltaY) {
+
+    }
+
+    @Override
+    public void resize(double deltaX, double deltaY) {
+
+    }
+
+    @Override
+    public void setStrokeColor(Color strokeColor) {
+
+    }
+
+    @Override
+    public Bounds getBounds() {
+        return new Bounds(start, end);
     }
 
     @Serial

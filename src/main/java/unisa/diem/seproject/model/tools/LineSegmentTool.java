@@ -63,6 +63,11 @@ public class LineSegmentTool implements ShapeTool {
     }
 
     @Override
+    public void mouseUp(double mouseX, double mouseY) {
+
+    }
+
+    @Override
     public void setStrokeColor(Color strokeColor) {
         this.strokeColor = strokeColor;
     }

@@ -30,14 +30,12 @@ public class MainController {
     public MenuItem fileChooserRef;
     @FXML
     private ScrollPane canvasContainer;
-
     @FXML
     public MenuItem menuOptionCopy;
     @FXML
     public MenuItem menuOptionCut;
     @FXML
     public MenuItem menuOptionPaste;
-
     private final ContextMenu contextMenu;
     private final CommandManager commandManager;
 
@@ -52,7 +50,6 @@ public class MainController {
     @FXML
     public void initialize() {
         _init(project.getSheet());
-
         menuOptionCopy.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
         menuOptionCut.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
         menuOptionPaste.disableProperty().bind(project.getSheet().shapeManager().copiedShapeProperty.isNull());
@@ -66,7 +63,8 @@ public class MainController {
         toolMap = Map.ofEntries(
                 Map.entry("rectangle", new RectangleTool(sheet.shapeManager())),
                 Map.entry("ellipse", new EllipseTool(sheet.shapeManager())),
-                Map.entry("segment", new LineSegmentTool(sheet.shapeManager()))
+                Map.entry("segment", new LineSegmentTool(sheet.shapeManager())),
+                Map.entry("selection", new SelectionTool(sheet.shapeManager()))
         );
 
         canvas.setOnMousePressed(event -> {
