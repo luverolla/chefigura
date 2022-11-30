@@ -25,6 +25,25 @@ public class EllipseTool implements ClosedShapeTool {
     }
 
     @Override
+    public void apply() {
+        if(center != null && radius != null && sm.getGraphicsContext() != null) {
+            double radiusX = Math.abs(center.getX() - radius.getX());
+            double radiusY = Math.abs(center.getY() - radius.getY());
+            shape = new EllipseShape(strokeColor, fillColor, center, radiusX, radiusY);
+            sm.draw(shape);
+            center = null;
+            radius = null;
+        }
+    }
+    public Point getCenter() {
+        return center;
+    }
+
+    public Point getEnd() {
+        return radius;
+    }
+
+    @Override
     public void mouseDown(double mouseX, double mouseY) {
         if(center == null) {
             center = new Point(mouseX, mouseY);
@@ -42,28 +61,10 @@ public class EllipseTool implements ClosedShapeTool {
             double radiusY = Math.abs(current.getY() - center.getY());
             sm.redraw();
             sm.getGraphicsContext().save();
-            sm.getGraphicsContext().setStroke(Color.GRAY.toFXColor());
+            sm.getGraphicsContext().setStroke(Color.BLACK.fade(0.5).toFXColor());
             sm.getGraphicsContext().strokeOval(center.getX() - radiusX, center.getY() - radiusY, radiusX * 2, radiusY * 2);
             sm.getGraphicsContext().restore();
         }
-    }
-
-    @Override
-    public void apply() {
-        if(center != null && radius != null && sm.getGraphicsContext() != null) {
-            double radiusX = Math.abs(center.getX() - radius.getX());
-            double radiusY = Math.abs(center.getY() - radius.getY());
-            shape = new EllipseShape(strokeColor, fillColor, center, radiusX, radiusY);
-            sm.draw(shape);
-            center = null;
-            radius = null;
-        }
-    }
-    public Point getCenter() {
-        return center;
-    }
-    public Point getEnd() {
-        return radius;
     }
 
     @Override

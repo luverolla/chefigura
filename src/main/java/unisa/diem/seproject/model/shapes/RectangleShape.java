@@ -19,7 +19,7 @@ public class RectangleShape extends BaseClosedShape {
         this.end = end;
     }
 
-    public RectangleShape(Point start, Point end) {
+    public RectangleShape(Point start, Point end) { // used for testing purposes
         super();
         this.start = start;
         this.end = end;

@@ -1,18 +1,17 @@
 package unisa.diem.seproject;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 import unisa.diem.seproject.model.*;
-
 import java.io.File;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class LoadAndSaveTest {
 
-    Project sample;
+    private Project sample;
 
-    private void initProject() {
+    @BeforeEach
+    public void initProject() {
         CommandManager cm = new CommandManager();
         sample = new Project(cm);
         Sheet sheet = new Sheet(new SheetFormat(20,40), cm);
@@ -20,9 +19,8 @@ public class LoadAndSaveTest {
     }
 
     @Test
+    @DisplayName("Test save and load")
     public void testLoadAndSave() {
-        initProject();
-
         Project.save(sample, new File("sample.proj"));
         Project saved = Project.load(new File("sample.proj"));
         assertNotNull(saved);

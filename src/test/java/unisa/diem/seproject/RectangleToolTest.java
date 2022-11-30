@@ -1,15 +1,14 @@
 package unisa.diem.seproject;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 import unisa.diem.seproject.model.CommandManager;
 import unisa.diem.seproject.model.ShapeManager;
 import unisa.diem.seproject.model.tools.RectangleTool;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 public class RectangleToolTest {
+
     CommandManager commandManager = new CommandManager();
     ShapeManager shapeManager = new ShapeManager(null, commandManager);
     RectangleTool rectangleTool = new RectangleTool(shapeManager);

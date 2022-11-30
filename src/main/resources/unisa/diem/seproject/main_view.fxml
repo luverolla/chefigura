@@ -2,8 +2,8 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.paint.Color?>
+
 <VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unisa.diem.seproject.MainController">
     <MenuBar>
         <Menu mnemonicParsing="false" text="File">
@@ -11,17 +11,23 @@
             <MenuItem mnemonicParsing="false" text="Save" onAction="#handleSave" />
             <MenuItem mnemonicParsing="false" text="Clear" onAction="#onSheetClear" />
         </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+            <MenuItem mnemonicParsing="false" text="Undo" onAction="#onUndo" />
+        </Menu>
     </MenuBar>
 
-    <GridPane fx:id="root" VBox.Vgrow="ALWAYS" VBox.vgrow="ALWAYS">
+    <!-- sheet + panels -->
+    <GridPane VBox.Vgrow="ALWAYS" VBox.vgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints percentWidth="85" />
             <ColumnConstraints percentWidth="15" />
         </columnConstraints>
 
         <ScrollPane fx:id="canvasContainer" GridPane.vgrow="ALWAYS" />
-        <StackPane fx:id="rightPanel" alignment="TOP_RIGHT" GridPane.columnIndex="1">
-            <VBox fx:id="shapesPalette" prefHeight="200.0" prefWidth="100.0">
+        <!-- right panel -->
+        <StackPane alignment="TOP_RIGHT" GridPane.columnIndex="1">
+            <!-- shapes palette -->
+            <VBox prefHeight="200.0" prefWidth="100.0">
                 <Accordion>
                     <panes>
                         <TitledPane animated="false" text="Tools">
@@ -39,13 +45,13 @@
                                     <Label text="Stroke" />
                                     <ColorPicker fx:id="strokeColorPicker">
                                         <value>
-                                            <Color blue="0.0" green="0.0" red="0.0" />
+                                            <Color/>
                                         </value>
                                     </ColorPicker>
                                     <Label text="Fill" />
                                     <ColorPicker fx:id="fillColorPicker">
                                         <value>
-                                            <Color blue="0.0" green="0.0" red="0.0" opacity="0.0"/>
+                                            <Color opacity="0.0"/>
                                         </value>
                                     </ColorPicker>
                                 </VBox>

@@ -5,6 +5,7 @@ import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 
 public class ShapeDrawCommand implements Command {
+
     private final Shape shape;
     private final ShapeManager sm;
 
@@ -20,6 +21,6 @@ public class ShapeDrawCommand implements Command {
 
     @Override
     public void rollback() {
-        return;
+        sm.remove(shape);
     }
 }

@@ -1,6 +1,7 @@
 package unisa.diem.seproject.model.shapes;
 
 import javafx.scene.canvas.GraphicsContext;
+
 import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.BaseShape;
 import unisa.diem.seproject.model.extensions.Point;

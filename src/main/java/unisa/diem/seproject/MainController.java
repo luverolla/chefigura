@@ -7,8 +7,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-
 import javafx.stage.FileChooser;
+
 import unisa.diem.seproject.model.*;
 import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.tools.*;
@@ -24,9 +24,11 @@ public class MainController {
     public ColorPicker strokeColorPicker;
     @FXML
     public ColorPicker fillColorPicker;
-
     @FXML
     public MenuItem fileChooserRef;
+    @FXML
+    private ScrollPane canvasContainer;
+
 
     public MainController() {
         CommandManager commandManager = new CommandManager();
@@ -34,9 +36,6 @@ public class MainController {
         Sheet sheet = new Sheet(SheetFormat.NONE, commandManager);
         project.addSheet(sheet);
     }
-
-    @FXML
-    private ScrollPane canvasContainer;
 
     @FXML
     public void initialize() {
@@ -48,13 +47,11 @@ public class MainController {
         sheet.buildDrawingArea(canvas);
         canvasContainer.setContent(canvas);
         sheet.shapeManager().redraw();
-
         toolMap = Map.ofEntries(
                 Map.entry("rectangle", new RectangleTool(sheet.shapeManager())),
                 Map.entry("ellipse", new EllipseTool(sheet.shapeManager())),
                 Map.entry("segment", new LineSegmentTool(sheet.shapeManager()))
         );
-
         strokeColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             for(Tool t: toolMap.values()) {
                 if(t instanceof ShapeTool) {
@@ -69,13 +66,11 @@ public class MainController {
                 }
             }
         });
-
         canvas.setOnMousePressed(e -> {
             if (sheet.getCurrentTool() != null) {
                 sheet.getCurrentTool().mouseDown(e.getX(), e.getY());
             }
         });
-
         canvas.setOnMouseMoved(e -> {
             if (sheet.getCurrentTool() != null) {
                 sheet.getCurrentTool().mouseDrag(e.getX(), e.getY());
@@ -88,7 +83,6 @@ public class MainController {
         Node node = (Node) e.getSource();
         String toolName = (String) node.getUserData();
         Tool chosen = toolMap.get(toolName);
-
         if(chosen.equals(project.getSheet().getCurrentTool())) {
             project.getSheet().setCurrentTool(null);
         } else {
@@ -124,5 +118,9 @@ public class MainController {
         if (file != null) {
             Project.save(project, file);
         }
+    }
+
+    public void onUndo() {
+        project.getCommandManager().rollback();
     }
 }

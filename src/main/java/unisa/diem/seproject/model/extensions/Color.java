@@ -4,10 +4,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Color implements Serializable {
-    public static final Color BLACK = new Color(0, 0, 0);
-    public static final Color GRAY = new Color(0.5, 0.5, 0.5, 0.5);
-    public static final Color TRANSPARENT = new Color(0, 0, 0, 0);
 
+    public static final Color BLACK = new Color(0, 0, 0);
+    public static final Color TRANSPARENT = new Color(0, 0, 0, 0);
     private final double red;
     private final double green;
     private final double blue;
@@ -67,7 +66,6 @@ public class Color implements Serializable {
     public boolean equals(Object other) {
         if(!(other instanceof Color))
             return false;
-
         Color otherColor = (Color) other;
         return red == otherColor.red &&
                green == otherColor.green &&

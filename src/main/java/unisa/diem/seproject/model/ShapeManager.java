@@ -2,6 +2,7 @@ package unisa.diem.seproject.model;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+
 import unisa.diem.seproject.model.commands.*;
 
 import java.io.Serializable;
@@ -34,10 +35,9 @@ public class ShapeManager implements Serializable {
         this.context = context;
     }
 
-    public void add(Shape s) {
-        shapes.add(s);
-        if(context != null)
-            s.draw(context);
+    public void draw(Shape s) {
+        ShapeDrawCommand command = new ShapeDrawCommand(s, this);
+        commandManager.execute(command);
     }
 
     public void redraw() {
@@ -49,22 +49,24 @@ public class ShapeManager implements Serializable {
         }
     }
 
-    public void draw(Shape s) {
-        ShapeDrawCommand command = new ShapeDrawCommand(s, this);
-        commandManager.execute(command);
+    public void add(Shape s) {
+        shapes.add(s);
+        if(context != null)
+            s.draw(context);
     }
 
-    public int countShapes() {
-        return shapes.size();
-    }
-
-    public boolean shapeIsPresent(Shape s) {
-        return shapes.contains(s);
+    public void remove(Shape s) {
+        shapes.remove(s);
+        if(context != null) {
+            redraw();
+        }
     }
 
     public void clear() {
         shapes.clear();
-        redraw();
+        if(context != null) {
+            redraw();
+        }
     }
 
     public List<Shape> getShapes() {

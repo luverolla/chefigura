@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class CommandManager {
+
     private final Deque<Command> commandStack;
     private final Deque<Command> undoStack;
 

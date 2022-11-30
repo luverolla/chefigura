@@ -1,6 +1,7 @@
 package unisa.diem.seproject.model.shapes;
 
 import javafx.scene.canvas.GraphicsContext;
+
 import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.BaseClosedShape;
 import unisa.diem.seproject.model.extensions.Point;
@@ -12,6 +13,7 @@ public class EllipseShape extends BaseClosedShape {
     private Point center;
     private double radiusX;
     private double radiusY;
+
     public EllipseShape(Color strokeColor, Color fillColor, Point center, double radiusX, double radiusY) {
         super(strokeColor, fillColor);
         this.center = center;

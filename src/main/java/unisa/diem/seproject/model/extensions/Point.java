@@ -30,7 +30,6 @@ public class Point implements Serializable {
     public boolean equals(Object other) {
         if(!(other instanceof Point))
             return false;
-
         Point otherPoint = (Point) other;
         return otherPoint.x == x && otherPoint.y == y;
     }

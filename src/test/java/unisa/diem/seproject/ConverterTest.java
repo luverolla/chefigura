@@ -1,17 +1,13 @@
 package unisa.diem.seproject;
 
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ConverterTest {
 
     @Test
     @DisplayName("Test toMilli, simple case")
     void testToMilli() {
-
         assertEquals(0.0, Converter.toMilli(0,1));
         assertEquals(1.0, Converter.toMilli(25.4,1));
     }
@@ -42,5 +38,4 @@ public class ConverterTest {
         assertEquals(0.0, Converter.toPixels(1,0));
         assertEquals(0.0, Converter.toPixels(0,0));
     }
-
 }

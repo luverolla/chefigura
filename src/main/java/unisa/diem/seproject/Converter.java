@@ -1,7 +1,7 @@
 package unisa.diem.seproject;
 
 /**
- * Static class for converting between different units of measurement.
+ * Class for converting between different units of measurement.
  */
 public class Converter {
     /**

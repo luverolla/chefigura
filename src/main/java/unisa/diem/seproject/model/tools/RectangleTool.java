@@ -13,7 +13,6 @@ public class RectangleTool implements ClosedShapeTool {
     private Shape shape;
     private final ShapeManager sm;
     private Color strokeColor;
-
     private Color fillColor;
 
     public RectangleTool(ShapeManager sm) {
@@ -23,6 +22,24 @@ public class RectangleTool implements ClosedShapeTool {
         this.shape = null;
         this.strokeColor = Color.BLACK;
         this.fillColor = Color.TRANSPARENT;
+    }
+
+    @Override
+    public void apply() {
+        if(start != null && end != null && sm.getGraphicsContext() != null) {
+            shape = new RectangleShape(strokeColor, fillColor, start, end);
+            sm.draw(shape);
+            start = null;
+            end = null;
+        }
+    }
+
+    public Point getStart() {
+        return start;
+    }
+
+    public Point getEnd() {
+        return end;
     }
 
     @Override
@@ -55,16 +72,13 @@ public class RectangleTool implements ClosedShapeTool {
             sm.redraw();
             sm.getGraphicsContext().save();
             sm.getGraphicsContext().setStroke(Color.BLACK.fade(0.5).toFXColor());
-
             Point currStart = new Point(start.getX(), start.getY()),
                     currEnd = new Point(mouseX, mouseY);
-
             if(currEnd.getX() < currStart.getX()) {
                 double tmp = currStart.getX();
                 currStart = new Point(currEnd.getX(), currStart.getY());
                 currEnd = new Point(tmp, currEnd.getY());
             }
-
             if(currEnd.getY() < currStart.getY()) {
                 double tmp = currStart.getY();
                 currStart = new Point(currStart.getX(), currEnd.getY());
@@ -73,23 +87,6 @@ public class RectangleTool implements ClosedShapeTool {
             sm.getGraphicsContext().strokeRect(currStart.getX(), currStart.getY(), currEnd.getX() - currStart.getX(),  currEnd.getY() - currStart.getY());
             sm.getGraphicsContext().restore();
         }
-    }
-
-    @Override
-    public void apply() {
-        if(start != null && end != null && sm.getGraphicsContext() != null) {
-            shape = new RectangleShape(strokeColor, fillColor, start, end);
-            sm.draw(shape);
-            start = null;
-            end = null;
-        }
-    }
-
-    public Point getStart() {
-        return start;
-    }
-    public Point getEnd() {
-        return end;
     }
 
     @Override

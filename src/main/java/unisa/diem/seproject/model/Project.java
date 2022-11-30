@@ -10,7 +10,6 @@ public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
     private final List<Sheet> sheets;
     private transient CommandManager commandManager;
-
     private transient File file;
 
     public Project(CommandManager cm) {
@@ -36,6 +35,10 @@ public class Project implements Serializable {
 
     public File getFile() {
         return file;
+    }
+
+    public CommandManager getCommandManager() {
+        return commandManager;
     }
 
     public static void save(Project project, File file) {
