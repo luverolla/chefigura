@@ -82,7 +82,7 @@ public class MainController {
                         MenuItem cut = new MenuItem("Cut");
                         MenuItem copy = new MenuItem("Copy");
                         cut.setOnAction(event1 -> commandManager.execute(new ShapeCutCommand(project.getSheet().shapeManager(), shape)));
-                        copy.setOnAction(event1 -> commandManager.execute(project.getSheet().shapeManager().copyShape(shape)));
+                        copy.setOnAction(event1 -> project.getSheet().shapeManager().copyShape(shape));
                         contextMenu.getItems().addAll(cut, copy);
                         contextMenu.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());
                     }
