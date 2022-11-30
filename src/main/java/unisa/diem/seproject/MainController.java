@@ -23,19 +23,26 @@ public class MainController {
     private Project project;
     private Map<String, Tool> toolMap;
     @FXML
-    public ColorPicker strokeColorPicker;
+    private ColorPicker strokeColorPicker;
     @FXML
-    public ColorPicker fillColorPicker;
+    private ColorPicker fillColorPicker;
     @FXML
-    public MenuItem fileChooserRef;
+    private MenuItem fileChooserRef;
     @FXML
     private ScrollPane canvasContainer;
     @FXML
-    public MenuItem menuOptionCopy;
+    private MenuItem menuOptionCopy;
     @FXML
-    public MenuItem menuOptionCut;
+    private MenuItem menuOptionCut;
     @FXML
-    public MenuItem menuOptionPaste;
+    private MenuItem menuOptionPaste;
+
+    @FXML
+    private MenuItem menuOptionDelete;
+
+    @FXML
+    private MenuItem menuOptionUndo;
+
     private final ContextMenu contextMenu;
     private final CommandManager commandManager;
 
@@ -53,6 +60,7 @@ public class MainController {
         menuOptionCopy.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
         menuOptionCut.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
         menuOptionPaste.disableProperty().bind(project.getSheet().shapeManager().copiedShapeProperty.isNull());
+        menuOptionDelete.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
     }
 
     private void _init(Sheet sheet) {
@@ -161,5 +169,21 @@ public class MainController {
 
     public void onUndo() {
         project.getCommandManager().rollback();
+    }
+
+    public void onCopy() {
+        project.getSheet().shapeManager().copyShape(project.getSheet().shapeManager().selectedShapeProperty.get());
+    }
+
+    public void onCut() {
+
+    }
+
+    public void onPaste() {
+
+    }
+
+    public void onDelete() {
+        project.getSheet().shapeManager().deleteShape(project.getSheet().shapeManager().selectedShapeProperty.get());
     }
 }
