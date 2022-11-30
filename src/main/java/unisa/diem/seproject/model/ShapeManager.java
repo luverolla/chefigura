@@ -100,6 +100,12 @@ public class ShapeManager implements Serializable {
         this.selectedShape = s;
     }
 
+    public void deleteShape(Shape s) {
+        ShapeDeleteCommand command = new ShapeDeleteCommand(this, s);
+        commandManager.execute(command);
+        shapes.remove(s);
+    }
+
     public void copyShape(Shape s) {
         this.copiedShape = s;
     }
