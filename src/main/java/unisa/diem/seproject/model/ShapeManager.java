@@ -17,6 +17,7 @@ public class ShapeManager implements Serializable {
     private transient GraphicsContext context;
     private final transient CommandManager commandManager;
     private Shape selectedShape;
+    private Shape copiedShape;
 
     public transient ObjectProperty<Shape> selectedShapeProperty;
     public transient ObjectProperty<Shape> copiedShapeProperty;
@@ -98,4 +99,9 @@ public class ShapeManager implements Serializable {
     public void setSelectedShape(Shape s) {
         this.selectedShape = s;
     }
+
+    public void copyShape(Shape s) {
+        this.copiedShape = s;
+    }
+
 }
