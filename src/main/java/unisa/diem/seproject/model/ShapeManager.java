@@ -14,6 +14,7 @@ public class ShapeManager implements Serializable {
     private final List<Shape> shapes;
     private transient GraphicsContext context;
     private final transient CommandManager commandManager;
+    private Shape selectedShape;
 
     public ShapeManager(GraphicsContext context, CommandManager commandManager) {
         this.shapes = new ArrayList<>();
@@ -71,5 +72,21 @@ public class ShapeManager implements Serializable {
 
     public List<Shape> getShapes() {
         return shapes;
+    }
+
+    public Shape select(double mouseX, double mouseY) {
+        for (Shape s : shapes) {
+            if (s.contains(mouseX, mouseY)) {
+                return s;
+            }
+        }
+        return null;
+    }
+    public Shape getSelectedShape() {
+        return this.selectedShape;
+    }
+
+    public void setSelectedShape(Shape s) {
+        this.selectedShape = s;
     }
 }

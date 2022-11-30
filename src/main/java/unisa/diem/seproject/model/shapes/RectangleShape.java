@@ -35,6 +35,11 @@ public class RectangleShape extends BaseClosedShape {
         gc.restore();
     }
 
+    @Override
+    public boolean contains(double mouseX, double mouseY) {
+        return mouseX >= start.getX() && mouseX <= end.getX() && mouseY >= start.getY() && mouseY <= end.getY();
+    }
+
     @Serial
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
         out.defaultWriteObject();

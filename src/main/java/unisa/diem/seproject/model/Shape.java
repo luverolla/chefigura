@@ -6,4 +6,6 @@ import java.io.Serializable;
 
 public interface Shape extends Serializable {
     void draw(GraphicsContext gc);
+
+    boolean contains(double mouseX, double mouseY);
 }

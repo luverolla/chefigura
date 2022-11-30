@@ -31,6 +31,11 @@ public class EllipseShape extends BaseClosedShape {
         gc.restore();
     }
 
+    @Override
+    public boolean contains(double mouseX, double mouseY) {
+        return Math.pow(mouseX - center.getX(), 2) / Math.pow(radiusX, 2) + Math.pow(mouseY - center.getY(), 2) / Math.pow(radiusY, 2) <= 1;
+    }
+
     @Serial
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
         out.defaultWriteObject();
