@@ -29,14 +29,12 @@ public class MainController {
     public MenuItem fileChooserRef;
     @FXML
     private ScrollPane canvasContainer;
-
     @FXML
     public MenuItem menuOptionCopy;
     @FXML
     public MenuItem menuOptionCut;
     @FXML
     public MenuItem menuOptionPaste;
-
     private final ContextMenu contextMenu;
     private final CommandManager commandManager;
 
@@ -51,7 +49,6 @@ public class MainController {
     @FXML
     public void initialize() {
         _init(project.getSheet());
-
         menuOptionCopy.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
         menuOptionCut.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
         menuOptionPaste.disableProperty().bind(project.getSheet().shapeManager().copiedShapeProperty.isNull());
@@ -65,7 +62,8 @@ public class MainController {
         toolMap = Map.ofEntries(
                 Map.entry("rectangle", new RectangleTool(sheet.shapeManager())),
                 Map.entry("ellipse", new EllipseTool(sheet.shapeManager())),
-                Map.entry("segment", new LineSegmentTool(sheet.shapeManager()))
+                Map.entry("segment", new LineSegmentTool(sheet.shapeManager())),
+                Map.entry("selection", new SelectionTool(sheet.shapeManager()))
         );
 
         canvas.setOnMousePressed(event -> {
@@ -76,12 +74,12 @@ public class MainController {
                 if(project.getSheet().shapeManager().selectedShapeProperty.get() != null) {
                     Shape shape = project.getSheet().shapeManager().selectedShapeProperty.get();
                     MenuItem paste = new MenuItem("Paste");
-                    paste.setOnAction(event1 -> commandManager.execute(new ShapePasteCommand(project.getSheet().shapeManager(), shape)));
+                    //paste.setOnAction(event1 -> commandManager.execute(new ShapePasteCommand(project.getSheet().shapeManager(), shape)));
                     contextMenu.getItems().add(paste);
                     if (shape.contains(x, y)) {
                         MenuItem cut = new MenuItem("Cut");
                         MenuItem copy = new MenuItem("Copy");
-                        cut.setOnAction(event1 -> commandManager.execute(new ShapeCutCommand(project.getSheet().shapeManager(), shape)));
+                        //cut.setOnAction(event1 -> commandManager.execute(new ShapeCutCommand(project.getSheet().shapeManager(), shape)));
                         copy.setOnAction(event1 -> project.getSheet().shapeManager().copyShape(shape));
                         contextMenu.getItems().addAll(cut, copy);
                         contextMenu.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());

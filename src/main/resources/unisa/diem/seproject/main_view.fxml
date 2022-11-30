@@ -52,6 +52,7 @@
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Rectangle" userData="rectangle" />
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Ellipse" userData="ellipse" />
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Line Segment" userData="segment" />
+                                    <Button mnemonicParsing="false" onAction="#selectTool" text="Selection" userData="selection" />
                                 </VBox>
                             </AnchorPane>
                         </TitledPane>
