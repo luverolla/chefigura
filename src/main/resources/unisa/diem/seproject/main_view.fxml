@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 
+<?import javafx.scene.input.KeyCodeCombination?>
 <VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unisa.diem.seproject.MainController">
     <MenuBar>
         <Menu mnemonicParsing="false" text="File">
@@ -13,6 +14,21 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
             <MenuItem mnemonicParsing="false" text="Undo" onAction="#onUndo" />
+            <MenuItem fx:id="menuOptionCut" mnemonicParsing="false" text="Cut">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                </accelerator>
+            </MenuItem>
+            <MenuItem fx:id="menuOptionCopy" mnemonicParsing="false" text="Copy">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                </accelerator>
+            </MenuItem>
+            <MenuItem fx:id="menuOptionPaste" mnemonicParsing="false" text="Paste">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                </accelerator>
+            </MenuItem>
         </Menu>
     </MenuBar>
 

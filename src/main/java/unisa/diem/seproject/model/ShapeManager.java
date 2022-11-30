@@ -1,5 +1,7 @@
 package unisa.diem.seproject.model;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -16,16 +18,23 @@ public class ShapeManager implements Serializable {
     private final transient CommandManager commandManager;
     private Shape selectedShape;
 
+    public transient ObjectProperty<Shape> selectedShapeProperty;
+    public transient ObjectProperty<Shape> copiedShapeProperty;
+
     public ShapeManager(GraphicsContext context, CommandManager commandManager) {
         this.shapes = new ArrayList<>();
         this.commandManager = commandManager;
         this.context = context;
+        this.selectedShapeProperty = new SimpleObjectProperty<>();
+        this.copiedShapeProperty = new SimpleObjectProperty<>();
     }
 
     public ShapeManager(GraphicsContext context, CommandManager commandManager, List<Shape> shapes) {
         this.shapes = shapes;
         this.commandManager = commandManager;
         this.context = context;
+        this.selectedShapeProperty = new SimpleObjectProperty<>();
+        this.copiedShapeProperty = new SimpleObjectProperty<>();
     }
 
     public GraphicsContext getGraphicsContext() {

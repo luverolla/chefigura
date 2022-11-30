@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.FileChooser;
@@ -29,17 +30,31 @@ public class MainController {
     @FXML
     private ScrollPane canvasContainer;
 
+    @FXML
+    public MenuItem menuOptionCopy;
+    @FXML
+    public MenuItem menuOptionCut;
+    @FXML
+    public MenuItem menuOptionPaste;
+
+    private final ContextMenu contextMenu;
+    private final CommandManager commandManager;
 
     public MainController() {
-        CommandManager commandManager = new CommandManager();
+        commandManager = new CommandManager();
         project = new Project(commandManager);
         Sheet sheet = new Sheet(SheetFormat.NONE, commandManager);
         project.addSheet(sheet);
+        contextMenu = new ContextMenu();
     }
 
     @FXML
     public void initialize() {
         _init(project.getSheet());
+
+        menuOptionCopy.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
+        menuOptionCut.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
+        menuOptionPaste.disableProperty().bind(project.getSheet().shapeManager().copiedShapeProperty.isNull());
     }
 
     private void _init(Sheet sheet) {
@@ -52,6 +67,29 @@ public class MainController {
                 Map.entry("ellipse", new EllipseTool(sheet.shapeManager())),
                 Map.entry("segment", new LineSegmentTool(sheet.shapeManager()))
         );
+
+        canvas.setOnMousePressed(event -> {
+            if (event.isSecondaryButtonDown()) {
+                double x = event.getX(),
+                        y = event.getY();
+
+                if(project.getSheet().shapeManager().selectedShapeProperty.get() != null) {
+                    Shape shape = project.getSheet().shapeManager().selectedShapeProperty.get();
+                    MenuItem paste = new MenuItem("Paste");
+                    paste.setOnAction(event1 -> commandManager.execute(new ShapePasteCommand(project.getSheet().shapeManager(), shape)));
+                    contextMenu.getItems().add(paste);
+                    if (shape.contains(x, y)) {
+                        MenuItem cut = new MenuItem("Cut");
+                        MenuItem copy = new MenuItem("Copy");
+                        cut.setOnAction(event1 -> commandManager.execute(new ShapeCutCommand(project.getSheet().shapeManager(), shape)));
+                        copy.setOnAction(event1 -> commandManager.execute(project.getSheet().shapeManager().copyShape(shape)));
+                        contextMenu.getItems().addAll(cut, copy);
+                        contextMenu.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());
+                    }
+                }
+            }
+        });
+
         strokeColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             for(Tool t: toolMap.values()) {
                 if(t instanceof ShapeTool) {
