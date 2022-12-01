@@ -36,13 +36,8 @@ public class MainController {
     private MenuItem menuOptionCut;
     @FXML
     private MenuItem menuOptionPaste;
-
     @FXML
     private MenuItem menuOptionDelete;
-
-    @FXML
-    private MenuItem menuOptionUndo;
-
     private final ContextMenu contextMenu;
     private final CommandManager commandManager;
 

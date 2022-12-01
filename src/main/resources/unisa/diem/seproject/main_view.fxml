@@ -13,27 +13,29 @@
             <MenuItem mnemonicParsing="false" text="Clear" onAction="#onSheetClear" />
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
-            <MenuItem mnemonicParsing="false" text="Undo" onAction="#onUndo">
-                <accelerator>
-                    <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                </accelerator>
-            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Undo" onAction="#onUndo" />
+            <accelerator>
+                <KeyCodeCombination alt="UP" code="z" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+            </accelerator>
             <MenuItem fx:id="menuOptionCut" mnemonicParsing="false" text="Cut">
                 <accelerator>
-                    <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                    <KeyCodeCombination alt="UP" code="X" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                 </accelerator>
             </MenuItem>
             <MenuItem fx:id="menuOptionCopy" mnemonicParsing="false" text="Copy">
                 <accelerator>
-                    <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                    <KeyCodeCombination alt="UP" code="C" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                 </accelerator>
             </MenuItem>
             <MenuItem fx:id="menuOptionPaste" mnemonicParsing="false" text="Paste">
                 <accelerator>
-                    <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                    <KeyCodeCombination alt="UP" code="V" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                 </accelerator>
             </MenuItem>
             <MenuItem fx:id="menuOptionDelete" mnemonicParsing="false" text="Delete">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="BACK_SPACE" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                </accelerator>
             </MenuItem>
         </Menu>
     </MenuBar>

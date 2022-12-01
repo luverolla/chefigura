@@ -18,7 +18,6 @@ public class ShapeManager implements Serializable {
     private final transient CommandManager commandManager;
     private Shape selectedShape;
     private Shape copiedShape;
-
     public transient ObjectProperty<Shape> selectedShapeProperty;
     public transient ObjectProperty<Shape> copiedShapeProperty;
 
