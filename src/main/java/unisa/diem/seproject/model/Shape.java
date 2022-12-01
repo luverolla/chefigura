@@ -35,6 +35,7 @@ public interface Shape extends Serializable {
      * @param deltaY The amount to resize on the y-axis
      */
     void resize(double deltaX, double deltaY);
+    Color getStrokeColor();
     void setStrokeColor(Color strokeColor);
     Bounds getBounds();
 }

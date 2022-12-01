@@ -23,12 +23,16 @@ public class LineSegmentShape extends BaseShape {
         this.end = end;
     }
 
+    public LineSegmentShape(Point start, Point end) { // used for testing purposes
+        super();
+        this.start = start;
+        this.end = end;
+    }
+
     @Override
     public void draw(GraphicsContext gc) {
-        gc.save();
         gc.setStroke(strokeColor.toFXColor());
         gc.strokeLine(start.getX(), start.getY(), end.getX(), end.getY());
-        gc.restore();
     }
 
     @Override
@@ -55,8 +59,13 @@ public class LineSegmentShape extends BaseShape {
     }
 
     @Override
-    public void setStrokeColor(Color strokeColor) {
+    public Color getStrokeColor() {
+        return strokeColor;
+    }
 
+    @Override
+    public void setStrokeColor(Color strokeColor) {
+        this.strokeColor = strokeColor;
     }
 
     @Override

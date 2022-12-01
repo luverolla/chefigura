@@ -27,12 +27,10 @@ public class EllipseShape extends BaseClosedShape {
 
     @Override
     public void draw(GraphicsContext gc) {
-        gc.save();
         gc.setStroke(strokeColor.toFXColor());
         gc.setFill(fillColor.toFXColor());
         gc.strokeOval(center.getX() - radiusX, center.getY() - radiusY, radiusX * 2, radiusY * 2);
         gc.fillOval(center.getX() - radiusX, center.getY() - radiusY, radiusX * 2, radiusY * 2);
-        gc.restore();
     }
 
     @Override
@@ -51,8 +49,13 @@ public class EllipseShape extends BaseClosedShape {
     }
 
     @Override
-    public void setStrokeColor(Color strokeColor) {
+    public Color getStrokeColor() {
+        return strokeColor;
+    }
 
+    @Override
+    public void setStrokeColor(Color strokeColor) {
+        this.strokeColor = strokeColor;
     }
 
     @Override

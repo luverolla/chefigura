@@ -31,12 +31,10 @@ public class RectangleShape extends BaseClosedShape {
 
     @Override
     public void draw(GraphicsContext gc) {
-        gc.save();
         gc.setStroke(strokeColor.toFXColor());
         gc.setFill(fillColor.toFXColor());
         gc.strokeRect(start.getX(), start.getY(), end.getX() - start.getX(), end.getY() - start.getY());
         gc.fillRect(start.getX(), start.getY(), end.getX() - start.getX(), end.getY() - start.getY());
-        gc.restore();
     }
 
     @Override
@@ -55,8 +53,13 @@ public class RectangleShape extends BaseClosedShape {
     }
 
     @Override
-    public void setStrokeColor(Color strokeColor) {
+    public Color getStrokeColor() {
+        return strokeColor;
+    }
 
+    @Override
+    public void setStrokeColor(Color strokeColor) {
+        this.strokeColor = strokeColor;
     }
 
     @Override

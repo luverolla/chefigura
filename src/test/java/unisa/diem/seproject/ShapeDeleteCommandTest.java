@@ -14,9 +14,9 @@ import unisa.diem.seproject.model.shapes.RectangleShape;
 public class ShapeDeleteCommandTest {
 
 final CommandManager cm = new CommandManager();
-    final Sheet sheet = new Sheet(SheetFormat.NONE, cm);
-    final Shape testRectangle = new RectangleShape(new Point(0, 0), new Point(10, 10));
-    final ShapeDeleteCommand command = new ShapeDeleteCommand(sheet.shapeManager(), testRectangle);
+    private final Sheet sheet = new Sheet(SheetFormat.NONE, cm);
+    private final Shape testRectangle = new RectangleShape(new Point(0, 0), new Point(10, 10));
+    private final ShapeDeleteCommand command = new ShapeDeleteCommand(sheet.shapeManager(), testRectangle);
 
 
     @Test

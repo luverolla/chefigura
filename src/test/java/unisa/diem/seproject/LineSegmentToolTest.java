@@ -9,9 +9,9 @@ import unisa.diem.seproject.model.tools.LineSegmentTool;
 
 public class LineSegmentToolTest {
 
-    CommandManager commandManager = new CommandManager();
-    ShapeManager shapeManager = new ShapeManager(null,commandManager);
-    LineSegmentTool lineSegmentTool = new LineSegmentTool(shapeManager);
+    private final CommandManager commandManager = new CommandManager();
+    private final ShapeManager shapeManager = new ShapeManager(null,commandManager);
+    private final LineSegmentTool lineSegmentTool = new LineSegmentTool(shapeManager);
 
     @Test
     @DisplayName("Test mouseDown")

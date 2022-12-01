@@ -1,5 +1,6 @@
 package unisa.diem.seproject;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -53,6 +54,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
+        ObjectProperty<Shape> selShape = project.getSheet().shapeManager().selectedShapeProperty;
         initSheet(project.getSheet());
 
         menuOptionCopy.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
@@ -66,11 +68,19 @@ public class MainController {
                     ((ShapeTool) t).setStrokeColor(new Color(newValue));
                 }
             }
+            if (selShape.get() != null) {
+                project.getSheet().shapeManager().changeShapeColor(selShape.get(), new Color(newValue), new Color(fillColorPicker.getValue()));
+            }
         });
         fillColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             for(Tool t: toolMap.values()) {
                 if(t instanceof ClosedShapeTool) {
                     ((ClosedShapeTool) t).setFillColor(new Color(newValue));
+                }
+            }
+            if (project.getSheet().shapeManager().selectedShapeProperty.get() != null) {
+                if (project.getSheet().shapeManager().selectedShapeProperty.get() instanceof ClosedShape) {
+                    project.getSheet().shapeManager().changeShapeColor(selShape.get(), new Color(strokeColorPicker.getValue()), new Color(newValue));
                 }
             }
         });
@@ -195,8 +205,10 @@ public class MainController {
 
     public void deselectTool(KeyEvent keyEvent) {
         if(keyEvent.getCode() == KeyCode.ESCAPE) {
-            project.getSheet().getCurrentTool().reset();
-            project.getSheet().setCurrentTool(null);
+            if (project.getSheet().getCurrentTool() != null) {
+                project.getSheet().getCurrentTool().reset();
+                project.getSheet().setCurrentTool(null);
+            }
         }
     }
 }

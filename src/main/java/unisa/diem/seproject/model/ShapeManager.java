@@ -3,9 +3,9 @@ package unisa.diem.seproject.model;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 import unisa.diem.seproject.model.commands.*;
+import unisa.diem.seproject.model.extensions.Color;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,7 +13,6 @@ import java.util.List;
 
 /**
  * Class that manages shapes operations
- *
  * Implements the Composite pattern
  */
 public class ShapeManager implements Serializable {
@@ -56,9 +55,9 @@ public class ShapeManager implements Serializable {
     }
 
     public void redraw() {
-       context.clearRect(0, 0, context.getCanvas().getWidth(), context.getCanvas().getHeight());
-       context.setFill(Color.WHITE);
-       context.fillRect(0, 0, context.getCanvas().getWidth(), context.getCanvas().getHeight());
+        context.clearRect(0, 0, context.getCanvas().getWidth(), context.getCanvas().getHeight());
+        context.setFill(new Color(1, 1, 1).toFXColor());
+        context.fillRect(0, 0, context.getCanvas().getWidth(), context.getCanvas().getHeight());
         for (Shape s : shapes) {
             s.draw(context);
         }
@@ -66,20 +65,20 @@ public class ShapeManager implements Serializable {
 
     public void add(Shape s) {
         shapes.add(s);
-        if(context != null)
+        if (context != null)
             s.draw(context);
     }
 
     public void remove(Shape s) {
         shapes.remove(s);
-        if(context != null) {
+        if (context != null) {
             redraw();
         }
     }
 
     public void clear() {
         shapes.clear();
-        if(context != null) {
+        if (context != null) {
             redraw();
         }
     }
@@ -96,6 +95,7 @@ public class ShapeManager implements Serializable {
         }
         return null;
     }
+
     public Shape getSelectedShape() {
         return this.selectedShape;
     }
@@ -114,4 +114,11 @@ public class ShapeManager implements Serializable {
         this.copiedShape = s;
     }
 
+    public void changeShapeColor(Shape shape, Color strokeColor, Color fillColor) {
+        shape.setStrokeColor(strokeColor);
+        if (shape instanceof ClosedShape) {
+            ((ClosedShape) shape).setFillColor(fillColor);
+        }
+        redraw();
+    }
 }

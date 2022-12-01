@@ -9,9 +9,9 @@ import unisa.diem.seproject.model.tools.RectangleTool;
 
 public class RectangleToolTest {
 
-    CommandManager commandManager = new CommandManager();
-    ShapeManager shapeManager = new ShapeManager(null, commandManager);
-    RectangleTool rectangleTool = new RectangleTool(shapeManager);
+    private final CommandManager commandManager = new CommandManager();
+    private final ShapeManager shapeManager = new ShapeManager(null, commandManager);
+    private final RectangleTool rectangleTool = new RectangleTool(shapeManager);
 
     @Test
     @DisplayName("Test mouseDown")

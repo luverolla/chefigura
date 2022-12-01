@@ -9,9 +9,9 @@ import unisa.diem.seproject.model.tools.EllipseTool;
 
 public class EllipseToolTest {
 
-    CommandManager commandManager = new CommandManager();
-    ShapeManager shapeManager = new ShapeManager(null, commandManager);
-    EllipseTool ellipseTool = new EllipseTool(shapeManager);
+    private final CommandManager commandManager = new CommandManager();
+    private final ShapeManager shapeManager = new ShapeManager(null, commandManager);
+    private final EllipseTool ellipseTool = new EllipseTool(shapeManager);
 
     @Test
     @DisplayName("Test mouseDown")
