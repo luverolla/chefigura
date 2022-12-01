@@ -9,6 +9,9 @@ import unisa.diem.seproject.model.extensions.Point;
 
 import java.io.Serial;
 
+/**
+ *
+ */
 public class EllipseShape extends BaseClosedShape {
 
     private Point center;

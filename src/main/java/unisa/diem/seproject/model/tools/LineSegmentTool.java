@@ -6,6 +6,9 @@ import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 import unisa.diem.seproject.model.shapes.LineSegmentShape;
 
+/**
+ * Tool to draw a line segment
+ */
 public class LineSegmentTool implements ShapeTool {
 
     private Point start;

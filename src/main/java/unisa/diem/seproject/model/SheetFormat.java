@@ -2,6 +2,9 @@ package unisa.diem.seproject.model;
 
 import java.io.Serializable;
 
+/**
+ * This class represents the format of a sheet.
+ */
 public class SheetFormat implements Serializable {
 
     private final double width, height;

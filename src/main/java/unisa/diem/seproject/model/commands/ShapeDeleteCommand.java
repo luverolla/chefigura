@@ -4,6 +4,9 @@ import unisa.diem.seproject.model.Command;
 import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 
+/**
+ * Command to delete a shape from the drawing
+ */
 public class ShapeDeleteCommand implements Command {
     private final Shape shape;
     private final ShapeManager sm;

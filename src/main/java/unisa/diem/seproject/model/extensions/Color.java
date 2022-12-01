@@ -3,6 +3,11 @@ package unisa.diem.seproject.model.extensions;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Class that represents a color
+ *
+ * Used instead of the JavaFX Color class to allow serialization
+ */
 public class Color implements Serializable {
 
     public static final Color BLACK = new Color(0, 0, 0);
@@ -81,6 +86,11 @@ public class Color implements Serializable {
         return new javafx.scene.paint.Color(getRed(), getGreen(), getBlue(), getOpacity());
     }
 
+    /**
+     * Make a color more transparent.
+     * @param opacity The opacity to set.
+     * @return The new color.
+     */
     public Color fade(double opacity) {
         return new Color(getRed(), getGreen(), getBlue(), opacity);
     }

@@ -9,6 +9,9 @@ import unisa.diem.seproject.model.BaseClosedShape;
 
 import java.io.Serial;
 
+/**
+ * Class that represents a rectangle
+ */
 public class RectangleShape extends BaseClosedShape {
 
     private Point start;

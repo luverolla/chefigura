@@ -4,6 +4,9 @@ import unisa.diem.seproject.model.Command;
 import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 
+/**
+ * Command that adds a shape to the drawing
+ */
 public class ShapeDrawCommand implements Command {
 
     private final Shape shape;

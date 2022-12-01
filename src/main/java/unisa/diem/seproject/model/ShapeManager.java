@@ -11,6 +11,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that manages shapes operations
+ *
+ * Implements the Composite pattern
+ */
 public class ShapeManager implements Serializable {
 
     private final List<Shape> shapes;

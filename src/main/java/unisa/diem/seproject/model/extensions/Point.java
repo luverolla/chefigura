@@ -3,6 +3,11 @@ package unisa.diem.seproject.model.extensions;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Class that represents a point
+ *
+ * Used instead of the JavaFX Point2D class to allow serialization
+ */
 public class Point implements Serializable {
 
     private final double x;

@@ -10,6 +10,11 @@ import unisa.diem.seproject.Converter;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * Class that represents a sheet of a project
+ *
+ * Each sheet has its own canvas
+ */
 public class Sheet implements Serializable {
 
     @Serial

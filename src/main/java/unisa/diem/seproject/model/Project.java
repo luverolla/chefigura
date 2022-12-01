@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that represents a drawing project, composed of one or more sheets
+ */
 public class Project implements Serializable {
 
     @Serial

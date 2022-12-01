@@ -6,6 +6,9 @@ import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 import unisa.diem.seproject.model.shapes.EllipseShape;
 
+/**
+ * Tool to draw an ellipse
+ */
 public class EllipseTool implements ClosedShapeTool {
 
     private Point center;

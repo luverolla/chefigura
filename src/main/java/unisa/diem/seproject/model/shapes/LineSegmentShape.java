@@ -9,6 +9,9 @@ import unisa.diem.seproject.model.extensions.Point;
 
 import java.io.Serial;
 
+/**
+ * Class that represents a line segment
+ */
 public class LineSegmentShape extends BaseShape {
 
     private Point start;

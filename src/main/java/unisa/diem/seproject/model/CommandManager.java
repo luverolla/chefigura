@@ -3,6 +3,11 @@ package unisa.diem.seproject.model;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+/**
+ * Class that handles command executions, undo and redo
+ *
+ * Implements the Invoker class of the Command pattern
+ */
 public class CommandManager {
 
     private final Deque<Command> commandStack;

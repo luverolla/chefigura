@@ -7,6 +7,9 @@ import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 import unisa.diem.seproject.model.Tool;
 
+/**
+ * Tool to select a shape
+ */
 public class SelectionTool implements Tool {
     private final ShapeManager shapeManager;
     private Shape selected;

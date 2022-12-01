@@ -6,6 +6,9 @@ import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 import unisa.diem.seproject.model.shapes.RectangleShape;
 
+/**
+ * Tool to draw a rectangle
+ */
 public class RectangleTool implements ClosedShapeTool {
 
     private Point start;

@@ -4,6 +4,11 @@ import javafx.scene.canvas.GraphicsContext;
 import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.extensions.Point;
 
+/**
+ * Class for representing the bounds of a shape
+ *
+ * The bounds are rectangular regions surrounding a shape
+ */
 public class Bounds {
 
     private Point start;
