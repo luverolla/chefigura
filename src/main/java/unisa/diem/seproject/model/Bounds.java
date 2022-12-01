@@ -32,26 +32,25 @@ public class Bounds {
         return (mouseX >= center.getX() - 5 && mouseX <= center.getX() + 5) && (mouseY >= center.getY() - 5 && mouseY <= center.getY() + 5);
     }
 
-    public boolean mouseOnNEAnchorPoint(double mouseX, double mouseY) {
-        Point[] anchorPoints = getAnchorPoints();
-        return (mouseX >= anchorPoints[1].getX() - 5 && mouseX <= anchorPoints[1].getX() + 5) && (mouseY >= anchorPoints[1].getY() - 5 && mouseY <= anchorPoints[1].getY() + 5);
-    }
-
     public boolean mouseOnNWAnchorPoint(double mouseX, double mouseY) {
-        Point[] anchorPoints = getAnchorPoints();
-        return (mouseX >= anchorPoints[3].getX() - 5 && mouseX <= anchorPoints[3].getX() + 5) && (mouseY >= anchorPoints[3].getY() - 5 && mouseY <= anchorPoints[3].getY() + 5);
+        Point anchorPoint = getAnchorPoints()[0];
+        return (mouseX >= anchorPoint.getX() - 5 && mouseX <= anchorPoint.getX() + 5) && (mouseY >= anchorPoint.getY() - 5 && mouseY <= anchorPoint.getY() + 5);
     }
 
-    public boolean mouseOnSWAnchorPoint(double mouseX, double mouseY) {
-        Point[] anchorPoints = getAnchorPoints();
-        return (mouseX >= anchorPoints[2].getX() - 5 && mouseX <= anchorPoints[2].getX() + 5) && (mouseY >= anchorPoints[2].getY() - 5 && mouseY <= anchorPoints[2].getY() + 5);
+    public boolean mouseOnNEAnchorPoint(double mouseX, double mouseY) {
+        Point anchorPoint = getAnchorPoints()[1];
+        return (mouseX >= anchorPoint.getX() - 5 && mouseX <= anchorPoint.getX() + 5) && (mouseY >= anchorPoint.getY() - 5 && mouseY <= anchorPoint.getY() + 5);
     }
 
     public boolean mouseOnSEAnchorPoint(double mouseX, double mouseY) {
-        Point[] anchorPoints = getAnchorPoints();
-        return (mouseX >= anchorPoints[0].getX() - 5 && mouseX <= anchorPoints[0].getX() + 5) && (mouseY >= anchorPoints[0].getY() - 5 && mouseY <= anchorPoints[0].getY() + 5);
+        Point anchorPoint = getAnchorPoints()[2];
+        return (mouseX >= anchorPoint.getX() - 5 && mouseX <= anchorPoint.getX() + 5) && (mouseY >= anchorPoint.getY() - 5 && mouseY <= anchorPoint.getY() + 5);
     }
 
+    public boolean mouseOnSWAnchorPoint(double mouseX, double mouseY) {
+        Point anchorPoint = getAnchorPoints()[3];
+        return (mouseX >= anchorPoint.getX() - 5 && mouseX <= anchorPoint.getX() + 5) && (mouseY >= anchorPoint.getY() - 5 && mouseY <= anchorPoint.getY() + 5);
+    }
 
     public void show(GraphicsContext gc) {
         gc.setFill(new Color(0.2, 0.8, 1, 0.5).toFXColor());

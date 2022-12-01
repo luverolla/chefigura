@@ -1,25 +1,27 @@
 package unisa.diem.seproject.model.tools;
 
 import javafx.scene.Cursor;
-import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+
 import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 import unisa.diem.seproject.model.Tool;
-import unisa.diem.seproject.model.extensions.Point;
 
 public class SelectionTool implements Tool {
     private final ShapeManager shapeManager;
     private Shape selected;
     private boolean mouseIsDown;
+    private Canvas canvas;
 
-    public SelectionTool(ShapeManager sm){
+    public SelectionTool(ShapeManager sm, Canvas canvas) {
         this.shapeManager = sm;
         this.selected = null;
+        this.mouseIsDown = false;
+        this.canvas = canvas;
     }
 
     @Override
     public void mouseDown(double mouseX, double mouseY) {
-        mouseIsDown = true;
         shapeManager.redraw();
         this.selected = this.shapeManager.select(mouseX, mouseY);
         if (selected != null) {
@@ -31,31 +33,23 @@ public class SelectionTool implements Tool {
     public void mouseDrag(double mouseX, double mouseY) {
         if (mouseIsDown && selected != null) {
             selected.move(mouseX, mouseY);
-        } /*else {
+        } else {
             if (selected != null) {
                 if (selected.getBounds().mouseOnCenter(mouseX, mouseY)) {
-
+                    canvas.getScene().setCursor(Cursor.OPEN_HAND);
+                } else if (selected.getBounds().mouseOnNWAnchorPoint(mouseX, mouseY)) {
+                    canvas.getScene().setCursor(Cursor.NW_RESIZE);
+                } else if (selected.getBounds().mouseOnNEAnchorPoint(mouseX, mouseY)) {
+                    canvas.getScene().setCursor(Cursor.NE_RESIZE);
+                } else if (selected.getBounds().mouseOnSEAnchorPoint(mouseX, mouseY)) {
+                    canvas.getScene().setCursor(Cursor.SE_RESIZE);
+                } else if (selected.getBounds().mouseOnSWAnchorPoint(mouseX, mouseY)) {
+                    canvas.getScene().setCursor(Cursor.SW_RESIZE);
                 } else {
-                    if (selected.getBounds().mouseOnNEAnchorPoint(mouseX, mouseY)) {
-
-                    } else {
-                        if (selected.getBounds().mouseOnNWAnchorPoint(mouseX, mouseY)) {
-
-                        } else {
-                            if (selected.getBounds().mouseOnSWAnchorPoint(mouseX, mouseY)) {
-
-                            } else {
-                                if (selected.getBounds().mouseOnSEAnchorPoint(mouseX, mouseY)) {
-
-                                } else {
-
-                                }
-                            }
-                        }
-                    }
+                    canvas.getScene().setCursor(Cursor.DEFAULT);
                 }
             }
-        }*/
+        }
     }
 
     @Override

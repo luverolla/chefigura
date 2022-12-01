@@ -69,14 +69,12 @@ public class MainController {
                 Map.entry("rectangle", new RectangleTool(sheet.shapeManager())),
                 Map.entry("ellipse", new EllipseTool(sheet.shapeManager())),
                 Map.entry("segment", new LineSegmentTool(sheet.shapeManager())),
-                Map.entry("selection", new SelectionTool(sheet.shapeManager()))
+                Map.entry("selection", new SelectionTool(sheet.shapeManager(), canvas))
         );
-
         canvas.setOnMousePressed(event -> {
             if (event.isSecondaryButtonDown()) {
                 double x = event.getX(),
                         y = event.getY();
-
                 if(project.getSheet().shapeManager().selectedShapeProperty.get() != null) {
                     Shape shape = project.getSheet().shapeManager().selectedShapeProperty.get();
                     MenuItem paste = new MenuItem("Paste");
@@ -95,7 +93,6 @@ public class MainController {
                 }
             }
         });
-
         strokeColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             for(Tool t: toolMap.values()) {
                 if(t instanceof ShapeTool) {
