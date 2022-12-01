@@ -33,6 +33,14 @@ public class LineSegmentTool implements ShapeTool {
         }
     }
 
+    @Override
+    public void reset() {
+        start = null;
+        end = null;
+        shape = null;
+        sm.redraw();
+    }
+
     public Point getStart() {
         return start;
     }

@@ -8,6 +8,8 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 
 import unisa.diem.seproject.model.*;
@@ -126,6 +128,7 @@ public class MainController {
         String toolName = (String) node.getUserData();
         Tool chosen = toolMap.get(toolName);
         if(chosen.equals(project.getSheet().getCurrentTool())) {
+            project.getSheet().getCurrentTool().reset();
             project.getSheet().setCurrentTool(null);
         } else {
             project.getSheet().setCurrentTool(chosen);
@@ -180,5 +183,12 @@ public class MainController {
 
     public void onDelete() {
         project.getSheet().shapeManager().deleteShape(project.getSheet().shapeManager().selectedShapeProperty.get());
+    }
+
+    public void deselectTool(KeyEvent keyEvent) {
+        if(keyEvent.getCode() == KeyCode.ESCAPE) {
+            project.getSheet().getCurrentTool().reset();
+            project.getSheet().setCurrentTool(null);
+        }
     }
 }

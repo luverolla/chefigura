@@ -68,5 +68,11 @@ public class SelectionTool implements Tool {
         this.shapeManager.setSelectedShape(this.selected);
     }
 
+    @Override
+    public void reset() {
+        this.selected = null;
+        shapeManager.redraw();
+    }
+
 
 }

@@ -35,6 +35,15 @@ public class EllipseTool implements ClosedShapeTool {
             radius = null;
         }
     }
+
+    @Override
+    public void reset() {
+        center = null;
+        radius = null;
+        shape = null;
+        sm.redraw();
+    }
+
     public Point getCenter() {
         return center;
     }

@@ -34,6 +34,14 @@ public class RectangleTool implements ClosedShapeTool {
         }
     }
 
+    @Override
+    public void reset() {
+        start = null;
+        end = null;
+        shape = null;
+        sm.redraw();
+    }
+
     public Point getStart() {
         return start;
     }

@@ -5,4 +5,6 @@ public interface Tool {
     void mouseDrag(double mouseX, double mouseY);
     void mouseUp(double mouseX, double mouseY);
     void apply();
+
+    void reset();
 }
