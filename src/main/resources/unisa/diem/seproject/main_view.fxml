@@ -13,10 +13,11 @@
             <MenuItem mnemonicParsing="false" text="Clear" onAction="#onSheetClear" />
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
-            <MenuItem mnemonicParsing="false" text="Undo" onAction="#onUndo" />
-            <accelerator>
-                <KeyCodeCombination alt="UP" code="z" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
-            </accelerator>
+            <MenuItem mnemonicParsing="false" text="Undo" onAction="#onUndo">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="Z" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                </accelerator>
+            </MenuItem>
             <MenuItem fx:id="menuOptionCut" mnemonicParsing="false" text="Cut">
                 <accelerator>
                     <KeyCodeCombination alt="UP" code="X" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
@@ -32,7 +33,7 @@
                     <KeyCodeCombination alt="UP" code="V" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                 </accelerator>
             </MenuItem>
-            <MenuItem fx:id="menuOptionDelete" mnemonicParsing="false" text="Delete">
+            <MenuItem fx:id="menuOptionDelete" mnemonicParsing="false" text="Delete" onAction="#onDelete">
                 <accelerator>
                     <KeyCodeCombination alt="UP" code="BACK_SPACE" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                 </accelerator>

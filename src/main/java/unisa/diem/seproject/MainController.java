@@ -40,7 +40,7 @@ public class MainController {
     private MenuItem menuOptionPaste;
     @FXML
     private MenuItem menuOptionDelete;
-    private final ContextMenu contextMenu;
+    private final ContextMenu shapeContextMenu;
     private final CommandManager commandManager;
 
     public MainController() {
@@ -48,51 +48,18 @@ public class MainController {
         project = new Project(commandManager);
         Sheet sheet = new Sheet(SheetFormat.NONE, commandManager);
         project.addSheet(sheet);
-        contextMenu = new ContextMenu();
+        shapeContextMenu = new ContextMenu();
     }
 
     @FXML
     public void initialize() {
-        _init(project.getSheet());
+        initSheet(project.getSheet());
+
         menuOptionCopy.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
         menuOptionCut.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
         menuOptionPaste.disableProperty().bind(project.getSheet().shapeManager().copiedShapeProperty.isNull());
         menuOptionDelete.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
-    }
 
-    private void _init(Sheet sheet) {
-        Canvas canvas = new Canvas();
-        sheet.buildDrawingArea(canvas);
-        canvasContainer.setContent(canvas);
-        sheet.shapeManager().redraw();
-        toolMap = Map.ofEntries(
-                Map.entry("rectangle", new RectangleTool(sheet.shapeManager())),
-                Map.entry("ellipse", new EllipseTool(sheet.shapeManager())),
-                Map.entry("segment", new LineSegmentTool(sheet.shapeManager())),
-                Map.entry("selection", new SelectionTool(sheet.shapeManager(), canvas))
-        );
-        canvas.setOnMousePressed(event -> {
-            if (event.isSecondaryButtonDown()) {
-                double x = event.getX(),
-                        y = event.getY();
-                if(project.getSheet().shapeManager().selectedShapeProperty.get() != null) {
-                    Shape shape = project.getSheet().shapeManager().selectedShapeProperty.get();
-                    MenuItem paste = new MenuItem("Paste");
-                    //paste.setOnAction(event1 -> commandManager.execute(new ShapePasteCommand(project.getSheet().shapeManager(), shape)));
-                    contextMenu.getItems().add(paste);
-                    if (shape.contains(x, y)) {
-                        MenuItem cut = new MenuItem("Cut");
-                        MenuItem copy = new MenuItem("Copy");
-                        MenuItem delete = new MenuItem("Delete");
-                        //cut.setOnAction(event1 -> commandManager.execute(new ShapeCutCommand(project.getSheet().shapeManager(), shape)));
-                        copy.setOnAction(event1 -> project.getSheet().shapeManager().copyShape(shape));
-                        delete.setOnAction(event1 -> commandManager.execute(new ShapeDeleteCommand(project.getSheet().shapeManager(), shape)));
-                        contextMenu.getItems().addAll(cut, copy, delete);
-                        contextMenu.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());
-                    }
-                }
-            }
-        });
         strokeColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             for(Tool t: toolMap.values()) {
                 if(t instanceof ShapeTool) {
@@ -104,6 +71,50 @@ public class MainController {
             for(Tool t: toolMap.values()) {
                 if(t instanceof ClosedShapeTool) {
                     ((ClosedShapeTool) t).setFillColor(new Color(newValue));
+                }
+            }
+        });
+    }
+
+    private void initContextMenu() {
+        MenuItem copy = new MenuItem("Copy");
+        copy.setOnAction(event -> onCopy());
+
+        MenuItem cut = new MenuItem("Cut");
+        cut.setOnAction(event -> onCut());
+
+        MenuItem paste = new MenuItem("Paste");
+        paste.setOnAction(event -> onPaste());
+
+        MenuItem delete = new MenuItem("Delete");
+        delete.setOnAction(event -> onDelete());
+
+        shapeContextMenu.getItems().addAll(copy, cut, paste, delete);
+        shapeContextMenu.setAutoHide(true);
+    }
+
+    private void initSheet(Sheet sheet) {
+        Canvas canvas = new Canvas();
+        sheet.buildDrawingArea(canvas);
+        canvasContainer.setContent(canvas);
+        sheet.shapeManager().redraw();
+        initContextMenu();
+
+        toolMap = Map.ofEntries(
+            Map.entry("rectangle", new RectangleTool(sheet.shapeManager())),
+            Map.entry("ellipse", new EllipseTool(sheet.shapeManager())),
+            Map.entry("segment", new LineSegmentTool(sheet.shapeManager())),
+            Map.entry("selection", new SelectionTool(sheet.shapeManager(), canvas))
+        );
+
+        canvas.setOnMouseClicked(event -> shapeContextMenu.hide());
+        canvas.setOnContextMenuRequested(event -> {
+            double x = event.getX(),
+                    y = event.getY();
+            if(project.getSheet().shapeManager().selectedShapeProperty.get() != null) {
+                Shape shape = project.getSheet().shapeManager().selectedShapeProperty.get();
+                if(shape.contains(x, y)) {
+                    shapeContextMenu.show(canvasContainer, event.getScreenX(), event.getScreenY());
                 }
             }
         });
@@ -147,7 +158,7 @@ public class MainController {
         if (file != null) {
             project = Project.load(file);
             assert project != null;
-            _init(project.getSheet());
+            initSheet(project.getSheet());
         }
     }
 
@@ -171,15 +182,15 @@ public class MainController {
     }
 
     public void onCut() {
-
+        //commandManager.execute(new ShapeCutCommand(project.getSheet().shapeManager(), shape));
     }
 
     public void onPaste() {
-
+        //commandManager.execute(new ShapePasteCommand(project.getSheet().shapeManager(), shape));
     }
 
     public void onDelete() {
-        project.getSheet().shapeManager().deleteShape(project.getSheet().shapeManager().selectedShapeProperty.get());
+        commandManager.execute(new ShapeDeleteCommand(project.getSheet().shapeManager(), project.getSheet().shapeManager().selectedShapeProperty.get()));
     }
 
     public void deselectTool(KeyEvent keyEvent) {

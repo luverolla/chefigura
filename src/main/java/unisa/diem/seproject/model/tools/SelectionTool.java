@@ -14,7 +14,7 @@ public class SelectionTool implements Tool {
     private final ShapeManager shapeManager;
     private Shape selected;
     private boolean mouseIsDown;
-    private Canvas canvas;
+    private final Canvas canvas;
 
     public SelectionTool(ShapeManager sm, Canvas canvas) {
         this.shapeManager = sm;
@@ -25,9 +25,12 @@ public class SelectionTool implements Tool {
 
     @Override
     public void mouseDown(double mouseX, double mouseY) {
+        mouseIsDown = true;
         shapeManager.redraw();
         this.selected = this.shapeManager.select(mouseX, mouseY);
+
         if (selected != null) {
+            this.shapeManager.selectedShapeProperty.set(this.selected);
             selected.getBounds().show(shapeManager.getGraphicsContext());
         }
     }
@@ -57,7 +60,7 @@ public class SelectionTool implements Tool {
 
     @Override
     public void mouseUp(double mouseX, double mouseY) {
-
+        mouseIsDown = false;
     }
 
     @Override
@@ -70,6 +73,4 @@ public class SelectionTool implements Tool {
         this.selected = null;
         shapeManager.redraw();
     }
-
-
 }
