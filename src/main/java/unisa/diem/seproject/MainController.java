@@ -14,7 +14,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 
 import unisa.diem.seproject.model.*;
+import unisa.diem.seproject.model.commands.ShapeCutCommand;
 import unisa.diem.seproject.model.commands.ShapeDeleteCommand;
+import unisa.diem.seproject.model.commands.ShapePasteCommand;
 import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.tools.*;
 
@@ -197,11 +199,11 @@ public class MainController {
     }
 
     public void onCut() {
-        //commandManager.execute(new ShapeCutCommand(project.getSheet().shapeManager(), shape));
+        commandManager.execute(new ShapeCutCommand(project.getSheet().shapeManager(), project.getSheet().shapeManager().selectedShapeProperty.get()));
     }
 
     public void onPaste() {
-        //commandManager.execute(new ShapePasteCommand(project.getSheet().shapeManager(), shape));
+        commandManager.execute(new ShapePasteCommand(project.getSheet().shapeManager(), project.getSheet().shapeManager().copiedShapeProperty.get()));
     }
 
     public void onDelete() {

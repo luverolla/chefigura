@@ -38,4 +38,5 @@ public interface Shape extends Serializable {
     Color getStrokeColor();
     void setStrokeColor(Color strokeColor);
     Bounds getBounds();
+    Shape copy();
 }

@@ -18,17 +18,17 @@
                     <KeyCodeCombination alt="UP" code="Z" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                 </accelerator>
             </MenuItem>
-            <MenuItem fx:id="menuOptionCut" mnemonicParsing="false" text="Cut">
+            <MenuItem fx:id="menuOptionCut" mnemonicParsing="false" text="Cut" onAction="#onCut">
                 <accelerator>
                     <KeyCodeCombination alt="UP" code="X" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                 </accelerator>
             </MenuItem>
-            <MenuItem fx:id="menuOptionCopy" mnemonicParsing="false" text="Copy">
+            <MenuItem fx:id="menuOptionCopy" mnemonicParsing="false" text="Copy" onAction="#onCopy">
                 <accelerator>
                     <KeyCodeCombination alt="UP" code="C" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                 </accelerator>
             </MenuItem>
-            <MenuItem fx:id="menuOptionPaste" mnemonicParsing="false" text="Paste">
+            <MenuItem fx:id="menuOptionPaste" mnemonicParsing="false" text="Paste" onAction="#onPaste">
                 <accelerator>
                     <KeyCodeCombination alt="UP" code="V" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                 </accelerator>

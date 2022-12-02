@@ -3,6 +3,7 @@ package unisa.diem.seproject.model.shapes;
 import javafx.scene.canvas.GraphicsContext;
 
 import unisa.diem.seproject.model.Bounds;
+import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.BaseClosedShape;
 import unisa.diem.seproject.model.extensions.Point;
@@ -65,6 +66,11 @@ public class EllipseShape extends BaseClosedShape {
         double endX = center.getX() + radiusX;
         double endY = center.getY() + radiusY;
         return new Bounds(new Point(startX, startY), new Point(endX, endY));
+    }
+
+    @Override
+    public Shape copy() {
+        return new EllipseShape(strokeColor, fillColor, center, radiusX, radiusY);
     }
 
     @Serial

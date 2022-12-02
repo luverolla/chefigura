@@ -3,6 +3,7 @@ package unisa.diem.seproject.model.shapes;
 import javafx.scene.canvas.GraphicsContext;
 
 import unisa.diem.seproject.model.Bounds;
+import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.extensions.Point;
 import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.BaseClosedShape;
@@ -65,6 +66,11 @@ public class RectangleShape extends BaseClosedShape {
     @Override
     public Bounds getBounds() {
         return new Bounds(start, end);
+    }
+
+    @Override
+    public Shape copy() {
+        return new RectangleShape(strokeColor, fillColor, start, end);
     }
 
     @Serial
