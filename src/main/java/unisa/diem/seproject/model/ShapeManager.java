@@ -20,8 +20,6 @@ public class ShapeManager implements Serializable {
     private final List<Shape> shapes;
     private transient GraphicsContext context;
     private final transient CommandManager commandManager;
-    private Shape selectedShape;
-    private Shape copiedShape;
     public transient ObjectProperty<Shape> selectedShapeProperty;
     public transient ObjectProperty<Shape> copiedShapeProperty;
 
@@ -61,6 +59,8 @@ public class ShapeManager implements Serializable {
         for (Shape s : shapes) {
             s.draw(context);
         }
+        if(selectedShapeProperty.get() != null)
+            selectedShapeProperty.get().getBounds().show(context);
     }
 
     public void add(Shape s) {
@@ -70,13 +70,16 @@ public class ShapeManager implements Serializable {
     }
 
     public void remove(Shape s) {
+        if(selectedShapeProperty.get() == s)
+            selectedShapeProperty.set(null);
+
         shapes.remove(s);
-        if (context != null) {
+        if (context != null)
             redraw();
-        }
     }
 
     public void clear() {
+        selectedShapeProperty.set(null);
         shapes.clear();
         if (context != null) {
             redraw();
@@ -96,22 +99,12 @@ public class ShapeManager implements Serializable {
         return null;
     }
 
-    public Shape getSelectedShape() {
-        return this.selectedShape;
-    }
-
     public void setSelectedShape(Shape s) {
-        this.selectedShape = s;
-    }
-
-    public void deleteShape(Shape s) {
-        ShapeDeleteCommand command = new ShapeDeleteCommand(this, s);
-        commandManager.execute(command);
-        shapes.remove(s);
+        this.selectedShapeProperty.set(s);
     }
 
     public void copyShape(Shape s) {
-        this.copiedShape = s;
+        this.copiedShapeProperty.set(s);
     }
 
     public void changeShapeColor(Shape shape, Color strokeColor, Color fillColor) {

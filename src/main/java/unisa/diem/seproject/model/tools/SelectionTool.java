@@ -29,9 +29,13 @@ public class SelectionTool implements Tool {
         shapeManager.redraw();
         this.selected = this.shapeManager.select(mouseX, mouseY);
 
-        if (selected != null) {
+        if(selected != null) {
             this.shapeManager.selectedShapeProperty.set(this.selected);
             selected.getBounds().show(shapeManager.getGraphicsContext());
+        }
+        else {
+            this.shapeManager.selectedShapeProperty.set(null);
+            this.shapeManager.redraw();
         }
     }
 
@@ -71,6 +75,7 @@ public class SelectionTool implements Tool {
     @Override
     public void reset() {
         this.selected = null;
+        this.mouseIsDown = false;
         shapeManager.redraw();
     }
 }

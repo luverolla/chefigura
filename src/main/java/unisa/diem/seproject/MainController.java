@@ -138,6 +138,11 @@ public class MainController {
                 sheet.getCurrentTool().mouseDrag(e.getX(), e.getY());
             }
         });
+        canvas.setOnMouseReleased(e -> {
+            if (sheet.getCurrentTool() != null) {
+                sheet.getCurrentTool().mouseUp(e.getX(), e.getY());
+            }
+        });
     }
 
     @FXML

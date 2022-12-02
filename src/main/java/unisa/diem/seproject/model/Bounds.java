@@ -10,6 +10,11 @@ import unisa.diem.seproject.model.extensions.Point;
  */
 public class Bounds {
 
+    private static final int HANDLE_SIZE = 5;
+    private static final int HANDLE_OFFSET = HANDLE_SIZE / 2;
+    private static final int CROSS_SIZE = 10;
+    private static final int CROSS_OFFSET = CROSS_SIZE / 2;
+
     private final Point start;
     private final Point end;
 
@@ -57,12 +62,16 @@ public class Bounds {
     }
 
     public void show(GraphicsContext gc) {
+        gc.setStroke(new Color(1, 0, 0).toFXColor());
+        gc.setLineDashes(10);
+        gc.strokeRect(start.getX(), start.getY(), end.getX() - start.getX(), end.getY() - start.getY());
         Point center = getCenter();
+        gc.setLineDashes(0);
         gc.setStroke(new Color(0.5, 0.5, 0.5).toFXColor());
-        gc.strokeLine(center.getX() - 5, center.getY(), center.getX() +5 , center.getY());
-        gc.strokeLine(center.getX(), center.getY() - 5, center.getX() , center.getY() + 5);
+        gc.strokeLine(center.getX() - CROSS_OFFSET, center.getY(), center.getX() + CROSS_OFFSET , center.getY());
+        gc.strokeLine(center.getX(), center.getY() - CROSS_OFFSET, center.getX() , center.getY() + CROSS_OFFSET);
         for (Point anchorPoint : getAnchorPoints()) {
-            gc.strokeRect(anchorPoint.getX() - 2.5, anchorPoint.getY() - 2.5, 5, 5);
+            gc.strokeRect(anchorPoint.getX() - HANDLE_OFFSET, anchorPoint.getY() - HANDLE_OFFSET, HANDLE_SIZE, HANDLE_SIZE);
         }
     }
 }
