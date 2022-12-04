@@ -48,7 +48,7 @@ public class ShapeManager implements Serializable {
     }
 
     public void draw(Shape s) {
-        ShapeDrawCommand command = new ShapeDrawCommand(s, this);
+        Command command = new ShapeDrawCommand(s, this);
         commandManager.execute(command);
     }
 
@@ -72,7 +72,6 @@ public class ShapeManager implements Serializable {
     public void remove(Shape s) {
         if(selectedShapeProperty.get() == s)
             selectedShapeProperty.set(null);
-
         shapes.remove(s);
         if (context != null)
             redraw();
@@ -113,5 +112,16 @@ public class ShapeManager implements Serializable {
             ((ClosedShape) shape).setFillColor(fillColor);
         }
         redraw();
+    }
+
+    public void move(Shape shape, double deltaX, double deltaY) {
+        if (context != null)
+            redraw();
+        shape.move(deltaX, deltaY);
+    }
+
+    public void moveCommand(Shape shape, double deltaX, double deltaY) {
+        Command command = new ShapeMoveCommand(this, shape, deltaX, deltaY);
+        commandManager.execute(command);
     }
 }

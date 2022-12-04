@@ -66,7 +66,7 @@ public class EllipseTool implements ClosedShapeTool {
     }
 
     @Override
-    public void mouseDrag(double mouseX, double mouseY) {
+    public void mouseMove(double mouseX, double mouseY) {
         if(center != null && radius == null) {
             Point current = new Point(mouseX, mouseY);
             double radiusX = Math.abs(current.getX() - center.getX());
@@ -77,6 +77,11 @@ public class EllipseTool implements ClosedShapeTool {
             sm.getGraphicsContext().strokeOval(center.getX() - radiusX, center.getY() - radiusY, radiusX * 2, radiusY * 2);
             sm.getGraphicsContext().restore();
         }
+    }
+
+    @Override
+    public void mouseDrag(double mouseX, double mouseY) {
+
     }
 
     @Override

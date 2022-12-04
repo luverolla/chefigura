@@ -63,7 +63,7 @@ public class LineSegmentTool implements ShapeTool {
     }
 
     @Override
-    public void mouseDrag(double mouseX, double mouseY) {
+    public void mouseMove(double mouseX, double mouseY) {
         if (start != null && end == null) {
             sm.redraw(); // Clear the canvas and redraw all the shapes on it (without the current one)
             sm.getGraphicsContext().save(); // Save the current state of the canvas
@@ -72,6 +72,9 @@ public class LineSegmentTool implements ShapeTool {
             sm.getGraphicsContext().restore();
         }
     }
+
+    @Override
+    public void mouseDrag(double mouseX, double mouseY) {}
 
     @Override
     public void mouseUp(double mouseX, double mouseY) {

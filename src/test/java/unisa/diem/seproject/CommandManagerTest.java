@@ -47,11 +47,11 @@ public class CommandManagerTest {
 
         @Test
         @DisplayName("Test rollback with a sample command")
-        public void testRollback() {
+        public void testUndo() {
             assertNull(cm.lastUndoneCommand());
             cm.execute(cs);
             assertEquals(1, cs.getCount());
-            cm.rollback();
+            cm.undo();
             assertEquals(0, cs.getCount());
             assert cm.lastUndoneCommand().equals(cs);
             assertNull(cm.lastExecutedCommand());

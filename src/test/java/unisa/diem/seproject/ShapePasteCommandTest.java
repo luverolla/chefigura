@@ -29,7 +29,7 @@ public class ShapePasteCommandTest {
     @DisplayName("Test rollback of ShapePasteCommand")
     public void testRollback() {
         cm.execute(command);
-        cm.rollback();
+        cm.undo();
         assertEquals(sheet.shapeManager().getShapes().size(), 0);
     }
 }

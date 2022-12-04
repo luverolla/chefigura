@@ -45,7 +45,8 @@ public class RectangleShape extends BaseClosedShape {
 
     @Override
     public void move(double deltaX, double deltaY) {
-
+        start= new Point(start.getX() + deltaX, start.getY() + deltaY);
+        end = new Point(end.getX() + deltaX, end.getY() + deltaY);
     }
 
     @Override

@@ -41,7 +41,7 @@ public class EllipseShape extends BaseClosedShape {
 
     @Override
     public void move(double deltaX, double deltaY) {
-
+        center = new Point(center.getX() + deltaX, center.getY() + deltaY);
     }
 
     @Override

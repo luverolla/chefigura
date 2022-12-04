@@ -23,7 +23,7 @@ public class CommandManager {
         commandStack.push(command);
     }
 
-    public void rollback() {
+    public void undo() {
         if (commandStack.isEmpty()) {
             return;
         }

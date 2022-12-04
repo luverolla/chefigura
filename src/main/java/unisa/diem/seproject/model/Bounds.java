@@ -62,14 +62,13 @@ public class Bounds {
     }
 
     public void show(GraphicsContext gc) {
-        gc.setStroke(new Color(1, 0, 0).toFXColor());
-        gc.setLineDashes(10);
-        gc.strokeRect(start.getX(), start.getY(), end.getX() - start.getX(), end.getY() - start.getY());
+        gc.setFill(new Color(0.2, 0.8, 1, 0.1).toFXColor());
+        gc.fillRect(start.getX(), start.getY(), end.getX() - start.getX(), end.getY() - start.getY());
         Point center = getCenter();
-        gc.setLineDashes(0);
         gc.setStroke(new Color(0.5, 0.5, 0.5).toFXColor());
         gc.strokeLine(center.getX() - CROSS_OFFSET, center.getY(), center.getX() + CROSS_OFFSET , center.getY());
         gc.strokeLine(center.getX(), center.getY() - CROSS_OFFSET, center.getX() , center.getY() + CROSS_OFFSET);
+        gc.setStroke(new Color(0, 0, 0).toFXColor());
         for (Point anchorPoint : getAnchorPoints()) {
             gc.strokeRect(anchorPoint.getX() - HANDLE_OFFSET, anchorPoint.getY() - HANDLE_OFFSET, HANDLE_SIZE, HANDLE_SIZE);
         }

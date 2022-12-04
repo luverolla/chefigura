@@ -30,7 +30,7 @@ public class ShapeCutCommandTest {
     @DisplayName("Test rollback of ShapeCutCommand")
     public void testRollback() {
         cm.execute(command);
-        cm.rollback();
+        cm.undo();
         assertEquals(sheet.shapeManager().getShapes().size(), 1);
     }
 

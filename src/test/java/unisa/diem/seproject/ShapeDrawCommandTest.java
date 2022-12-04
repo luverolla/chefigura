@@ -26,7 +26,7 @@ public class ShapeDrawCommandTest {
     @DisplayName("Test rollback of a draw command")
     public void testRollback() {
         cm.execute(command);
-        cm.rollback();
+        cm.undo();
         assertFalse(sheet.shapeManager().getShapes().contains(testRectangle));
     }
 }

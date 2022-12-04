@@ -32,7 +32,7 @@ public void testExecute() {
 public void testRollback() {
         sheet.shapeManager().add(testRectangle);
         cm.execute(command);
-        cm.rollback();
+        cm.undo();
         assertTrue(sheet.shapeManager().getShapes().contains(testRectangle));
     }
 

@@ -11,6 +11,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 import unisa.diem.seproject.model.*;
@@ -21,6 +22,7 @@ import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.tools.*;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 public class MainController {
@@ -113,13 +115,12 @@ public class MainController {
         initContextMenu();
 
         toolMap = Map.ofEntries(
-            Map.entry("rectangle", new RectangleTool(sheet.shapeManager())),
-            Map.entry("ellipse", new EllipseTool(sheet.shapeManager())),
-            Map.entry("segment", new LineSegmentTool(sheet.shapeManager())),
-            Map.entry("selection", new SelectionTool(sheet.shapeManager(), canvas))
+                Map.entry("rectangle", new RectangleTool(sheet.shapeManager())),
+                Map.entry("ellipse", new EllipseTool(sheet.shapeManager())),
+                Map.entry("segment", new LineSegmentTool(sheet.shapeManager())),
+                Map.entry("selection", new SelectionTool(sheet.shapeManager(), canvas))
         );
 
-        canvas.setOnMouseClicked(event -> shapeContextMenu.hide());
         canvas.setOnContextMenuRequested(event -> {
             double x = event.getX(),
                     y = event.getY();
@@ -130,17 +131,18 @@ public class MainController {
                 }
             }
         });
-        canvas.setOnMousePressed(e -> {
+        canvas.setOnMouseClicked(e -> {
+            shapeContextMenu.hide();
             if (sheet.getCurrentTool() != null) {
                 sheet.getCurrentTool().mouseDown(e.getX(), e.getY());
             }
         });
         canvas.setOnMouseMoved(e -> {
             if (sheet.getCurrentTool() != null) {
-                sheet.getCurrentTool().mouseDrag(e.getX(), e.getY());
+                sheet.getCurrentTool().mouseMove(e.getX(), e.getY());
             }
         });
-        canvas.setOnMouseReleased(e -> {
+        canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
             if (sheet.getCurrentTool() != null) {
                 sheet.getCurrentTool().mouseUp(e.getX(), e.getY());
             }
@@ -149,6 +151,7 @@ public class MainController {
 
     @FXML
     public void selectTool(ActionEvent e) {
+        project.getSheet().shapeManager().selectedShapeProperty.set(null);
         Node node = (Node) e.getSource();
         String toolName = (String) node.getUserData();
         Tool chosen = toolMap.get(toolName);
@@ -191,7 +194,7 @@ public class MainController {
     }
 
     public void onUndo() {
-        project.getCommandManager().rollback();
+        project.getCommandManager().undo();
     }
 
     public void onCopy() {
@@ -210,11 +213,10 @@ public class MainController {
         commandManager.execute(new ShapeDeleteCommand(project.getSheet().shapeManager(), project.getSheet().shapeManager().selectedShapeProperty.get()));
     }
 
-    public void deselectTool(KeyEvent keyEvent) {
+    public void resetTool(KeyEvent keyEvent) {
         if(keyEvent.getCode() == KeyCode.ESCAPE) {
             if (project.getSheet().getCurrentTool() != null) {
                 project.getSheet().getCurrentTool().reset();
-                project.getSheet().setCurrentTool(null);
             }
         }
     }

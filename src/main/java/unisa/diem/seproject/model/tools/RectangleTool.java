@@ -78,7 +78,7 @@ public class RectangleTool implements ClosedShapeTool {
     }
 
     @Override
-    public void mouseDrag(double mouseX, double mouseY) {
+    public void mouseMove(double mouseX, double mouseY) {
         if(start != null && end == null) {
             sm.redraw();
             sm.getGraphicsContext().save();
@@ -99,6 +99,9 @@ public class RectangleTool implements ClosedShapeTool {
             sm.getGraphicsContext().restore();
         }
     }
+
+    @Override
+    public void mouseDrag(double mouseX, double mouseY) {}
 
     @Override
     public void mouseUp(double mouseX, double mouseY) {

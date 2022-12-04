@@ -17,20 +17,20 @@ public class ShapeColorCommandTest {
     Color oldStrokeColor = testLineSegment.getStrokeColor();
     Color strokeColor = new Color(1, 1, 1);
     Color fillColor = new Color(1, 1, 1);
-    ShapeColorCommand command = new ShapeColorCommand(testLineSegment, sheet.shapeManager(),oldStrokeColor, null, strokeColor, fillColor);
+    ShapeColorCommand command1 = new ShapeColorCommand(sheet.shapeManager(), testLineSegment, oldStrokeColor, null, strokeColor, fillColor);
 
     @Test
     @DisplayName("test execute of ShapeColorCommand")
     public void testExecute() {
-        cm.execute(command);
+        cm.execute(command1);
         assertEquals(strokeColor, testLineSegment.getStrokeColor());
     }
 
     @Test
     @DisplayName("test rollback of ShapeColorCommand")
     public void testRollback() {
-        cm.execute(command);
-        cm.rollback();
+        cm.execute(command1);
+        cm.undo();
         assertEquals(oldStrokeColor, testLineSegment.getStrokeColor());
     }
 }

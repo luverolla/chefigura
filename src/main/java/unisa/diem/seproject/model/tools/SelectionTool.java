@@ -3,9 +3,13 @@ package unisa.diem.seproject.model.tools;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 
+import javafx.scene.input.MouseEvent;
 import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 import unisa.diem.seproject.model.Tool;
+import unisa.diem.seproject.model.tools.anchors.*;
+
+import java.util.List;
 
 /**
  * Tool to select a shape
@@ -13,25 +17,39 @@ import unisa.diem.seproject.model.Tool;
 public class SelectionTool implements Tool {
     private final ShapeManager shapeManager;
     private Shape selected;
-    private boolean mouseIsDown;
     private final Canvas canvas;
+    final List<AnchorPoint> anchorPoints;
 
     public SelectionTool(ShapeManager sm, Canvas canvas) {
         this.shapeManager = sm;
         this.selected = null;
-        this.mouseIsDown = false;
         this.canvas = canvas;
+        this.anchorPoints = List.of(
+                new CenterAnchorPoint(this, canvas)
+        );
+        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
+            for (AnchorPoint anchorPoint : anchorPoints) {
+                anchorPoint.mouseDragStart(event.getX(), event.getY());
+            }
+        });
+        canvas.setOnMouseDragged(event -> {
+            for (AnchorPoint anchorPoint : anchorPoints) {
+                anchorPoint.mouseDragInProgress(event.getX(), event.getY());
+            }
+        });
+        canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, event -> {
+            for (AnchorPoint anchorPoint : anchorPoints) {
+                anchorPoint.mouseDragEnd(event.getX(), event.getY());
+            }
+        });
     }
 
     @Override
     public void mouseDown(double mouseX, double mouseY) {
-        mouseIsDown = true;
-        shapeManager.redraw();
         this.selected = this.shapeManager.select(mouseX, mouseY);
-
         if(selected != null) {
             this.shapeManager.selectedShapeProperty.set(this.selected);
-            selected.getBounds().show(shapeManager.getGraphicsContext());
+            this.shapeManager.redraw();
         }
         else {
             this.shapeManager.selectedShapeProperty.set(null);
@@ -41,30 +59,20 @@ public class SelectionTool implements Tool {
 
     @Override
     public void mouseDrag(double mouseX, double mouseY) {
-        if (mouseIsDown && selected != null) {
-            selected.move(mouseX, mouseY);
-        } else {
-            if (selected != null) {
-                if (selected.getBounds().mouseOnCenter(mouseX, mouseY)) {
-                    canvas.getScene().setCursor(Cursor.OPEN_HAND);
-                } else if (selected.getBounds().mouseOnNWAnchorPoint(mouseX, mouseY)) {
-                    canvas.getScene().setCursor(Cursor.NW_RESIZE);
-                } else if (selected.getBounds().mouseOnNEAnchorPoint(mouseX, mouseY)) {
-                    canvas.getScene().setCursor(Cursor.NE_RESIZE);
-                } else if (selected.getBounds().mouseOnSEAnchorPoint(mouseX, mouseY)) {
-                    canvas.getScene().setCursor(Cursor.SE_RESIZE);
-                } else if (selected.getBounds().mouseOnSWAnchorPoint(mouseX, mouseY)) {
-                    canvas.getScene().setCursor(Cursor.SW_RESIZE);
-                } else {
-                    canvas.getScene().setCursor(Cursor.DEFAULT);
-                }
-            }
+        
+    }
+
+    @Override
+    public void mouseMove(double mouseX, double mouseY) {
+        canvas.getScene().setCursor(Cursor.DEFAULT);
+        for (AnchorPoint anchorPoint: anchorPoints) {
+            anchorPoint.mouseMove(mouseX, mouseY);
         }
     }
 
     @Override
     public void mouseUp(double mouseX, double mouseY) {
-        mouseIsDown = false;
+        
     }
 
     @Override
@@ -75,7 +83,10 @@ public class SelectionTool implements Tool {
     @Override
     public void reset() {
         this.selected = null;
-        this.mouseIsDown = false;
         shapeManager.redraw();
+    }
+
+    public ShapeManager getShapeManager() {
+        return this.shapeManager;
     }
 }
