@@ -5,8 +5,9 @@ import java.util.Objects;
 
 /**
  * Class that represents a color
- *
+ *<p>
  * Used instead of the JavaFX Color class to allow serialization
+ * </p>
  */
 public class Color implements Serializable {
 

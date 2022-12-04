@@ -1,6 +1,7 @@
 package unisa.diem.seproject;
 
 import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import unisa.diem.seproject.model.CommandManager;
 import unisa.diem.seproject.model.Shape;
@@ -18,7 +19,7 @@ public class ShapeManagerTest {
     public void testAdd() {
         Shape shape = new RectangleShape(new Point(0, 0), new Point(10, 10));
         sm.add(shape);
-        assert sm.getShapes().contains(shape);
+        assertNotNull(sm.getShape(shape));
     }
 
     @Test
@@ -27,7 +28,7 @@ public class ShapeManagerTest {
         Shape shape = new RectangleShape(new Point(0, 0), new Point(10, 10));
         sm.add(shape);
         sm.remove(shape);
-        assert !sm.getShapes().contains(shape);
+        assertNull(sm.getShape(shape));
     }
 
     @Test
@@ -38,6 +39,6 @@ public class ShapeManagerTest {
         sm.add(shape1);
         sm.add(shape2);
         sm.clear();
-        assert sm.getShapes().isEmpty();
+        assertTrue(sm.isEmpty());
     }
 }

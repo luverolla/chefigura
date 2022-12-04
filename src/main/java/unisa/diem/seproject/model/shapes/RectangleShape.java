@@ -24,7 +24,7 @@ public class RectangleShape extends BaseClosedShape {
         this.end = end;
     }
 
-    public RectangleShape(Point start, Point end) { // used for testing purposes
+    public RectangleShape(Point start, Point end) {
         super();
         this.start = start;
         this.end = end;
@@ -50,8 +50,14 @@ public class RectangleShape extends BaseClosedShape {
     }
 
     @Override
-    public void resize(double deltaX, double deltaY) {
-
+    public void resize(double delta) {
+        double ratio = getBounds().getWidth() / getBounds().getHeight();
+        double newWidth = getBounds().getWidth() + delta;
+        double newHeight = newWidth / ratio;
+        double newStartX = getBounds().getCenter().getX() - newWidth / 2;
+        double newStartY = getBounds().getCenter().getY() - newHeight / 2;
+        start = new Point(newStartX, newStartY);
+        end = new Point(newStartX + newWidth, newStartY + newHeight);
     }
 
     @Override

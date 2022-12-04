@@ -13,15 +13,17 @@ import java.util.List;
 
 /**
  * Class that manages shapes operations
+ * <p>
  * Implements the Composite pattern
+ * </p>
  */
 public class ShapeManager implements Serializable {
 
     private final List<Shape> shapes;
     private transient GraphicsContext context;
     private final transient CommandManager commandManager;
-    public transient ObjectProperty<Shape> selectedShapeProperty;
-    public transient ObjectProperty<Shape> copiedShapeProperty;
+    public final transient ObjectProperty<Shape> selectedShapeProperty;
+    public final transient ObjectProperty<Shape> copiedShapeProperty;
 
     public ShapeManager(GraphicsContext context, CommandManager commandManager) {
         this.shapes = new ArrayList<>();
@@ -47,20 +49,38 @@ public class ShapeManager implements Serializable {
         this.context = context;
     }
 
-    public void draw(Shape s) {
-        Command command = new ShapeDrawCommand(s, this);
-        commandManager.execute(command);
+    public Shape getShape(Shape shape){
+        return shapes.contains(shape) ? shape : null;
+    }
+
+    public boolean isEmpty(){
+        return shapes.isEmpty();
+    }
+
+    public List<Shape> getShapes() {
+        return shapes;
     }
 
     public void redraw() {
-        context.clearRect(0, 0, context.getCanvas().getWidth(), context.getCanvas().getHeight());
-        context.setFill(new Color(1, 1, 1).toFXColor());
-        context.fillRect(0, 0, context.getCanvas().getWidth(), context.getCanvas().getHeight());
-        for (Shape s : shapes) {
-            s.draw(context);
+        if (context != null) {
+            context.clearRect(0, 0, context.getCanvas().getWidth(), context.getCanvas().getHeight());
+            context.setFill(new Color(1, 1, 1).toFXColor());
+            context.fillRect(0, 0, context.getCanvas().getWidth(), context.getCanvas().getHeight());
+            for (Shape s : shapes) {
+                s.draw(context);
+            }
+            if (selectedShapeProperty.get() != null)
+                selectedShapeProperty.get().getBounds().show(context);
         }
-        if(selectedShapeProperty.get() != null)
-            selectedShapeProperty.get().getBounds().show(context);
+    }
+
+    public Shape select(double mouseX, double mouseY) {
+        for (Shape s : shapes) {
+            if (s.contains(mouseX, mouseY)) {
+                return s;
+            }
+        }
+        return null;
     }
 
     public void add(Shape s) {
@@ -85,21 +105,9 @@ public class ShapeManager implements Serializable {
         }
     }
 
-    public List<Shape> getShapes() {
-        return shapes;
-    }
-
-    public Shape select(double mouseX, double mouseY) {
-        for (Shape s : shapes) {
-            if (s.contains(mouseX, mouseY)) {
-                return s;
-            }
-        }
-        return null;
-    }
-
-    public void setSelectedShape(Shape s) {
-        this.selectedShapeProperty.set(s);
+    public void drawCommand(Shape s) {
+        Command command = new ShapeDrawCommand(s, this);
+        commandManager.execute(command);
     }
 
     public void copyShape(Shape s) {
@@ -122,6 +130,17 @@ public class ShapeManager implements Serializable {
 
     public void moveCommand(Shape shape, double deltaX, double deltaY) {
         Command command = new ShapeMoveCommand(this, shape, deltaX, deltaY);
+        commandManager.execute(command);
+    }
+
+    public void resize(Shape shape, double delta) {
+        if (context != null)
+            redraw();
+        shape.resize(delta);
+    }
+
+    public void resizeCommand(Shape shape, double delta) {
+        Command command = new ShapeResizeCommand(this, shape, delta);
         commandManager.execute(command);
     }
 }

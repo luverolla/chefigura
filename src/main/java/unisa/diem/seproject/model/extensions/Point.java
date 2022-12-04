@@ -5,8 +5,9 @@ import java.util.Objects;
 
 /**
  * Class that represents a point
- *
+ *<p>
  * Used instead of the JavaFX Point2D class to allow serialization
+ * </p>
  */
 public class Point implements Serializable {
 

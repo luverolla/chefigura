@@ -5,8 +5,9 @@ import java.util.Deque;
 
 /**
  * Class that handles command executions, undo and redo
- *
+ *<p>
  * Implements the Invoker class of the Command pattern
+ * </p>
  */
 public class CommandManager {
 

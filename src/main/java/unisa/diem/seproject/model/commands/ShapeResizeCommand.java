@@ -4,33 +4,27 @@ import unisa.diem.seproject.model.Command;
 import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 
-public class ShapePasteCommand implements Command {
+public class ShapeResizeCommand implements Command {
 
     private final ShapeManager sm;
     private final Shape shape;
-    private Shape pasted;
+    private final double delta;
 
-    public ShapePasteCommand(ShapeManager sm, Shape shape) {
+    public ShapeResizeCommand(ShapeManager sm, Shape shape, double delta) {
         this.sm = sm;
         this.shape = shape;
-        this.pasted = null;
-    }
-
-    public Shape getPasted() {
-        return pasted;
+        this.delta = delta;
     }
 
     @Override
     public void execute() {
-        if(shape != null) {
-            pasted = shape.copy();
-            sm.add(pasted);
-        }
+        sm.resize(shape, delta);
     }
 
     @Override
     public void rollback() {
-        sm.remove(pasted);
+        sm.resize(shape, -delta);
+        sm.redraw();
     }
 }
 

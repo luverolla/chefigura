@@ -13,7 +13,7 @@ import unisa.diem.seproject.model.shapes.RectangleShape;
 
 public class ShapeDeleteCommandTest {
 
-final CommandManager cm = new CommandManager();
+    private final CommandManager cm = new CommandManager();
     private final Sheet sheet = new Sheet(SheetFormat.NONE, cm);
     private final Shape testRectangle = new RectangleShape(new Point(0, 0), new Point(10, 10));
     private final ShapeDeleteCommand command = new ShapeDeleteCommand(sheet.shapeManager(), testRectangle);
@@ -21,19 +21,18 @@ final CommandManager cm = new CommandManager();
 
     @Test
     @DisplayName("Test execute of ShapeDeleteCommand")
-public void testExecute() {
+    public void testExecute() {
         sheet.shapeManager().add(testRectangle);
         cm.execute(command);
-        assertFalse(sheet.shapeManager().getShapes().contains(testRectangle));
+        assertNull(sheet.shapeManager().getShape(testRectangle));
     }
 
     @Test
     @DisplayName("Test rollback of ShapeDeleteCommand")
-public void testRollback() {
+    public void testRollback() {
         sheet.shapeManager().add(testRectangle);
         cm.execute(command);
         cm.undo();
-        assertTrue(sheet.shapeManager().getShapes().contains(testRectangle));
+        assertNotNull(sheet.shapeManager().getShape(testRectangle));
     }
-
 }

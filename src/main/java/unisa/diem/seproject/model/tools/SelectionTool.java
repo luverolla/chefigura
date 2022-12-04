@@ -15,17 +15,22 @@ import java.util.List;
  * Tool to select a shape
  */
 public class SelectionTool implements Tool {
+
     private final ShapeManager shapeManager;
     private Shape selected;
     private final Canvas canvas;
-    final List<AnchorPoint> anchorPoints;
+    private final List<AnchorPoint> anchorPoints;
 
     public SelectionTool(ShapeManager sm, Canvas canvas) {
         this.shapeManager = sm;
         this.selected = null;
         this.canvas = canvas;
         this.anchorPoints = List.of(
-                new CenterAnchorPoint(this, canvas)
+                new CenterAnchorPoint(this, canvas),
+                new NWAnchorPoint(this, canvas),
+                new NEAnchorPoint(this, canvas),
+                new SEAnchorPoint(this, canvas),
+                new SWAnchorPoint(this, canvas)
         );
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
             for (AnchorPoint anchorPoint : anchorPoints) {
@@ -58,26 +63,11 @@ public class SelectionTool implements Tool {
     }
 
     @Override
-    public void mouseDrag(double mouseX, double mouseY) {
-        
-    }
-
-    @Override
     public void mouseMove(double mouseX, double mouseY) {
         canvas.getScene().setCursor(Cursor.DEFAULT);
         for (AnchorPoint anchorPoint: anchorPoints) {
             anchorPoint.mouseMove(mouseX, mouseY);
         }
-    }
-
-    @Override
-    public void mouseUp(double mouseX, double mouseY) {
-        
-    }
-
-    @Override
-    public void apply() {
-        this.shapeManager.setSelectedShape(this.selected);
     }
 
     @Override

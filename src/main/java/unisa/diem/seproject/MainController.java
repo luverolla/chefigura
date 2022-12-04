@@ -11,7 +11,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 import unisa.diem.seproject.model.*;
@@ -22,7 +21,6 @@ import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.tools.*;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 
 public class MainController {
@@ -140,11 +138,6 @@ public class MainController {
         canvas.setOnMouseMoved(e -> {
             if (sheet.getCurrentTool() != null) {
                 sheet.getCurrentTool().mouseMove(e.getX(), e.getY());
-            }
-        });
-        canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
-            if (sheet.getCurrentTool() != null) {
-                sheet.getCurrentTool().mouseUp(e.getX(), e.getY());
             }
         });
     }

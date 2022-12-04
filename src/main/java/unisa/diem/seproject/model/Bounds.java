@@ -36,6 +36,14 @@ public class Bounds {
         };
     }
 
+    public double getWidth() {
+        return end.getX() - start.getX();
+    }
+
+    public double getHeight() {
+        return end.getY() - start.getY();
+    }
+
     public boolean mouseOnCenter(double mouseX, double mouseY) {
         Point center = getCenter();
         return (mouseX >= center.getX() - 5 && mouseX <= center.getX() + 5) && (mouseY >= center.getY() - 5 && mouseY <= center.getY() + 5);

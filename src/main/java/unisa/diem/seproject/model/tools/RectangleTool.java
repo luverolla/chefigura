@@ -27,11 +27,10 @@ public class RectangleTool implements ClosedShapeTool {
         this.fillColor = Color.TRANSPARENT;
     }
 
-    @Override
-    public void apply() {
+    private void apply() {
         if(start != null && end != null && sm.getGraphicsContext() != null) {
             shape = new RectangleShape(strokeColor, fillColor, start, end);
-            sm.draw(shape);
+            sm.drawCommand(shape);
             start = null;
             end = null;
         }
@@ -98,14 +97,6 @@ public class RectangleTool implements ClosedShapeTool {
             sm.getGraphicsContext().strokeRect(currStart.getX(), currStart.getY(), currEnd.getX() - currStart.getX(),  currEnd.getY() - currStart.getY());
             sm.getGraphicsContext().restore();
         }
-    }
-
-    @Override
-    public void mouseDrag(double mouseX, double mouseY) {}
-
-    @Override
-    public void mouseUp(double mouseX, double mouseY) {
-
     }
 
     @Override

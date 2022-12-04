@@ -24,12 +24,6 @@ public class LineSegmentShape extends BaseShape {
         this.end = end;
     }
 
-    public LineSegmentShape(Point start, Point end) { // used for testing purposes
-        super();
-        this.start = start;
-        this.end = end;
-    }
-
     @Override
     public void draw(GraphicsContext gc) {
         gc.setStroke(strokeColor.toFXColor());
@@ -56,8 +50,31 @@ public class LineSegmentShape extends BaseShape {
     }
 
     @Override
-    public void resize(double deltaX, double deltaY) {
-
+    public void resize(double delta) {
+        double ratio = getBounds().getWidth() / getBounds().getHeight();
+        double newWidth = getBounds().getWidth() + delta;
+        double newHeight = newWidth / ratio;
+        double newStartX = getBounds().getCenter().getX() - newWidth / 2;
+        double newStartY = getBounds().getCenter().getY() - newHeight / 2;
+        double newEndX = getBounds().getCenter().getX() + newWidth / 2;
+        double newEndY = getBounds().getCenter().getY() + newHeight / 2;
+        if (start.getX() < end.getX()) {
+            if (start.getY() < end.getY()) {
+                start = new Point(newStartX, newStartY);
+                end = new Point(newEndX, newEndY);
+            } else {
+                start = new Point(newStartX, newEndY);
+                end = new Point(newEndX, newStartY);
+            }
+        } else {
+            if (start.getY() < end.getY()) {
+                start = new Point(newEndX, newStartY);
+                end = new Point(newStartX, newEndY);
+            } else {
+                start = new Point(newEndX, newEndY);
+                end = new Point(newStartX, newStartY);
+            }
+        }
     }
 
     @Override

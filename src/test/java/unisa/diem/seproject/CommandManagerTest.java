@@ -42,7 +42,7 @@ public class CommandManagerTest {
             assertNull(cm.lastExecutedCommand());
             cm.execute(cs);
             assertEquals(1, cs.getCount());
-            assert cm.lastExecutedCommand().equals(cs);
+            assertEquals(cs, cm.lastExecutedCommand());
         }
 
         @Test
@@ -53,7 +53,7 @@ public class CommandManagerTest {
             assertEquals(1, cs.getCount());
             cm.undo();
             assertEquals(0, cs.getCount());
-            assert cm.lastUndoneCommand().equals(cs);
+            assertEquals(cs, cm.lastUndoneCommand());
             assertNull(cm.lastExecutedCommand());
         }
 }

@@ -12,8 +12,9 @@ import java.io.Serializable;
 
 /**
  * Class that represents a sheet of a project
- *
+ *<p>
  * Each sheet has its own canvas
+ * </p>
  */
 public class Sheet implements Serializable {
 
@@ -56,9 +57,9 @@ public class Sheet implements Serializable {
     public void buildDrawingArea(Canvas canvas) {
         double DPI = Screen.getPrimary().getDpi();
         double height = Converter.toPixels(DRAW_AREA_HEIGHT, DPI),
-                width = Converter.toPixels(DRAW_AREA_WIDTH, DPI);
+                   width = Converter.toPixels(DRAW_AREA_WIDTH, DPI);
         double sheetHeight = Converter.toPixels(format.getHeight(), DPI),
-                sheetWidth = Converter.toPixels(format.getWidth(), DPI);
+                   sheetWidth = Converter.toPixels(format.getWidth(), DPI);
         canvas.setWidth(width);
         canvas.setHeight(height);
         GraphicsContext context = canvas.getGraphicsContext2D();

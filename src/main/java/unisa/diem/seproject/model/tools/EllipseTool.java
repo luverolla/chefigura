@@ -27,13 +27,12 @@ public class EllipseTool implements ClosedShapeTool {
         this.fillColor = Color.TRANSPARENT;
     }
 
-    @Override
-    public void apply() {
+    private void apply() {
         if(center != null && radius != null && sm.getGraphicsContext() != null) {
             double radiusX = Math.abs(center.getX() - radius.getX());
             double radiusY = Math.abs(center.getY() - radius.getY());
             shape = new EllipseShape(strokeColor, fillColor, center, radiusX, radiusY);
-            sm.draw(shape);
+            sm.drawCommand(shape);
             center = null;
             radius = null;
         }
@@ -77,16 +76,6 @@ public class EllipseTool implements ClosedShapeTool {
             sm.getGraphicsContext().strokeOval(center.getX() - radiusX, center.getY() - radiusY, radiusX * 2, radiusY * 2);
             sm.getGraphicsContext().restore();
         }
-    }
-
-    @Override
-    public void mouseDrag(double mouseX, double mouseY) {
-
-    }
-
-    @Override
-    public void mouseUp(double mouseX, double mouseY) {
-
     }
 
     @Override

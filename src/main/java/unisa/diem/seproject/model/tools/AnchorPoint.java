@@ -5,8 +5,4 @@ public interface AnchorPoint {
     void mouseDragStart(double mouseX, double mouseY);
     void mouseDragEnd(double mouseX, double mouseY);
     void mouseDragInProgress(double mouseX, double mouseY);
-    double getX();
-    double getY();
-    void setX(double x);
-    void setY(double y);
 }

@@ -6,19 +6,19 @@ import javafx.scene.canvas.Canvas;
 import unisa.diem.seproject.model.ClosedShape;
 import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
-import unisa.diem.seproject.model.tools.SelectionTool;
 import unisa.diem.seproject.model.tools.AnchorPoint;
+import unisa.diem.seproject.model.tools.SelectionTool;
 
-public class CenterAnchorPoint implements AnchorPoint {
+public class SEAnchorPoint implements AnchorPoint {
 
     private final Canvas canvas;
     private final ShapeManager sm;
     private double oldX;
-    private double oldY;
+    private double oldWidth;
     private boolean isDragging;
     private Shape shadow;
 
-    public CenterAnchorPoint(SelectionTool selectionTool, Canvas canvas) {
+    public SEAnchorPoint(SelectionTool selectionTool, Canvas canvas) {
         this.canvas = canvas;
         this.sm = selectionTool.getShapeManager();
         this.isDragging = false;
@@ -27,19 +27,19 @@ public class CenterAnchorPoint implements AnchorPoint {
     @Override
     public void mouseMove(double mouseX, double mouseY) {
         if (sm.selectedShapeProperty.get() != null) {
-            if (sm.selectedShapeProperty.get().getBounds().mouseOnCenter(mouseX, mouseY)) {
-                canvas.getScene().setCursor(Cursor.OPEN_HAND);
+            if (sm.selectedShapeProperty.get().getBounds().mouseOnSEAnchorPoint(mouseX, mouseY)) {
+                canvas.getScene().setCursor(Cursor.SE_RESIZE);
             }
         }
     }
 
     @Override
     public void mouseDragStart(double mouseX, double mouseY) {
-        if (sm.selectedShapeProperty.get() != null && sm.selectedShapeProperty.get().getBounds().mouseOnCenter(mouseX, mouseY)) {
+        if (sm.selectedShapeProperty.get() != null && sm.selectedShapeProperty.get().getBounds().mouseOnSEAnchorPoint(mouseX, mouseY)) {
             isDragging = true;
-            this.oldX = sm.selectedShapeProperty.get().getBounds().getCenter().getX();
-            this.oldY = sm.selectedShapeProperty.get().getBounds().getCenter().getY();
-            canvas.getScene().setCursor(Cursor.CLOSED_HAND);
+            this.oldX = sm.selectedShapeProperty.get().getBounds().getAnchorPoints()[2].getX();
+            this.oldWidth = sm.selectedShapeProperty.get().getBounds().getWidth();
+            canvas.getScene().setCursor(Cursor.SE_RESIZE);
             shadow = sm.selectedShapeProperty.get().copy();
             shadow.setStrokeColor(shadow.getStrokeColor().fade(0.5));
             if (shadow instanceof ClosedShape)
@@ -53,8 +53,10 @@ public class CenterAnchorPoint implements AnchorPoint {
         canvas.getScene().setCursor(Cursor.DEFAULT);
         if (sm.selectedShapeProperty.get() != null && isDragging) {
             double deltaX = mouseX - oldX;
-            double deltaY = mouseY - oldY;
-            sm.moveCommand(sm.selectedShapeProperty.get(), deltaX, deltaY);
+            if (deltaX > oldWidth / 2 - 5) {
+                return;
+            }
+            sm.resizeCommand(sm.selectedShapeProperty.get(), deltaX * 2);
         }
         isDragging = false;
     }
@@ -62,9 +64,11 @@ public class CenterAnchorPoint implements AnchorPoint {
     @Override
     public void mouseDragInProgress(double mouseX, double mouseY) {
         if (sm.selectedShapeProperty.get() != null && isDragging) {
-            double deltaX = mouseX - shadow.getBounds().getCenter().getX();
-            double deltaY = mouseY - shadow.getBounds().getCenter().getY();
-            sm.move(shadow, deltaX, deltaY);
+            double deltaX = mouseX - shadow.getBounds().getAnchorPoints()[2].getX();
+            if (deltaX > oldWidth / 2 - 5) {
+                return;
+            }
+            sm.resize(shadow, deltaX);
             shadow.draw(canvas.getGraphicsContext2D());
         }
     }

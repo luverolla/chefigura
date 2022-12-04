@@ -17,7 +17,6 @@ public class LineSegmentTool implements ShapeTool {
     private Shape shape;
     private Color strokeColor;
 
-
     public LineSegmentTool(ShapeManager sm) {
         this.sm = sm;
         this.start = null;
@@ -26,11 +25,10 @@ public class LineSegmentTool implements ShapeTool {
         this.strokeColor = Color.BLACK;
     }
 
-    @Override
-    public void apply() {
+    private void apply() {
         if (start != null && end != null && sm.getGraphicsContext() != null) {
             shape = new LineSegmentShape(strokeColor, start, end);
-            sm.draw(shape);
+            sm.drawCommand(shape);
             start = null;
             end = null;
         }
@@ -65,20 +63,12 @@ public class LineSegmentTool implements ShapeTool {
     @Override
     public void mouseMove(double mouseX, double mouseY) {
         if (start != null && end == null) {
-            sm.redraw(); // Clear the canvas and redraw all the shapes on it (without the current one)
-            sm.getGraphicsContext().save(); // Save the current state of the canvas
-            sm.getGraphicsContext().setStroke(Color.BLACK.fade(0.5).toFXColor()); // Set the color of the line to gray
-            sm.getGraphicsContext().strokeLine(start.getX(), start.getY(), mouseX, mouseY); // Draw the line segment on the canvas
+            sm.redraw();
+            sm.getGraphicsContext().save();
+            sm.getGraphicsContext().setStroke(Color.BLACK.fade(0.5).toFXColor());
+            sm.getGraphicsContext().strokeLine(start.getX(), start.getY(), mouseX, mouseY);
             sm.getGraphicsContext().restore();
         }
-    }
-
-    @Override
-    public void mouseDrag(double mouseX, double mouseY) {}
-
-    @Override
-    public void mouseUp(double mouseX, double mouseY) {
-
     }
 
     @Override

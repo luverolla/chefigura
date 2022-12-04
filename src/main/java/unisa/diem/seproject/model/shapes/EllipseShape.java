@@ -45,8 +45,12 @@ public class EllipseShape extends BaseClosedShape {
     }
 
     @Override
-    public void resize(double deltaX, double deltaY) {
-
+    public void resize(double delta) {
+        double ratio = getBounds().getWidth() / getBounds().getHeight();
+        double newWidth = getBounds().getWidth() + delta;
+        double newHeight = newWidth / ratio;
+        radiusX = newWidth / 2;
+        radiusY = newHeight / 2;
     }
 
     @Override

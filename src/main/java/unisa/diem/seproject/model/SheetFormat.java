@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class SheetFormat implements Serializable {
 
     private final double width, height;
-    public static SheetFormat NONE = new SheetFormat( 0, 0);
+    public static final SheetFormat NONE = new SheetFormat( 0, 0);
 
     public SheetFormat(double width, double height) {
         this.width = width;

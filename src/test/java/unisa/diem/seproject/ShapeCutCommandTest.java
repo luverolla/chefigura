@@ -1,7 +1,8 @@
 package unisa.diem.seproject;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 import unisa.diem.seproject.model.CommandManager;
 import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.Sheet;
@@ -10,20 +11,19 @@ import unisa.diem.seproject.model.commands.ShapeCutCommand;
 import unisa.diem.seproject.model.extensions.Point;
 import unisa.diem.seproject.model.shapes.RectangleShape;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class ShapeCutCommandTest {
-    final CommandManager cm = new CommandManager();
-    final Sheet sheet = new Sheet(SheetFormat.NONE, cm);
-    final Shape testRectangle = new RectangleShape(new Point(0, 0), new Point(10, 10));
-    final ShapeCutCommand command = new ShapeCutCommand(sheet.shapeManager(), testRectangle);
+
+    private final CommandManager cm = new CommandManager();
+    private final Sheet sheet = new Sheet(SheetFormat.NONE, cm);
+    private final Shape testRectangle = new RectangleShape(new Point(0, 0), new Point(10, 10));
+    private final ShapeCutCommand command = new ShapeCutCommand(sheet.shapeManager(), testRectangle);
 
     @Test
     @DisplayName("Test execute of ShapeCutCommand")
     public void testExecute() {
         sheet.shapeManager().add(testRectangle);
         cm.execute(command);
-        assertEquals(sheet.shapeManager().getShapes().size(), 0);
+        assertTrue(sheet.shapeManager().isEmpty());
     }
 
     @Test
@@ -31,7 +31,6 @@ public class ShapeCutCommandTest {
     public void testRollback() {
         cm.execute(command);
         cm.undo();
-        assertEquals(sheet.shapeManager().getShapes().size(), 1);
+        assertNotNull(sheet.shapeManager().getShape(testRectangle));
     }
-
 }

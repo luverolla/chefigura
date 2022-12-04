@@ -21,7 +21,6 @@ public class ShapeColorCommand implements Command {
         this.oldFillColor = oldFillColor;
         this.strokeColor = strokeColor;
         this.fillColor = fillColor;
-
     }
 
     @Override
