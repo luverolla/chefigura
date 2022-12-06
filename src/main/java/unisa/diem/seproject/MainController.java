@@ -16,9 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 
 import unisa.diem.seproject.model.*;
-import unisa.diem.seproject.model.commands.ShapeCutCommand;
-import unisa.diem.seproject.model.commands.ShapeDeleteCommand;
-import unisa.diem.seproject.model.commands.ShapePasteCommand;
+import unisa.diem.seproject.model.commands.*;
 import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.tools.*;
 
@@ -45,6 +43,10 @@ public class MainController {
     private MenuItem menuOptionPaste;
     @FXML
     private MenuItem menuOptionDelete;
+    @FXML
+    private MenuItem menuOptionMoveToFront;
+    @FXML
+    private MenuItem menuOptionMoveToBack;
     private final ContextMenu shapeContextMenu;
     private final ContextMenu sheetContextMenu;
     private final CommandManager commandManager;
@@ -67,6 +69,8 @@ public class MainController {
         menuOptionCut.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
         menuOptionPaste.disableProperty().bind(project.getSheet().shapeManager().copiedShapeProperty.isNull());
         menuOptionDelete.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
+        menuOptionMoveToFront.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
+        menuOptionMoveToBack.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
 
         strokeColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             for(Tool t: toolMap.values()) {
@@ -104,7 +108,13 @@ public class MainController {
             MenuItem delete = new MenuItem("Delete");
             delete.setOnAction(event -> onDelete());
 
-            shapeContextMenu.getItems().addAll(copy, cut, delete);
+            MenuItem moveToFront = new MenuItem("Move to front");
+            moveToFront.setOnAction(event -> onMoveToFront());
+
+            MenuItem moveToBack = new MenuItem("Move to back");
+            moveToBack.setOnAction(event -> onMoveToBack());
+
+            shapeContextMenu.getItems().addAll(copy, cut, delete, moveToFront, moveToBack);
             shapeContextMenu.setAutoHide(true);
         }
 
@@ -221,6 +231,12 @@ public class MainController {
 
     public void onDelete() {
         commandManager.execute(new ShapeDeleteCommand(project.getSheet().shapeManager(), project.getSheet().shapeManager().selectedShapeProperty.get()));
+    }
+    public void onMoveToFront() {
+        commandManager.execute(new ShapeMoveToFrontCommand(project.getSheet().shapeManager(), project.getSheet().shapeManager().selectedShapeProperty.get()));
+    }
+    public void onMoveToBack() {
+        commandManager.execute(new ShapeMoveToBackCommand(project.getSheet().shapeManager(), project.getSheet().shapeManager().selectedShapeProperty.get()));
     }
 
     public void resetTool(KeyEvent keyEvent) {

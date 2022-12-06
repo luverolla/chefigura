@@ -43,6 +43,16 @@
                     <KeyCodeCombination alt="UP" code="BACK_SPACE" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                 </accelerator>
             </MenuItem>
+            <MenuItem fx:id="menuOptionMoveToFront" mnemonicParsing="false" text="Move to Front" onAction="#onMoveToFront">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="F" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                </accelerator>
+            </MenuItem>
+            <MenuItem fx:id="menuOptionMoveToBack" mnemonicParsing="false" text="Move to Back" onAction="#onMoveToBack">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="B" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                </accelerator>
+            </MenuItem>
         </Menu>
     </MenuBar>
 
