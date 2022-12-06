@@ -13,7 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 
 import unisa.diem.seproject.model.*;
@@ -21,17 +20,13 @@ import unisa.diem.seproject.model.commands.ShapeCutCommand;
 import unisa.diem.seproject.model.commands.ShapeDeleteCommand;
 import unisa.diem.seproject.model.commands.ShapePasteCommand;
 import unisa.diem.seproject.model.extensions.Color;
-import unisa.diem.seproject.model.extensions.NumberTextField;
 import unisa.diem.seproject.model.tools.*;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.Map;
 
 public class MainController {
 
-    public StackPane group;
-    public NumberTextField gridSizeField;
     private Project project;
     private Map<String, Tool> toolMap;
     @FXML
@@ -72,8 +67,6 @@ public class MainController {
         menuOptionCut.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
         menuOptionPaste.disableProperty().bind(project.getSheet().shapeManager().copiedShapeProperty.isNull());
         menuOptionDelete.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
-
-        gridSizeField.setNumber(BigDecimal.valueOf(project.getSheet().gridSizeProperty.getValue()));
 
         strokeColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             for(Tool t: toolMap.values()) {
@@ -128,9 +121,9 @@ public class MainController {
 
     private void initSheet(Sheet sheet) {
         Canvas canvas = new Canvas();
-        Canvas gridCanvas = new Canvas();
-        sheet.build(group, canvas, gridCanvas);
-        canvasContainer.setContent(group);
+        sheet.buildDrawingArea(canvas);
+        canvasContainer.setContent(canvas);
+        sheet.shapeManager().redraw();
         initContextMenu();
 
         toolMap = Map.ofEntries(
@@ -236,9 +229,5 @@ public class MainController {
                 project.getSheet().getCurrentTool().reset();
             }
         }
-    }
-
-    public void setGridSize() {
-        project.getSheet().gridSizeProperty.set(gridSizeField.numberProperty().get().doubleValue());
     }
 }

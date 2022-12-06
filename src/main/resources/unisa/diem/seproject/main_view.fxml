@@ -5,7 +5,6 @@
 <?import javafx.scene.paint.Color?>
 
 <?import javafx.scene.input.KeyCodeCombination?>
-<?import unisa.diem.seproject.model.extensions.NumberTextField?>
 <VBox onKeyPressed="#resetTool" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unisa.diem.seproject.MainController">
     <MenuBar>
         <Menu mnemonicParsing="false" text="File">
@@ -54,9 +53,7 @@
             <ColumnConstraints percentWidth="15" />
         </columnConstraints>
 
-        <ScrollPane fx:id="canvasContainer" GridPane.vgrow="ALWAYS">
-            <StackPane fx:id="group" GridPane.vgrow="ALWAYS" />
-        </ScrollPane>
+        <ScrollPane fx:id="canvasContainer" GridPane.vgrow="ALWAYS" />
         <!-- right panel -->
         <StackPane alignment="TOP_RIGHT" GridPane.columnIndex="1">
             <!-- shapes palette -->
@@ -70,10 +67,6 @@
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Ellipse" userData="ellipse" />
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Line Segment" userData="segment" />
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Selection" userData="selection" />
-                                    <HBox>
-                                        <NumberTextField fx:id="gridSizeField" promptText="Grid width" />
-                                        <Button mnemonicParsing="false" onAction="#setGridSize" text="Set" />
-                                    </HBox>
                                 </VBox>
                             </AnchorPane>
                         </TitledPane>
