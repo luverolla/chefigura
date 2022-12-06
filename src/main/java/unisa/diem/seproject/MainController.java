@@ -10,6 +10,8 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 
@@ -44,6 +46,7 @@ public class MainController {
     @FXML
     private MenuItem menuOptionDelete;
     private final ContextMenu shapeContextMenu;
+    private final ContextMenu sheetContextMenu;
     private final CommandManager commandManager;
 
     public MainController() {
@@ -52,6 +55,7 @@ public class MainController {
         Sheet sheet = new Sheet(SheetFormat.NONE, commandManager);
         project.addSheet(sheet);
         shapeContextMenu = new ContextMenu();
+        sheetContextMenu = new ContextMenu();
     }
 
     @FXML
@@ -89,20 +93,30 @@ public class MainController {
     }
 
     private void initContextMenu() {
-        MenuItem copy = new MenuItem("Copy");
-        copy.setOnAction(event -> onCopy());
 
-        MenuItem cut = new MenuItem("Cut");
-        cut.setOnAction(event -> onCut());
+        if (shapeContextMenu.getItems().isEmpty()) {
+            MenuItem copy = new MenuItem("Copy");
+            copy.setOnAction(event -> onCopy());
 
-        MenuItem paste = new MenuItem("Paste");
-        paste.setOnAction(event -> onPaste());
+            MenuItem cut = new MenuItem("Cut");
+            cut.setOnAction(event -> onCut());
 
-        MenuItem delete = new MenuItem("Delete");
-        delete.setOnAction(event -> onDelete());
+            MenuItem delete = new MenuItem("Delete");
+            delete.setOnAction(event -> onDelete());
 
-        shapeContextMenu.getItems().addAll(copy, cut, paste, delete);
-        shapeContextMenu.setAutoHide(true);
+            shapeContextMenu.getItems().addAll(copy, cut, delete);
+            shapeContextMenu.setAutoHide(true);
+        }
+
+        if (sheetContextMenu.getItems().isEmpty()) {
+            MenuItem paste = new MenuItem("Paste");
+            paste.disableProperty().bind(project.getSheet().shapeManager().copiedShapeProperty.isNull());
+            paste.setAccelerator(new KeyCodeCombination(KeyCode.V, KeyCombination.SHORTCUT_DOWN));
+            paste.setOnAction(event -> onPaste());
+
+            sheetContextMenu.getItems().addAll(paste);
+            sheetContextMenu.setAutoHide(true);
+        }
     }
 
     private void initSheet(Sheet sheet) {
@@ -119,18 +133,17 @@ public class MainController {
                 Map.entry("selection", new SelectionTool(sheet.shapeManager(), canvas))
         );
 
-        canvas.setOnContextMenuRequested(event -> {
-            double x = event.getX(),
-                    y = event.getY();
-            if(project.getSheet().shapeManager().selectedShapeProperty.get() != null) {
-                Shape shape = project.getSheet().shapeManager().selectedShapeProperty.get();
-                if(shape.contains(x, y)) {
-                    shapeContextMenu.show(canvasContainer, event.getScreenX(), event.getScreenY());
-                }
-            }
+        canvas.setOnContextMenuRequested(e -> {
+            Shape shape = project.getSheet().shapeManager().selectedShapeProperty.get();
+            if (shape == null || !shape.contains(e.getX(), e.getY()))
+                sheetContextMenu.show(canvas, e.getScreenX(), e.getScreenY());
+            else
+                shapeContextMenu.show(canvasContainer, e.getScreenX(), e.getScreenY());
         });
+
         canvas.setOnMouseClicked(e -> {
             shapeContextMenu.hide();
+            sheetContextMenu.hide();
             if (sheet.getCurrentTool() != null) {
                 sheet.getCurrentTool().mouseDown(e.getX(), e.getY());
             }
