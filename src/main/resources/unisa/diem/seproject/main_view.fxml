@@ -18,6 +18,11 @@
                     <KeyCodeCombination alt="UP" code="Z" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                 </accelerator>
             </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Redo" onAction="#onRedo">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="Z" control="UP" meta="UP" shift="DOWN" shortcut="DOWN" />
+                </accelerator>
+            </MenuItem>
             <MenuItem fx:id="menuOptionCut" mnemonicParsing="false" text="Cut" onAction="#onCut">
                 <accelerator>
                     <KeyCodeCombination alt="UP" code="X" control="UP" meta="UP" shift="UP" shortcut="DOWN" />

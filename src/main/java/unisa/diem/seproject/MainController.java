@@ -203,6 +203,10 @@ public class MainController {
         project.getCommandManager().undo();
     }
 
+    public void onRedo() {
+        project.getCommandManager().redo();
+    }
+
     public void onCopy() {
         project.getSheet().shapeManager().copyShape(project.getSheet().shapeManager().selectedShapeProperty.get());
     }
