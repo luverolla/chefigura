@@ -64,6 +64,7 @@
             <ColumnConstraints percentWidth="15" />
         </columnConstraints>
 
+        <!-- scrollPane -->
         <ScrollPane fx:id="canvasContainer" GridPane.vgrow="ALWAYS">
             <StackPane fx:id="group" GridPane.vgrow="ALWAYS" />
         </ScrollPane>
