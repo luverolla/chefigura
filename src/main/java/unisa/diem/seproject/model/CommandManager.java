@@ -33,11 +33,19 @@ public class CommandManager {
         undoStack.push(command);
     }
 
-    public Command lastExecutedCommand() { //Used for testing purposes only
+    public void redo() {
+        if (undoStack.isEmpty())
+            return;
+        Command command = undoStack.pop();
+        command.execute();
+        commandStack.push(command);
+    }
+
+    public Command lastExecutedCommand() {
         return commandStack.peekFirst();
     }
 
-    public Command lastUndoneCommand() { //Used for testing purposes only
+    public Command lastUndoneCommand() {
         return undoStack.peekFirst();
     }
 }
