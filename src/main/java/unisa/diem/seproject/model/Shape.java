@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * Generic shape
  */
-public interface Shape extends Serializable {
+public interface Shape extends Serializable, Comparable<Shape> {
     /**
      * Draw the shape on canvas
      * @param gc The graphic context of the canvas to draw on
@@ -36,4 +36,10 @@ public interface Shape extends Serializable {
     void setStrokeColor(Color strokeColor);
     Bounds getBounds();
     Shape copy();
+    int getZIndex();
+    void setZIndex(int zIndex);
+    @Override
+    default int compareTo(Shape o) {
+        return getZIndex() - o.getZIndex();
+    }
 }

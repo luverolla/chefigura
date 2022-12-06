@@ -9,6 +9,7 @@ import unisa.diem.seproject.model.extensions.Color;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -143,4 +144,25 @@ public class ShapeManager implements Serializable {
         Command command = new ShapeResizeCommand(this, shape, delta);
         commandManager.execute(command);
     }
+    public void moveToFront(Shape shape){
+        int maxZIndex = Collections.max(shapes).getZIndex();
+        shape.setZIndex(maxZIndex + 1);
+        Collections.sort(shapes);
+        redraw();
+    }
+    public void moveToFrontCommand(Shape shape){
+        Command command = new ShapeMoveToFrontCommand(this, shape);
+        commandManager.execute(command);
+    }
+    public void moveToBack(Shape shape){
+        int minZIndex = Collections.min(shapes).getZIndex();
+        shape.setZIndex(minZIndex - 1);
+        Collections.sort(shapes);
+        redraw();
+    }
+    public void moveToBackCommand(Shape shape){
+        Command command = new ShapeMoveToBackCommand(this, shape);
+        commandManager.execute(command);
+    }
+
 }

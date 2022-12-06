@@ -8,6 +8,7 @@ import unisa.diem.seproject.model.extensions.Color;
 public abstract class BaseShape implements Shape {
 
     protected Color strokeColor;
+    private int zIndex;
 
     protected BaseShape(Color strokeColor) {
         this.strokeColor = strokeColor;
@@ -15,5 +16,11 @@ public abstract class BaseShape implements Shape {
 
     protected BaseShape() {
         this.strokeColor = Color.BLACK;
+    }
+    public int getZIndex() {
+        return zIndex;
+    }
+    public void setZIndex(int zIndex) {
+        this.zIndex = zIndex;
     }
 }
