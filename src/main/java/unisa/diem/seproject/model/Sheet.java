@@ -23,16 +23,16 @@ public class Sheet implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-    static final double DRAW_AREA_HEIGHT = 400;
-    static final double DRAW_AREA_WIDTH = 400;
+    static final double DRAW_AREA_HEIGHT = 200;
+    static final double DRAW_AREA_WIDTH = 200;
     private static final double DEFAULT_GRID_SIZE = 10;
     private static final double DEFAULT_GRID_OPACITY = 0.15;
     private final SheetFormat format;
     private transient Tool currentTool;
     private final ShapeManager shapeManager;
-    public final DoubleProperty gridSizeProperty;
+    public final transient DoubleProperty gridSizeProperty;
 
-    private Canvas gridCanvas;
+    private transient Canvas gridCanvas;
 
     public Sheet(SheetFormat format, CommandManager cm) {
         this.format = format;
@@ -44,7 +44,7 @@ public class Sheet implements Serializable {
             if (newValue.doubleValue() < 0) {
                 this.gridSizeProperty.setValue(0);
             }
-            buildGrid(gridCanvas);
+            buildGrid(gridCanvas, 1);
         });
     }
 
@@ -58,7 +58,7 @@ public class Sheet implements Serializable {
             if (newValue.doubleValue() < 0) {
                 this.gridSizeProperty.setValue(0);
             }
-            buildGrid(gridCanvas);
+            buildGrid(gridCanvas, 1);
         });
     }
 
@@ -78,16 +78,17 @@ public class Sheet implements Serializable {
         return format;
     }
 
-    public void build(Pane container, Canvas sheetCanvas, Canvas gridCanvas) {
+    public void build(Pane container, Canvas sheetCanvas, Canvas gridCanvas, double zoomFactor) {
+        container.getChildren().clear();
         container.getChildren().addAll(sheetCanvas, gridCanvas);
-        buildDrawingArea(sheetCanvas);
-        buildGrid(gridCanvas);
+        buildDrawingArea(sheetCanvas, zoomFactor);
+        buildGrid(gridCanvas, zoomFactor);
     }
 
-    public void buildGrid(Canvas canvas) {
+    public void buildGrid(Canvas canvas, double zoomFactor) {
         double DPI = Screen.getPrimary().getDpi();
-        double height = Converter.toPixels(DRAW_AREA_HEIGHT, DPI),
-                width = Converter.toPixels(DRAW_AREA_WIDTH, DPI);
+        double height = zoomFactor * Converter.toPixels(DRAW_AREA_HEIGHT, DPI),
+                width = zoomFactor * Converter.toPixels(DRAW_AREA_WIDTH, DPI);
         canvas.setHeight(height);
         canvas.setWidth(width);
         canvas.setMouseTransparent(true);
@@ -101,7 +102,7 @@ public class Sheet implements Serializable {
 
         gc.setStroke(Color.GRAY.fade(DEFAULT_GRID_OPACITY).toFXColor());
         gc.setLineWidth(1);
-        double size = Converter.toPixels(gridSizeProperty.get(), DPI);
+        double size = zoomFactor * Converter.toPixels(gridSizeProperty.get(), DPI);
         for (double i = 0; i < gc.getCanvas().getWidth(); i += size) {
             gc.strokeLine(i, 0, i, gc.getCanvas().getHeight());
         }
@@ -111,10 +112,10 @@ public class Sheet implements Serializable {
         this.gridCanvas = canvas;
     }
 
-    public void buildDrawingArea(Canvas canvas) {
+    public void buildDrawingArea(Canvas canvas, double zoomFactor) {
         double DPI = Screen.getPrimary().getDpi();
-        double height = Converter.toPixels(DRAW_AREA_HEIGHT, DPI),
-                   width = Converter.toPixels(DRAW_AREA_WIDTH, DPI);
+        double height = zoomFactor * Converter.toPixels(DRAW_AREA_HEIGHT, DPI),
+                   width = zoomFactor * Converter.toPixels(DRAW_AREA_WIDTH, DPI);
         double sheetHeight = Converter.toPixels(format.getHeight(), DPI),
                    sheetWidth = Converter.toPixels(format.getWidth(), DPI);
         canvas.setWidth(width);

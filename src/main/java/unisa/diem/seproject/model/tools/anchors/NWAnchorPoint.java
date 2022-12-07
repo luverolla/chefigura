@@ -27,7 +27,7 @@ public class NWAnchorPoint implements AnchorPoint {
     @Override
     public void mouseMove(double mouseX, double mouseY) {
        if (sm.selectedShapeProperty.get() != null) {
-            if (sm.selectedShapeProperty.get().getBounds().mouseOnNWAnchorPoint(mouseX, mouseY)) {
+            if (sm.selectedShapeProperty.get().getBounds().mouseOnNWAnchorPoint(mouseX, mouseY, sm.getZoomFactor())) {
                 canvas.getScene().setCursor(Cursor.NW_RESIZE);
             }
         }
@@ -35,7 +35,7 @@ public class NWAnchorPoint implements AnchorPoint {
 
     @Override
     public void mouseDragStart(double mouseX, double mouseY) {
-        if (sm.selectedShapeProperty.get() != null && sm.selectedShapeProperty.get().getBounds().mouseOnNWAnchorPoint(mouseX, mouseY)) {
+        if (sm.selectedShapeProperty.get() != null && sm.selectedShapeProperty.get().getBounds().mouseOnNWAnchorPoint(mouseX, mouseY, sm.getZoomFactor())) {
             isDragging = true;
             this.oldX = sm.selectedShapeProperty.get().getBounds().getAnchorPoints()[0].getX();
             this.oldWidth = sm.selectedShapeProperty.get().getBounds().getWidth();
@@ -52,7 +52,7 @@ public class NWAnchorPoint implements AnchorPoint {
         sm.redraw();
         canvas.getScene().setCursor(Cursor.DEFAULT);
         if (sm.selectedShapeProperty.get() != null && isDragging) {
-            double deltaX = mouseX - oldX;
+            double deltaX = mouseX / sm.getZoomFactor() - oldX;
             if (deltaX > oldWidth / 2 - 5) {
                 return;
             }
@@ -64,12 +64,12 @@ public class NWAnchorPoint implements AnchorPoint {
     @Override
     public void mouseDragInProgress(double mouseX, double mouseY) {
         if (sm.selectedShapeProperty.get() != null && isDragging) {
-            double deltaX = mouseX - shadow.getBounds().getAnchorPoints()[0].getX();
+            double deltaX = mouseX / sm.getZoomFactor() - shadow.getBounds().getAnchorPoints()[0].getX();
             if (deltaX > oldWidth / 2 - 5) {
                 return;
             }
             sm.resize(shadow, -deltaX);
-            shadow.draw(canvas.getGraphicsContext2D());
+            sm.drawNotPersistent(shadow);
         }
     }
 }

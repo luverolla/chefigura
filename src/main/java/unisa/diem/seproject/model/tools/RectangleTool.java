@@ -29,6 +29,8 @@ public class RectangleTool implements ClosedShapeTool {
 
     private void apply() {
         if(start != null && end != null && sm.getGraphicsContext() != null) {
+            start = new Point(start.getX() / sm.getZoomFactor(), start.getY() / sm.getZoomFactor());
+            end = new Point(end.getX() / sm.getZoomFactor(), end.getY() / sm.getZoomFactor());
             shape = new RectangleShape(strokeColor, fillColor, start, end);
             sm.drawCommand(shape);
             start = null;

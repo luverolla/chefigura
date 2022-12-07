@@ -27,7 +27,7 @@ public class CenterAnchorPoint implements AnchorPoint {
     @Override
     public void mouseMove(double mouseX, double mouseY) {
         if (sm.selectedShapeProperty.get() != null) {
-            if (sm.selectedShapeProperty.get().getBounds().mouseOnCenter(mouseX, mouseY)) {
+            if (sm.selectedShapeProperty.get().getBounds().mouseOnCenter(mouseX, mouseY, sm.getZoomFactor())) {
                 canvas.getScene().setCursor(Cursor.OPEN_HAND);
             }
         }
@@ -35,7 +35,7 @@ public class CenterAnchorPoint implements AnchorPoint {
 
     @Override
     public void mouseDragStart(double mouseX, double mouseY) {
-        if (sm.selectedShapeProperty.get() != null && sm.selectedShapeProperty.get().getBounds().mouseOnCenter(mouseX, mouseY)) {
+        if (sm.selectedShapeProperty.get() != null && sm.selectedShapeProperty.get().getBounds().mouseOnCenter(mouseX, mouseY, sm.getZoomFactor())) {
             isDragging = true;
             this.oldX = sm.selectedShapeProperty.get().getBounds().getCenter().getX();
             this.oldY = sm.selectedShapeProperty.get().getBounds().getCenter().getY();
@@ -52,8 +52,8 @@ public class CenterAnchorPoint implements AnchorPoint {
         sm.redraw();
         canvas.getScene().setCursor(Cursor.DEFAULT);
         if (sm.selectedShapeProperty.get() != null && isDragging) {
-            double deltaX = mouseX - oldX;
-            double deltaY = mouseY - oldY;
+            double deltaX = mouseX / sm.getZoomFactor() - oldX;
+            double deltaY = mouseY / sm.getZoomFactor() - oldY;
             sm.moveCommand(sm.selectedShapeProperty.get(), deltaX, deltaY);
         }
         isDragging = false;
@@ -62,10 +62,10 @@ public class CenterAnchorPoint implements AnchorPoint {
     @Override
     public void mouseDragInProgress(double mouseX, double mouseY) {
         if (sm.selectedShapeProperty.get() != null && isDragging) {
-            double deltaX = mouseX - shadow.getBounds().getCenter().getX();
-            double deltaY = mouseY - shadow.getBounds().getCenter().getY();
+            double deltaX = mouseX / sm.getZoomFactor() - shadow.getBounds().getCenter().getX();
+            double deltaY = mouseY / sm.getZoomFactor() - shadow.getBounds().getCenter().getY();
             sm.move(shadow, deltaX, deltaY);
-            shadow.draw(canvas.getGraphicsContext2D());
+            sm.drawNotPersistent(shadow);
         }
     }
 }

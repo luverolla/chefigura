@@ -29,6 +29,8 @@ public class EllipseTool implements ClosedShapeTool {
 
     private void apply() {
         if(center != null && radius != null && sm.getGraphicsContext() != null) {
+            center = new Point(center.getX() / sm.getZoomFactor(), center.getY() / sm.getZoomFactor());
+            radius = new Point(radius.getX() / sm.getZoomFactor(), radius.getY() / sm.getZoomFactor());
             double radiusX = Math.abs(center.getX() - radius.getX());
             double radiusY = Math.abs(center.getY() - radius.getY());
             shape = new EllipseShape(strokeColor, fillColor, center, radiusX, radiusY);
@@ -59,7 +61,7 @@ public class EllipseTool implements ClosedShapeTool {
         if(center == null) {
             center = new Point(mouseX, mouseY);
         } else {
-            radius = new Point(mouseX, mouseY );
+            radius = new Point(mouseX, mouseY);
             apply();
         }
     }

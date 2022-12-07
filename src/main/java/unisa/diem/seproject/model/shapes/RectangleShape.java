@@ -8,6 +8,7 @@ import unisa.diem.seproject.model.extensions.Point;
 import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.BaseClosedShape;
 
+import java.io.IOException;
 import java.io.Serial;
 
 /**
@@ -31,28 +32,32 @@ public class RectangleShape extends BaseClosedShape {
     }
 
     @Override
-    public void draw(GraphicsContext gc) {
+    public void draw(GraphicsContext gc, double zoomFactor) {
         gc.setStroke(strokeColor.toFXColor());
         gc.setFill(fillColor.toFXColor());
-        gc.strokeRect(start.getX(), start.getY(), end.getX() - start.getX(), end.getY() - start.getY());
-        gc.fillRect(start.getX(), start.getY(), end.getX() - start.getX(), end.getY() - start.getY());
+        double startX = start.getX() * zoomFactor,
+                startY = start.getY() * zoomFactor,
+                width = Math.abs(start.getX() - end.getX()) * zoomFactor,
+                height = Math.abs(start.getY() - end.getY()) * zoomFactor;
+        gc.strokeRect(startX, startY, width, height);
+        gc.fillRect(startX, startY, width, height);
     }
 
     @Override
-    public boolean contains(double mouseX, double mouseY) {
-        return mouseX >= start.getX() && mouseX <= end.getX() && mouseY >= start.getY() && mouseY <= end.getY();
+    public boolean contains(double mouseX, double mouseY, double zoomFactor) {
+        return mouseX / zoomFactor >= start.getX() && mouseX / zoomFactor <= end.getX() && mouseY / zoomFactor >= start.getY() && mouseY / zoomFactor <= end.getY();
     }
 
     @Override
-    public void move(double deltaX, double deltaY) {
-        start= new Point(start.getX() + deltaX, start.getY() + deltaY);
-        end = new Point(end.getX() + deltaX, end.getY() + deltaY);
+    public void move(double deltaX, double deltaY, double zoomFactor) {
+        start= new Point(start.getX() + deltaX * zoomFactor, start.getY() + deltaY * zoomFactor);
+        end = new Point(end.getX() + deltaX * zoomFactor, end.getY() + deltaY * zoomFactor);
     }
 
     @Override
-    public void resize(double delta) {
+    public void resize(double delta, double zoomFactor) {
         double ratio = getBounds().getWidth() / getBounds().getHeight();
-        double newWidth = getBounds().getWidth() + delta;
+        double newWidth = getBounds().getWidth() + delta * zoomFactor;
         double newHeight = newWidth / ratio;
         double newStartX = getBounds().getCenter().getX() - newWidth / 2;
         double newStartY = getBounds().getCenter().getY() - newHeight / 2;
@@ -98,7 +103,7 @@ public class RectangleShape extends BaseClosedShape {
     }
 
     @Serial
-    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+    private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         strokeColor = new Color(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble());
         fillColor = new Color(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble());

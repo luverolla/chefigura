@@ -85,6 +85,10 @@
                                         <NumberTextField fx:id="gridSizeField" promptText="Grid width" />
                                         <Button mnemonicParsing="false" onAction="#setGridSize" text="Set" />
                                     </HBox>
+                                    <HBox>
+                                        <Button mnemonicParsing="false" onAction="#zoomIn" text="Zoom in" />
+                                        <Button mnemonicParsing="false" onAction="#zoomOut" text="Zoom out" />
+                                    </HBox>
                                 </VBox>
                             </AnchorPane>
                         </TitledPane>

@@ -55,6 +55,11 @@ public class MainController {
     private final ContextMenu shapeContextMenu;
     private final ContextMenu sheetContextMenu;
     private final CommandManager commandManager;
+    private double zoomFactor = 1;
+    private Canvas sheetCanvas;
+    private Canvas gridCanvas;
+
+    private final static double ZOOM_STEP = 0.05;
 
     public MainController() {
         commandManager = new CommandManager();
@@ -137,9 +142,9 @@ public class MainController {
     }
 
     private void initSheet(Sheet sheet) {
-        Canvas canvas = new Canvas();
-        Canvas gridCanvas = new Canvas();
-        sheet.build(group, canvas, gridCanvas);
+        sheetCanvas = new Canvas();
+        gridCanvas = new Canvas();
+        sheet.build(group, sheetCanvas, gridCanvas, zoomFactor);
         canvasContainer.setContent(group);
         initContextMenu();
 
@@ -147,25 +152,25 @@ public class MainController {
                 Map.entry("rectangle", new RectangleTool(sheet.shapeManager())),
                 Map.entry("ellipse", new EllipseTool(sheet.shapeManager())),
                 Map.entry("segment", new LineSegmentTool(sheet.shapeManager())),
-                Map.entry("selection", new SelectionTool(sheet.shapeManager(), canvas))
+                Map.entry("selection", new SelectionTool(sheet.shapeManager(), sheetCanvas))
         );
 
-        canvas.setOnContextMenuRequested(e -> {
+        sheetCanvas.setOnContextMenuRequested(e -> {
             Shape shape = project.getSheet().shapeManager().selectedShapeProperty.get();
-            if (shape == null || !shape.contains(e.getX(), e.getY()))
-                sheetContextMenu.show(canvas, e.getScreenX(), e.getScreenY());
+            if (shape == null || !shape.contains(e.getX(), e.getY(), zoomFactor))
+                sheetContextMenu.show(sheetCanvas, e.getScreenX(), e.getScreenY());
             else
                 shapeContextMenu.show(canvasContainer, e.getScreenX(), e.getScreenY());
         });
 
-        canvas.setOnMouseClicked(e -> {
+        sheetCanvas.setOnMouseClicked(e -> {
             shapeContextMenu.hide();
             sheetContextMenu.hide();
             if (sheet.getCurrentTool() != null) {
                 sheet.getCurrentTool().mouseDown(e.getX(), e.getY());
             }
         });
-        canvas.setOnMouseMoved(e -> {
+        sheetCanvas.setOnMouseMoved(e -> {
             if (sheet.getCurrentTool() != null) {
                 sheet.getCurrentTool().mouseMove(e.getX(), e.getY());
             }
@@ -202,6 +207,8 @@ public class MainController {
             project = Project.load(file);
             assert project != null;
             initSheet(project.getSheet());
+            project.getSheet().shapeManager().setZoomFactor(zoomFactor);
+            project.getSheet().shapeManager().redraw();
         }
     }
 
@@ -256,5 +263,23 @@ public class MainController {
 
     public void setGridSize() {
         project.getSheet().gridSizeProperty.set(gridSizeField.numberProperty().get().doubleValue());
+    }
+
+    @FXML
+    private void zoomIn() {
+        zoomFactor += ZOOM_STEP;
+        zoom();
+    }
+
+    @FXML
+    private void zoomOut() {
+        zoomFactor -= ZOOM_STEP;
+        zoom();
+    }
+
+    private void zoom() {
+        project.getSheet().build(group, sheetCanvas, gridCanvas, zoomFactor);
+        project.getSheet().shapeManager().setZoomFactor(zoomFactor);
+        project.getSheet().shapeManager().redraw();
     }
 }

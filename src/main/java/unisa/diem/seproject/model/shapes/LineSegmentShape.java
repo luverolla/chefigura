@@ -25,13 +25,13 @@ public class LineSegmentShape extends BaseShape {
     }
 
     @Override
-    public void draw(GraphicsContext gc) {
+    public void draw(GraphicsContext gc, double zoomFactor) {
         gc.setStroke(strokeColor.toFXColor());
-        gc.strokeLine(start.getX(), start.getY(), end.getX(), end.getY());
+        gc.strokeLine(start.getX() * zoomFactor, start.getY() * zoomFactor, end.getX() * zoomFactor, end.getY() * zoomFactor);
     }
 
     @Override
-    public boolean contains(double mouseX, double mouseY) {
+    public boolean contains(double mouseX, double mouseY, double zoomFactor) {
         double startX = start.getX();
         double startY = start.getY();
         double endX = end.getX();
@@ -40,19 +40,19 @@ public class LineSegmentShape extends BaseShape {
         double minY = Math.min(startY, endY);
         double maxX = Math.max(startX, endX);
         double maxY = Math.max(startY, endY);
-        return (mouseX >= minX && mouseX <= maxX && mouseY >= minY && mouseY <= maxY);
+        return (mouseX / zoomFactor >= minX && mouseX / zoomFactor <= maxX && mouseY / zoomFactor >= minY && mouseY / zoomFactor <= maxY);
     }
 
     @Override
-    public void move(double deltaX, double deltaY) {
-        start = new Point(start.getX() + deltaX, start.getY() + deltaY);
-        end = new Point(end.getX() + deltaX, end.getY() + deltaY);
+    public void move(double deltaX, double deltaY, double zoomFactor) {
+        start = new Point(start.getX() + deltaX * zoomFactor, start.getY() + deltaY * zoomFactor);
+        end = new Point(end.getX() + deltaX * zoomFactor, end.getY() + deltaY * zoomFactor);
     }
 
     @Override
-    public void resize(double delta) {
+    public void resize(double delta, double zoomFactor) {
         double ratio = getBounds().getWidth() / getBounds().getHeight();
-        double newWidth = getBounds().getWidth() + delta;
+        double newWidth = getBounds().getWidth() + delta * zoomFactor;
         double newHeight = newWidth / ratio;
         double newStartX = getBounds().getCenter().getX() - newWidth / 2;
         double newStartY = getBounds().getCenter().getY() - newHeight / 2;

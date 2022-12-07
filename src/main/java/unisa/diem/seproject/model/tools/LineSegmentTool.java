@@ -27,6 +27,8 @@ public class LineSegmentTool implements ShapeTool {
 
     private void apply() {
         if (start != null && end != null && sm.getGraphicsContext() != null) {
+            start = new Point(start.getX() / sm.getZoomFactor(), start.getY() / sm.getZoomFactor());
+            end = new Point(end.getX() / sm.getZoomFactor(), end.getY() / sm.getZoomFactor());
             shape = new LineSegmentShape(strokeColor, start, end);
             sm.drawCommand(shape);
             start = null;

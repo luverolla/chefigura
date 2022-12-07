@@ -44,41 +44,41 @@ public class Bounds {
         return end.getY() - start.getY();
     }
 
-    public boolean mouseOnCenter(double mouseX, double mouseY) {
+    public boolean mouseOnCenter(double mouseX, double mouseY, double zoomFactor) {
         Point center = getCenter();
-        return (mouseX >= center.getX() - 5 && mouseX <= center.getX() + 5) && (mouseY >= center.getY() - 5 && mouseY <= center.getY() + 5);
+        return (mouseX / zoomFactor >= center.getX() - 5 && mouseX / zoomFactor <= center.getX() + 5) && (mouseY / zoomFactor >= center.getY() - 5 && mouseY / zoomFactor <= center.getY() + 5);
     }
 
-    public boolean mouseOnNWAnchorPoint(double mouseX, double mouseY) {
+    public boolean mouseOnNWAnchorPoint(double mouseX, double mouseY, double zoomFactor) {
         Point anchorPoint = getAnchorPoints()[0];
-        return (mouseX >= anchorPoint.getX() - 5 && mouseX <= anchorPoint.getX() + 5) && (mouseY >= anchorPoint.getY() - 5 && mouseY <= anchorPoint.getY() + 5);
+        return (mouseX / zoomFactor >= anchorPoint.getX() - 5 && mouseX / zoomFactor <= anchorPoint.getX() + 5) && (mouseY / zoomFactor >= anchorPoint.getY() - 5 && mouseY / zoomFactor <= anchorPoint.getY() + 5);
     }
 
-    public boolean mouseOnNEAnchorPoint(double mouseX, double mouseY) {
+    public boolean mouseOnNEAnchorPoint(double mouseX, double mouseY, double zoomFactor) {
         Point anchorPoint = getAnchorPoints()[1];
-        return (mouseX >= anchorPoint.getX() - 5 && mouseX <= anchorPoint.getX() + 5) && (mouseY >= anchorPoint.getY() - 5 && mouseY <= anchorPoint.getY() + 5);
+        return (mouseX / zoomFactor >= anchorPoint.getX() - 5 && mouseX / zoomFactor <= anchorPoint.getX() + 5) && (mouseY / zoomFactor >= anchorPoint.getY() - 5 && mouseY / zoomFactor <= anchorPoint.getY() + 5);
     }
 
-    public boolean mouseOnSEAnchorPoint(double mouseX, double mouseY) {
+    public boolean mouseOnSEAnchorPoint(double mouseX, double mouseY, double zoomFactor) {
         Point anchorPoint = getAnchorPoints()[2];
-        return (mouseX >= anchorPoint.getX() - 5 && mouseX <= anchorPoint.getX() + 5) && (mouseY >= anchorPoint.getY() - 5 && mouseY <= anchorPoint.getY() + 5);
+        return (mouseX / zoomFactor >= anchorPoint.getX() - 5 && mouseX / zoomFactor <= anchorPoint.getX() + 5) && (mouseY / zoomFactor >= anchorPoint.getY() - 5 && mouseY / zoomFactor <= anchorPoint.getY() + 5);
     }
 
-    public boolean mouseOnSWAnchorPoint(double mouseX, double mouseY) {
+    public boolean mouseOnSWAnchorPoint(double mouseX, double mouseY, double zoomFactor) {
         Point anchorPoint = getAnchorPoints()[3];
-        return (mouseX >= anchorPoint.getX() - 5 && mouseX <= anchorPoint.getX() + 5) && (mouseY >= anchorPoint.getY() - 5 && mouseY <= anchorPoint.getY() + 5);
+        return (mouseX / zoomFactor >= anchorPoint.getX() - 5 && mouseX / zoomFactor <= anchorPoint.getX() + 5) && (mouseY / zoomFactor >= anchorPoint.getY() - 5 && mouseY / zoomFactor <= anchorPoint.getY() + 5);
     }
 
-    public void show(GraphicsContext gc) {
+    public void show(GraphicsContext gc, double zoomFactor) {
         gc.setFill(new Color(0.2, 0.8, 1, 0.1).toFXColor());
-        gc.fillRect(start.getX(), start.getY(), end.getX() - start.getX(), end.getY() - start.getY());
+        gc.fillRect(start.getX() * zoomFactor, start.getY() * zoomFactor, getWidth() * zoomFactor, getHeight() * zoomFactor);
         Point center = getCenter();
         gc.setStroke(new Color(0.5, 0.5, 0.5).toFXColor());
-        gc.strokeLine(center.getX() - CROSS_OFFSET, center.getY(), center.getX() + CROSS_OFFSET , center.getY());
-        gc.strokeLine(center.getX(), center.getY() - CROSS_OFFSET, center.getX() , center.getY() + CROSS_OFFSET);
+        gc.strokeLine(zoomFactor * (center.getX() - CROSS_OFFSET), center.getY() * zoomFactor, zoomFactor * (center.getX() + CROSS_OFFSET) , zoomFactor * center.getY());
+        gc.strokeLine(zoomFactor * center.getX(), zoomFactor * (center.getY() - CROSS_OFFSET), zoomFactor * center.getX() , zoomFactor * (center.getY() + CROSS_OFFSET));
         gc.setStroke(new Color(0, 0, 0).toFXColor());
         for (Point anchorPoint : getAnchorPoints()) {
-            gc.strokeRect(anchorPoint.getX() - HANDLE_OFFSET, anchorPoint.getY() - HANDLE_OFFSET, HANDLE_SIZE, HANDLE_SIZE);
+            gc.strokeRect(zoomFactor * (anchorPoint.getX() - HANDLE_OFFSET), zoomFactor * (anchorPoint.getY() - HANDLE_OFFSET), zoomFactor * HANDLE_SIZE, zoomFactor * HANDLE_SIZE);
         }
     }
 }

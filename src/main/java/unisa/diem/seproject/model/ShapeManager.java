@@ -25,6 +25,7 @@ public class ShapeManager implements Serializable {
     private final transient CommandManager commandManager;
     public final transient ObjectProperty<Shape> selectedShapeProperty;
     public final transient ObjectProperty<Shape> copiedShapeProperty;
+    private transient double zoomFactor = 1;
 
     public ShapeManager(GraphicsContext context, CommandManager commandManager) {
         this.shapes = new ArrayList<>();
@@ -40,6 +41,14 @@ public class ShapeManager implements Serializable {
         this.context = context;
         this.selectedShapeProperty = new SimpleObjectProperty<>();
         this.copiedShapeProperty = new SimpleObjectProperty<>();
+    }
+
+    public void setZoomFactor(double zoomFactor) {
+        this.zoomFactor = zoomFactor;
+    }
+
+    public double getZoomFactor() {
+        return zoomFactor;
     }
 
     public GraphicsContext getGraphicsContext() {
@@ -62,22 +71,26 @@ public class ShapeManager implements Serializable {
         return shapes;
     }
 
+    public void drawNotPersistent(Shape s) {
+        s.draw(context, zoomFactor);
+    }
+
     public void redraw() {
         if (context != null) {
             context.clearRect(0, 0, context.getCanvas().getWidth(), context.getCanvas().getHeight());
             context.setFill(new Color(1, 1, 1).toFXColor());
             context.fillRect(0, 0, context.getCanvas().getWidth(), context.getCanvas().getHeight());
             for (Shape s : shapes) {
-                s.draw(context);
+                s.draw(context, zoomFactor);
             }
             if (selectedShapeProperty.get() != null)
-                selectedShapeProperty.get().getBounds().show(context);
+                selectedShapeProperty.get().getBounds().show(context, zoomFactor);
         }
     }
 
     public Shape select(double mouseX, double mouseY) {
         for (Shape s : shapes) {
-            if (s.contains(mouseX, mouseY)) {
+            if (s.contains(mouseX, mouseY, zoomFactor)) {
                 return s;
             }
         }
@@ -87,7 +100,7 @@ public class ShapeManager implements Serializable {
     public void add(Shape s) {
         shapes.add(s);
         if (context != null)
-            s.draw(context);
+            s.draw(context, zoomFactor);
     }
 
     public void remove(Shape s) {
@@ -126,7 +139,7 @@ public class ShapeManager implements Serializable {
     public void move(Shape shape, double deltaX, double deltaY) {
         if (context != null)
             redraw();
-        shape.move(deltaX, deltaY);
+        shape.move(deltaX, deltaY, zoomFactor);
     }
 
     public void moveCommand(Shape shape, double deltaX, double deltaY) {
@@ -137,7 +150,7 @@ public class ShapeManager implements Serializable {
     public void resize(Shape shape, double delta) {
         if (context != null)
             redraw();
-        shape.resize(delta);
+        shape.resize(delta, zoomFactor);
     }
 
     public void resizeCommand(Shape shape, double delta) {

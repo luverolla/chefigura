@@ -27,27 +27,31 @@ public class EllipseShape extends BaseClosedShape {
     }
 
     @Override
-    public void draw(GraphicsContext gc) {
+    public void draw(GraphicsContext gc, double zoomFactor) {
         gc.setStroke(strokeColor.toFXColor());
         gc.setFill(fillColor.toFXColor());
-        gc.strokeOval(center.getX() - radiusX, center.getY() - radiusY, radiusX * 2, radiusY * 2);
-        gc.fillOval(center.getX() - radiusX, center.getY() - radiusY, radiusX * 2, radiusY * 2);
+        double leftX = (center.getX() - radiusX) * zoomFactor,
+                topY = (center.getY() - radiusY) * zoomFactor,
+                width = 2 * this.radiusX * zoomFactor,
+                height = 2 * this.radiusY * zoomFactor;
+        gc.strokeOval(leftX, topY, width, height);
+        gc.fillOval(leftX, topY, width, height);
     }
 
     @Override
-    public boolean contains(double mouseX, double mouseY) {
-        return Math.pow(mouseX - center.getX(), 2) / Math.pow(radiusX, 2) + Math.pow(mouseY - center.getY(), 2) / Math.pow(radiusY, 2) <= 1;
+    public boolean contains(double mouseX, double mouseY, double zoomFactor) {
+        return Math.pow(mouseX / zoomFactor - center.getX(), 2) / Math.pow(radiusX, 2) + Math.pow(mouseY / zoomFactor - center.getY(), 2) / Math.pow(radiusY, 2) <= 1;
     }
 
     @Override
-    public void move(double deltaX, double deltaY) {
-        center = new Point(center.getX() + deltaX, center.getY() + deltaY);
+    public void move(double deltaX, double deltaY, double zoomFactor) {
+        center = new Point(center.getX() + deltaX * zoomFactor, center.getY() + deltaY * zoomFactor);
     }
 
     @Override
-    public void resize(double delta) {
+    public void resize(double delta, double zoomFactor) {
         double ratio = getBounds().getWidth() / getBounds().getHeight();
-        double newWidth = getBounds().getWidth() + delta;
+        double newWidth = getBounds().getWidth() + delta * zoomFactor;
         double newHeight = newWidth / ratio;
         radiusX = newWidth / 2;
         radiusY = newHeight / 2;
