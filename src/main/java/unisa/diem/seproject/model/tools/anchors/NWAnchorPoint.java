@@ -41,6 +41,7 @@ public class NWAnchorPoint implements AnchorPoint {
             this.oldWidth = sm.selectedShapeProperty.get().getBounds().getWidth();
             canvas.getScene().setCursor(Cursor.NW_RESIZE);
             shadow = sm.selectedShapeProperty.get().copy();
+            shadow.setAngle(sm.selectedShapeProperty.get().getAngle());
             shadow.setStrokeColor(shadow.getStrokeColor().fade(0.5));
             if (shadow instanceof ClosedShape)
                 ((ClosedShape) shadow).setFillColor(((ClosedShape) shadow).getFillColor().fade(0.5));

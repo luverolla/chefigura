@@ -89,6 +89,10 @@
                                         <Button mnemonicParsing="false" onAction="#zoomIn" text="Zoom in" />
                                         <Button mnemonicParsing="false" onAction="#zoomOut" text="Zoom out" />
                                     </HBox>
+                                    <HBox>
+                                        <NumberTextField fx:id="angleField" promptText="rotation angle" />
+                                        <Button mnemonicParsing="false" onAction="#rotateSelected" text="Set" />
+                                    </HBox>
                                 </VBox>
                             </AnchorPane>
                         </TitledPane>

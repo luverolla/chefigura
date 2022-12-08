@@ -26,22 +26,6 @@ public class LineSegmentShape extends BaseShape {
         this.angle = 0;
     }
 
-    public Point getStart() {
-        return start;
-    }
-
-    public Point getEnd() {
-        return end;
-    }
-
-    public double getAngle() {
-        return angle;
-    }
-
-    public double getLength() {
-        return Math.sqrt(Math.pow(end.getX() - start.getX(), 2) + Math.pow(end.getY() - start.getY(), 2));
-    }
-
     @Override
     public void draw(GraphicsContext gc, double zoomFactor) {
         gc.save();
@@ -102,6 +86,16 @@ public class LineSegmentShape extends BaseShape {
         double newEndX = getBounds().getCenter().getX() + newWidth / 2;
         double newEndY = getBounds().getCenter().getY() + newHeight / 2;
         defineStartAndEnd(newStartX, newStartY, newEndX, newEndY);
+    }
+
+    @Override
+    public double getAngle() {
+        return angle;
+    }
+
+    @Override
+    public void setAngle(double angle) {
+        this.angle = angle;
     }
 
     @Override

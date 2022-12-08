@@ -73,6 +73,16 @@ public class RectangleShape extends BaseClosedShape {
     }
 
     @Override
+    public double getAngle() {
+        return angle;
+    }
+
+    @Override
+    public void setAngle(double angle) {
+        this.angle = angle;
+    }
+
+    @Override
     public void rotate(double angle) {
         this.angle += angle;
     }

@@ -41,6 +41,7 @@ public class CenterAnchorPoint implements AnchorPoint {
             this.oldY = sm.selectedShapeProperty.get().getBounds().getCenter().getY();
             canvas.getScene().setCursor(Cursor.CLOSED_HAND);
             shadow = sm.selectedShapeProperty.get().copy();
+            shadow.setAngle(sm.selectedShapeProperty.get().getAngle());
             shadow.setStrokeColor(shadow.getStrokeColor().fade(0.5));
             if (shadow instanceof ClosedShape)
                 ((ClosedShape) shadow).setFillColor(((ClosedShape) shadow).getFillColor().fade(0.5));

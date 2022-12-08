@@ -70,15 +70,17 @@ public class Bounds {
     }
 
     public void show(GraphicsContext gc, double zoomFactor) {
+        gc.save();
         gc.setFill(new Color(0.2, 0.8, 1, 0.1).toFXColor());
         gc.fillRect(start.getX() * zoomFactor, start.getY() * zoomFactor, getWidth() * zoomFactor, getHeight() * zoomFactor);
-        Point center = getCenter();
         gc.setStroke(new Color(0.5, 0.5, 0.5).toFXColor());
+        Point center = getCenter();
         gc.strokeLine(zoomFactor * (center.getX() - CROSS_OFFSET), center.getY() * zoomFactor, zoomFactor * (center.getX() + CROSS_OFFSET) , zoomFactor * center.getY());
         gc.strokeLine(zoomFactor * center.getX(), zoomFactor * (center.getY() - CROSS_OFFSET), zoomFactor * center.getX() , zoomFactor * (center.getY() + CROSS_OFFSET));
         gc.setStroke(new Color(0, 0, 0).toFXColor());
         for (Point anchorPoint : getAnchorPoints()) {
             gc.strokeRect(zoomFactor * (anchorPoint.getX() - HANDLE_OFFSET), zoomFactor * (anchorPoint.getY() - HANDLE_OFFSET), zoomFactor * HANDLE_SIZE, zoomFactor * HANDLE_SIZE);
         }
+        gc.restore();
     }
 }

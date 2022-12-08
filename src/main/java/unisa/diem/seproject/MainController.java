@@ -30,6 +30,7 @@ public class MainController {
 
     public StackPane group;
     public NumberTextField gridSizeField;
+    public NumberTextField angleField;
     private Project project;
     private Map<String, Tool> toolMap;
     @FXML
@@ -247,10 +248,10 @@ public class MainController {
         commandManager.execute(new ShapeDeleteCommand(project.getSheet().shapeManager(), project.getSheet().shapeManager().selectedShapeProperty.get()));
     }
     public void onMoveToFront() {
-        commandManager.execute(new ShapeMoveToFrontCommand(project.getSheet().shapeManager(), project.getSheet().shapeManager().selectedShapeProperty.get()));
+        project.getSheet().shapeManager().moveToFront(project.getSheet().shapeManager().selectedShapeProperty.get());
     }
     public void onMoveToBack() {
-        commandManager.execute(new ShapeMoveToBackCommand(project.getSheet().shapeManager(), project.getSheet().shapeManager().selectedShapeProperty.get()));
+        project.getSheet().shapeManager().moveToBack(project.getSheet().shapeManager().selectedShapeProperty.get());
     }
 
     public void resetTool(KeyEvent keyEvent) {
@@ -281,5 +282,12 @@ public class MainController {
         project.getSheet().build(group, sheetCanvas, gridCanvas, zoomFactor);
         project.getSheet().shapeManager().setZoomFactor(zoomFactor);
         project.getSheet().shapeManager().redraw();
+    }
+
+    public void rotateSelected() {
+        if (project.getSheet().shapeManager().selectedShapeProperty.get() != null) {
+            double angle = angleField.numberProperty().get().doubleValue();
+            project.getSheet().shapeManager().rotateCommand(project.getSheet().shapeManager().selectedShapeProperty.get(), angle);
+        }
     }
 }
