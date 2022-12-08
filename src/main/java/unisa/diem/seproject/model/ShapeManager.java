@@ -178,4 +178,14 @@ public class ShapeManager implements Serializable {
         commandManager.execute(command);
     }
 
+    public void rotate(Shape s, double angle) {
+        s.rotate(angle);
+        if (context != null)
+            redraw();
+    }
+
+    public void rotateCommand(Shape s, double angle) {
+        Command command = new ShapeRotationCommand(this, s, angle);
+        commandManager.execute(command);
+    }
 }

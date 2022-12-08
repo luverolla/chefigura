@@ -32,6 +32,7 @@ public interface Shape extends Serializable, Comparable<Shape> {
      * @param delta The amount to resize on the x-axis
      */
     void resize(double delta, double zoomFactor);
+    void rotate(double angle);
     Color getStrokeColor();
     void setStrokeColor(Color strokeColor);
     Bounds getBounds();

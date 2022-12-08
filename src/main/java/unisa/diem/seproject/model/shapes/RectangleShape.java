@@ -18,11 +18,13 @@ public class RectangleShape extends BaseClosedShape {
 
     private Point start;
     private Point end;
+    private double angle;
 
     public RectangleShape(Color strokeColor, Color fillColor, Point start, Point end) {
         super(strokeColor, fillColor);
         this.start = start;
         this.end = end;
+        this.angle = 0;
     }
 
     public RectangleShape(Point start, Point end) {
@@ -33,14 +35,19 @@ public class RectangleShape extends BaseClosedShape {
 
     @Override
     public void draw(GraphicsContext gc, double zoomFactor) {
+        gc.save();
         gc.setStroke(strokeColor.toFXColor());
         gc.setFill(fillColor.toFXColor());
         double startX = start.getX() * zoomFactor,
                 startY = start.getY() * zoomFactor,
                 width = Math.abs(start.getX() - end.getX()) * zoomFactor,
                 height = Math.abs(start.getY() - end.getY()) * zoomFactor;
+        gc.translate(getBounds().getCenter().getX() * zoomFactor, getBounds().getCenter().getY() * zoomFactor);
+        gc.rotate(angle);
+        gc.translate(-getBounds().getCenter().getX() * zoomFactor, -getBounds().getCenter().getY() * zoomFactor);
         gc.strokeRect(startX, startY, width, height);
         gc.fillRect(startX, startY, width, height);
+        gc.restore();
     }
 
     @Override
@@ -63,6 +70,11 @@ public class RectangleShape extends BaseClosedShape {
         double newStartY = getBounds().getCenter().getY() - newHeight / 2;
         start = new Point(newStartX, newStartY);
         end = new Point(newStartX + newWidth, newStartY + newHeight);
+    }
+
+    @Override
+    public void rotate(double angle) {
+        this.angle += angle;
     }
 
     @Override

@@ -18,6 +18,7 @@ public class EllipseShape extends BaseClosedShape {
     private Point center;
     private double radiusX;
     private double radiusY;
+    private double angle;
 
     public EllipseShape(Color strokeColor, Color fillColor, Point center, double radiusX, double radiusY) {
         super(strokeColor, fillColor);
@@ -28,14 +29,19 @@ public class EllipseShape extends BaseClosedShape {
 
     @Override
     public void draw(GraphicsContext gc, double zoomFactor) {
+        gc.save();
         gc.setStroke(strokeColor.toFXColor());
         gc.setFill(fillColor.toFXColor());
         double leftX = (center.getX() - radiusX) * zoomFactor,
                 topY = (center.getY() - radiusY) * zoomFactor,
                 width = 2 * this.radiusX * zoomFactor,
                 height = 2 * this.radiusY * zoomFactor;
+        gc.translate(getBounds().getCenter().getX() * zoomFactor, getBounds().getCenter().getY() * zoomFactor);
+        gc.rotate(angle);
+        gc.translate(-getBounds().getCenter().getX() * zoomFactor, -getBounds().getCenter().getY() * zoomFactor);
         gc.strokeOval(leftX, topY, width, height);
         gc.fillOval(leftX, topY, width, height);
+        gc.restore();
     }
 
     @Override
@@ -55,6 +61,11 @@ public class EllipseShape extends BaseClosedShape {
         double newHeight = newWidth / ratio;
         radiusX = newWidth / 2;
         radiusY = newHeight / 2;
+    }
+
+    @Override
+    public void rotate(double angle) {
+        this.angle += angle;
     }
 
     @Override
