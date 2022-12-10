@@ -15,7 +15,7 @@ public class ShapeResizeCommandTest {
     private final CommandManager cm = new CommandManager();
     private final ShapeManager sm = new ShapeManager(null, cm);
     private final RectangleShape testRectangle = new RectangleShape(new Point(0, 0), new Point(10, 10));
-    private final Command resizeCommand = new ShapeResizeCommand(sm, testRectangle, 5);
+    private final Command resizeCommand = new ShapeResizeCommand(sm, testRectangle, 1.5);
 
     @Test
     @DisplayName("Test execute of resize command")

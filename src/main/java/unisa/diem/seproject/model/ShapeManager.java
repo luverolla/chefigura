@@ -147,14 +147,14 @@ public class ShapeManager implements Serializable {
         commandManager.execute(command);
     }
 
-    public void resize(Shape shape, double delta) {
+    public void resize(Shape shape, double resizeFactor) {
+        shape.resize(resizeFactor, zoomFactor);
         if (context != null)
             redraw();
-        shape.resize(delta, zoomFactor);
     }
 
-    public void resizeCommand(Shape shape, double delta) {
-        Command command = new ShapeResizeCommand(this, shape, delta);
+    public void resizeCommand(Shape shape, double resizeFactor) {
+        Command command = new ShapeResizeCommand(this, shape, resizeFactor);
         commandManager.execute(command);
     }
     public void moveToFront(Shape shape){

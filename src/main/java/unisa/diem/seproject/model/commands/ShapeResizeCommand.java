@@ -8,22 +8,22 @@ public class ShapeResizeCommand implements Command {
 
     private final ShapeManager sm;
     private final Shape shape;
-    private final double delta;
+    private final double resizeFactor;
 
-    public ShapeResizeCommand(ShapeManager sm, Shape shape, double delta) {
+    public ShapeResizeCommand(ShapeManager sm, Shape shape, double resizeFactor) {
         this.sm = sm;
         this.shape = shape;
-        this.delta = delta;
+        this.resizeFactor = resizeFactor;
     }
 
     @Override
     public void execute() {
-        sm.resize(shape, delta);
+        sm.resize(shape, resizeFactor);
     }
 
     @Override
     public void rollback() {
-        sm.resize(shape, -delta);
+        sm.resize(shape, 1 / resizeFactor);
         sm.redraw();
     }
 }

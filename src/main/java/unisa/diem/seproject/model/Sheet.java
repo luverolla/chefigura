@@ -39,7 +39,6 @@ public class Sheet implements Serializable {
         this.currentTool = null;
         this.shapeManager = new ShapeManager(null, cm);
         this.gridSizeProperty = new SimpleDoubleProperty(DEFAULT_GRID_SIZE);
-
         this.gridSizeProperty.addListener((observable, oldValue, newValue) -> {
             if (newValue.doubleValue() < 0) {
                 this.gridSizeProperty.setValue(0);
@@ -53,7 +52,6 @@ public class Sheet implements Serializable {
         this.currentTool = null;
         this.shapeManager = new ShapeManager(null, cm, s.shapeManager().getShapes());
         this.gridSizeProperty = new SimpleDoubleProperty(DEFAULT_GRID_SIZE);
-
         this.gridSizeProperty.addListener((observable, oldValue, newValue) -> {
             if (newValue.doubleValue() < 0) {
                 this.gridSizeProperty.setValue(0);
@@ -121,7 +119,7 @@ public class Sheet implements Serializable {
         canvas.setWidth(width);
         canvas.setHeight(height);
         GraphicsContext context = canvas.getGraphicsContext2D();
-        this.shapeManager.setContext(context);
+        shapeManager.setContext(context);
         context.clearRect(0, 0, width, height);
         context.setFill(Color.WHITE.toFXColor());
         context.fillRect(0, 0, width, height);

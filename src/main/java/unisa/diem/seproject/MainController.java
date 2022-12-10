@@ -5,10 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -31,6 +28,8 @@ public class MainController {
     public StackPane group;
     public NumberTextField gridSizeField;
     public NumberTextField angleField;
+    public NumberTextField resizeField;
+    public Label statusLabel;
     private Project project;
     private Map<String, Tool> toolMap;
     @FXML
@@ -59,7 +58,6 @@ public class MainController {
     private double zoomFactor = 1;
     private Canvas sheetCanvas;
     private Canvas gridCanvas;
-
     private final static double ZOOM_STEP = 0.05;
 
     public MainController() {
@@ -95,6 +93,7 @@ public class MainController {
                 project.getSheet().shapeManager().changeShapeColor(selShape.get(), new Color(newValue), new Color(fillColorPicker.getValue()));
             }
         });
+
         fillColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             for(Tool t: toolMap.values()) {
                 if(t instanceof ClosedShapeTool) {
@@ -156,14 +155,6 @@ public class MainController {
                 Map.entry("selection", new SelectionTool(sheet.shapeManager(), sheetCanvas))
         );
 
-        sheetCanvas.setOnContextMenuRequested(e -> {
-            Shape shape = project.getSheet().shapeManager().selectedShapeProperty.get();
-            if (shape == null || !shape.contains(e.getX(), e.getY(), zoomFactor))
-                sheetContextMenu.show(sheetCanvas, e.getScreenX(), e.getScreenY());
-            else
-                shapeContextMenu.show(canvasContainer, e.getScreenX(), e.getScreenY());
-        });
-
         sheetCanvas.setOnMouseClicked(e -> {
             shapeContextMenu.hide();
             sheetContextMenu.hide();
@@ -187,8 +178,10 @@ public class MainController {
         if(chosen.equals(project.getSheet().getCurrentTool())) {
             project.getSheet().getCurrentTool().reset();
             project.getSheet().setCurrentTool(null);
+            statusLabel.setText("None");
         } else {
             project.getSheet().setCurrentTool(chosen);
+            statusLabel.setText(toolName);
         }
     }
 
@@ -248,10 +241,10 @@ public class MainController {
         commandManager.execute(new ShapeDeleteCommand(project.getSheet().shapeManager(), project.getSheet().shapeManager().selectedShapeProperty.get()));
     }
     public void onMoveToFront() {
-        project.getSheet().shapeManager().moveToFront(project.getSheet().shapeManager().selectedShapeProperty.get());
+        project.getSheet().shapeManager().moveToFrontCommand(project.getSheet().shapeManager().selectedShapeProperty.get());
     }
     public void onMoveToBack() {
-        project.getSheet().shapeManager().moveToBack(project.getSheet().shapeManager().selectedShapeProperty.get());
+        project.getSheet().shapeManager().moveToBackCommand(project.getSheet().shapeManager().selectedShapeProperty.get());
     }
 
     public void resetTool(KeyEvent keyEvent) {
@@ -259,6 +252,13 @@ public class MainController {
             if (project.getSheet().getCurrentTool() != null) {
                 project.getSheet().getCurrentTool().reset();
             }
+        }
+    }
+
+    public void resizeSelected() {
+        if (project.getSheet().shapeManager().selectedShapeProperty.get() != null) {
+            double resizeFactor = resizeField.numberProperty().get().doubleValue();
+            project.getSheet().shapeManager().resizeCommand(project.getSheet().shapeManager().selectedShapeProperty.get(), resizeFactor);
         }
     }
 

@@ -62,14 +62,13 @@ public class RectangleShape extends BaseClosedShape {
     }
 
     @Override
-    public void resize(double delta, double zoomFactor) {
-        double ratio = getBounds().getWidth() / getBounds().getHeight();
-        double newWidth = getBounds().getWidth() + delta * zoomFactor;
-        double newHeight = newWidth / ratio;
-        double newStartX = getBounds().getCenter().getX() - newWidth / 2;
-        double newStartY = getBounds().getCenter().getY() - newHeight / 2;
+    public void resize(double resizeFactor, double zoomFactor) {
+        double newStartX = (getBounds().getCenter().getX() - getBounds().getWidth() * resizeFactor / 2) * zoomFactor;
+        double newStartY = (getBounds().getCenter().getY() - getBounds().getHeight() * resizeFactor / 2) * zoomFactor;
+        double newEndX = (getBounds().getCenter().getX() + getBounds().getWidth() * resizeFactor / 2) * zoomFactor;
+        double newEndY = (getBounds().getCenter().getY() + getBounds().getHeight() * resizeFactor / 2) * zoomFactor;
         start = new Point(newStartX, newStartY);
-        end = new Point(newStartX + newWidth, newStartY + newHeight);
+        end = new Point(newEndX, newEndY);
     }
 
     @Override
@@ -99,7 +98,7 @@ public class RectangleShape extends BaseClosedShape {
 
     @Override
     public Bounds getBounds() {
-        return new Bounds(start, end);
+        return new Bounds(this, start, end);
     }
 
     @Override

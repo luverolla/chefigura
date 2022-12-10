@@ -55,12 +55,9 @@ public class EllipseShape extends BaseClosedShape {
     }
 
     @Override
-    public void resize(double delta, double zoomFactor) {
-        double ratio = getBounds().getWidth() / getBounds().getHeight();
-        double newWidth = getBounds().getWidth() + delta * zoomFactor;
-        double newHeight = newWidth / ratio;
-        radiusX = newWidth / 2;
-        radiusY = newHeight / 2;
+    public void resize(double resizeFactor, double zoomFactor) {
+        radiusX = radiusX * resizeFactor * zoomFactor;
+        radiusY = radiusY * resizeFactor * zoomFactor;
     }
 
     @Override
@@ -94,7 +91,7 @@ public class EllipseShape extends BaseClosedShape {
         double startY = center.getY() - radiusY;
         double endX = center.getX() + radiusX;
         double endY = center.getY() + radiusY;
-        return new Bounds(new Point(startX, startY), new Point(endX, endY));
+        return new Bounds(this, new Point(startX, startY), new Point(endX, endY));
     }
 
     @Override

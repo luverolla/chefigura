@@ -27,10 +27,10 @@ public class SelectionTool implements Tool {
         this.canvas = canvas;
         this.anchorPoints = List.of(
                 new CenterAnchorPoint(this, canvas),
-                new NWAnchorPoint(this, canvas),
-                new NEAnchorPoint(this, canvas),
-                new SEAnchorPoint(this, canvas),
-                new SWAnchorPoint(this, canvas)
+                new WAnchorPoint(this, canvas),
+                new NAnchorPoint(this, canvas),
+                new EAnchorPoint(this, canvas),
+                new SAnchorPoint(this, canvas)
         );
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
             for (AnchorPoint anchorPoint : anchorPoints) {

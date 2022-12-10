@@ -6,6 +6,7 @@
 
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import unisa.diem.seproject.model.extensions.NumberTextField?>
+<?import javafx.geometry.Insets?>
 <VBox onKeyPressed="#resetTool" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unisa.diem.seproject.MainController">
     <MenuBar>
         <Menu mnemonicParsing="false" text="File">
@@ -60,8 +61,8 @@
     <!-- sheet + panels -->
     <GridPane VBox.Vgrow="ALWAYS" VBox.vgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints percentWidth="85" />
-            <ColumnConstraints percentWidth="15" />
+            <ColumnConstraints percentWidth="80" />
+            <ColumnConstraints percentWidth="20" />
         </columnConstraints>
 
         <!-- scrollPane -->
@@ -76,23 +77,41 @@
                     <panes>
                         <TitledPane animated="false" text="Tools">
                             <AnchorPane minHeight="0.0" minWidth="0.0">
-                                <VBox>
+                                <VBox spacing="10">
+                                    <padding>
+                                        <Insets top="10" right="10" bottom="10" left="10"/>
+                                    </padding>
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Rectangle" userData="rectangle" />
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Ellipse" userData="ellipse" />
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Line Segment" userData="segment" />
                                     <Button mnemonicParsing="false" onAction="#selectTool" text="Selection" userData="selection" />
-                                    <HBox>
-                                        <NumberTextField fx:id="gridSizeField" promptText="Grid width" />
-                                        <Button mnemonicParsing="false" onAction="#setGridSize" text="Set" />
-                                    </HBox>
-                                    <HBox>
-                                        <Button mnemonicParsing="false" onAction="#zoomIn" text="Zoom in" />
-                                        <Button mnemonicParsing="false" onAction="#zoomOut" text="Zoom out" />
-                                    </HBox>
-                                    <HBox>
-                                        <NumberTextField fx:id="angleField" promptText="rotation angle" />
-                                        <Button mnemonicParsing="false" onAction="#rotateSelected" text="Set" />
-                                    </HBox>
+                                    <VBox spacing="5">
+                                        <Label text="Select resize factor" />
+                                        <HBox>
+                                            <NumberTextField fx:id="resizeField" promptText="scale factor" />
+                                            <Button mnemonicParsing="false" onAction="#resizeSelected" text="Set" />
+                                        </HBox>
+                                    </VBox>
+                                    <VBox spacing="5">
+                                        <Label text="Select grid squares size (millimeters)" />
+                                        <HBox>
+                                            <NumberTextField fx:id="gridSizeField" promptText="Grid width" />
+                                            <Button mnemonicParsing="false" onAction="#setGridSize" text="Set" />
+                                        </HBox>
+                                    </VBox>
+                                    <VBox spacing="5">
+                                        <HBox>
+                                            <Button mnemonicParsing="false" onAction="#zoomIn" text="Zoom in" />
+                                            <Button mnemonicParsing="false" onAction="#zoomOut" text="Zoom out" />
+                                        </HBox>
+                                    </VBox>
+                                    <VBox spacing="5">
+                                        <Label text="Select incremental rotation angle (degrees)" />
+                                        <HBox>
+                                            <NumberTextField fx:id="angleField" promptText="rotation angle" />
+                                            <Button mnemonicParsing="false" onAction="#rotateSelected" text="Set" />
+                                        </HBox>
+                                    </VBox>
                                 </VBox>
                             </AnchorPane>
                         </TitledPane>
@@ -122,5 +141,11 @@
             <RowConstraints />
         </rowConstraints>
     </GridPane>
-    <HBox prefHeight="17.0" prefWidth="673.0" />
+    <HBox>
+        <padding>
+            <Insets bottom="5" left="10" right="10" top="5"/>
+        </padding>
+        <Label text="Current Tool Selected: " />
+        <Label fx:id="statusLabel" text="None" />
+    </HBox>
 </VBox>

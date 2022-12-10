@@ -77,10 +77,9 @@ public class LineSegmentShape extends BaseShape {
     }
 
     @Override
-    public void resize(double delta, double zoomFactor) {
-        double ratio = getBounds().getWidth() / getBounds().getHeight();
-        double newWidth = getBounds().getWidth() + delta * zoomFactor;
-        double newHeight = newWidth / ratio;
+    public void resize(double resizeFactor, double zoomFactor) {
+        double newWidth = getBounds().getWidth() * resizeFactor * zoomFactor;
+        double newHeight = getBounds().getHeight() * resizeFactor * zoomFactor;
         double newStartX = getBounds().getCenter().getX() - newWidth / 2;
         double newStartY = getBounds().getCenter().getY() - newHeight / 2;
         double newEndX = getBounds().getCenter().getX() + newWidth / 2;
@@ -116,15 +115,11 @@ public class LineSegmentShape extends BaseShape {
 
     @Override
     public Bounds getBounds() {
-        double startX = start.getX();
-        double startY = start.getY();
-        double endX = end.getX();
-        double endY = end.getY();
-        double minX = Math.min(startX, endX);
-        double minY = Math.min(startY, endY);
-        double maxX = Math.max(startX, endX);
-        double maxY = Math.max(startY, endY);
-        return new Bounds(new Point(minX, minY), new Point(maxX, maxY));
+        double minX = Math.min(start.getX(), end.getX());
+        double minY = Math.min(start.getY(), end.getY());
+        double maxX = Math.max(start.getX(), end.getX());
+        double maxY = Math.max(start.getY(), end.getY());
+        return new Bounds(this, new Point(minX, minY), new Point(maxX, maxY));
     }
 
     @Override
