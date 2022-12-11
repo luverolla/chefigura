@@ -63,7 +63,7 @@ public class MainController {
     public MainController() {
         commandManager = new CommandManager();
         project = new Project(commandManager);
-        Sheet sheet = new Sheet(SheetFormat.NONE, commandManager);
+        Sheet sheet = new Sheet(commandManager);
         project.addSheet(sheet);
         shapeContextMenu = new ContextMenu();
         sheetContextMenu = new ContextMenu();
@@ -82,6 +82,8 @@ public class MainController {
         menuOptionMoveToBack.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
 
         gridSizeField.setNumber(BigDecimal.valueOf(project.getSheet().gridSizeProperty.getValue()));
+        resizeField.setNumber(BigDecimal.ONE);
+        angleField.setNumber(BigDecimal.ZERO);
 
         strokeColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             for(Tool t: toolMap.values()) {
@@ -260,6 +262,7 @@ public class MainController {
             double resizeFactor = resizeField.numberProperty().get().doubleValue();
             project.getSheet().shapeManager().resizeCommand(project.getSheet().shapeManager().selectedShapeProperty.get(), resizeFactor);
         }
+        resizeField.setNumber(BigDecimal.ONE);
     }
 
     public void setGridSize() {
@@ -289,5 +292,6 @@ public class MainController {
             double angle = angleField.numberProperty().get().doubleValue();
             project.getSheet().shapeManager().rotateCommand(project.getSheet().shapeManager().selectedShapeProperty.get(), angle);
         }
+        angleField.setNumber(BigDecimal.ZERO);
     }
 }

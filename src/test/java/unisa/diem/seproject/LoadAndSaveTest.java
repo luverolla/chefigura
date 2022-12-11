@@ -14,7 +14,7 @@ public class LoadAndSaveTest {
     public void initProject() {
         CommandManager cm = new CommandManager();
         sample = new Project(cm);
-        Sheet sheet = new Sheet(new SheetFormat(20,40), cm);
+        Sheet sheet = new Sheet(cm);
         sample.addSheet(sheet);
     }
 
@@ -24,8 +24,5 @@ public class LoadAndSaveTest {
         Project.save(sample, new File("sample.proj"));
         Project saved = Project.load(new File("sample.proj"));
         assertNotNull(saved);
-        Sheet sheet = saved.getSheet();
-        assertEquals(20, sheet.getFormat().getWidth());
-        assertEquals(40, sheet.getFormat().getHeight());
     }
 }

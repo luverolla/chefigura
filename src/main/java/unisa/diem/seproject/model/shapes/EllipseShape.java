@@ -51,13 +51,13 @@ public class EllipseShape extends BaseClosedShape {
 
     @Override
     public void move(double deltaX, double deltaY, double zoomFactor) {
-        center = new Point(center.getX() + deltaX * zoomFactor, center.getY() + deltaY * zoomFactor);
+        center = new Point(center.getX() + deltaX, center.getY() + deltaY);
     }
 
     @Override
     public void resize(double resizeFactor, double zoomFactor) {
-        radiusX = radiusX * resizeFactor * zoomFactor;
-        radiusY = radiusY * resizeFactor * zoomFactor;
+        radiusX = radiusX * resizeFactor;
+        radiusY = radiusY * resizeFactor;
     }
 
     @Override

@@ -57,16 +57,16 @@ public class RectangleShape extends BaseClosedShape {
 
     @Override
     public void move(double deltaX, double deltaY, double zoomFactor) {
-        start= new Point(start.getX() + deltaX * zoomFactor, start.getY() + deltaY * zoomFactor);
-        end = new Point(end.getX() + deltaX * zoomFactor, end.getY() + deltaY * zoomFactor);
+        start= new Point(start.getX() + deltaX, start.getY() + deltaY);
+        end = new Point(end.getX() + deltaX, end.getY() + deltaY);
     }
 
     @Override
     public void resize(double resizeFactor, double zoomFactor) {
-        double newStartX = (getBounds().getCenter().getX() - getBounds().getWidth() * resizeFactor / 2) * zoomFactor;
-        double newStartY = (getBounds().getCenter().getY() - getBounds().getHeight() * resizeFactor / 2) * zoomFactor;
-        double newEndX = (getBounds().getCenter().getX() + getBounds().getWidth() * resizeFactor / 2) * zoomFactor;
-        double newEndY = (getBounds().getCenter().getY() + getBounds().getHeight() * resizeFactor / 2) * zoomFactor;
+        double newStartX = (getBounds().getCenter().getX() - getBounds().getWidth() * resizeFactor / 2);
+        double newStartY = (getBounds().getCenter().getY() - getBounds().getHeight() * resizeFactor / 2);
+        double newEndX = (getBounds().getCenter().getX() + getBounds().getWidth() * resizeFactor / 2);
+        double newEndY = (getBounds().getCenter().getY() + getBounds().getHeight() * resizeFactor / 2);
         start = new Point(newStartX, newStartY);
         end = new Point(newEndX, newEndY);
     }
