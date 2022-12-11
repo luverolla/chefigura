@@ -188,4 +188,16 @@ public class ShapeManager implements Serializable {
         Command command = new ShapeRotationCommand(this, s, angle);
         commandManager.execute(command);
     }
+
+    public void stretch(Shape shape, double deltaX, double deltaY, int direction) {
+        shape.stretch(deltaX, deltaY, direction);
+        if (context != null)
+            redraw();
+    }
+
+    public void stretchCommand(Shape shape, double deltaX, double deltaY, int direction) {
+        Command command = new ShapeStretchCommand(this, shape, deltaX, deltaY, direction);
+        commandManager.execute(command);
+    }
+
 }

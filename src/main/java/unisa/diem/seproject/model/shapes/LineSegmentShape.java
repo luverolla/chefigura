@@ -127,6 +127,19 @@ public class LineSegmentShape extends BaseShape {
         return new LineSegmentShape(strokeColor, start, end);
     }
 
+    @Override
+    public void stretch(double deltaX, double deltaY, int direction) {
+        if (direction > 0){
+            double newEndX = end.getX() + deltaX;
+            double newEndY = end.getY() + deltaY;
+            defineStartAndEnd(start.getX(), start.getY(), newEndX, newEndY);
+        } else {
+            double newStartX = start.getX() + deltaX;
+            double newStartY = start.getY() + deltaY;
+            defineStartAndEnd(newStartX, newStartY, end.getX(), end.getY());
+        }
+    }
+
     @Serial
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
         out.defaultWriteObject();

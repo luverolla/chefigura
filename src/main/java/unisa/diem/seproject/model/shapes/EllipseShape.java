@@ -99,6 +99,20 @@ public class EllipseShape extends BaseClosedShape {
         return new EllipseShape(strokeColor, fillColor, center, radiusX, radiusY);
     }
 
+    @Override
+    public void stretch(double deltaX, double deltaY, int direction) {
+        if  (direction > 0) {
+            radiusX += deltaX / 2;
+            radiusY += deltaY / 2;
+            center = new Point(center.getX() + deltaX / 2, center.getY() + deltaY / 2);
+        }
+        else {
+            radiusX -= deltaX / 2;
+            radiusY -= deltaY / 2;
+            center = new Point(center.getX() + deltaX / 2, center.getY() + deltaY / 2);
+        }
+    }
+
     @Serial
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
         out.defaultWriteObject();

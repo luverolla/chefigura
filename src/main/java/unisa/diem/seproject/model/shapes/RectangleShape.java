@@ -106,6 +106,15 @@ public class RectangleShape extends BaseClosedShape {
         return new RectangleShape(strokeColor, fillColor, start, end);
     }
 
+    @Override
+    public void stretch(double deltaX, double deltaY, int direction) {
+        if(direction > 0){
+            end = new Point(end.getX() + deltaX, end.getY() + deltaY);
+        } else {
+            start = new Point(start.getX() + deltaX, start.getY() + deltaY);
+        }
+    }
+
     @Serial
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
         out.defaultWriteObject();
