@@ -6,7 +6,6 @@ import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.Command;
 
 public class ShapeColorCommand implements Command {
-
     private final ShapeManager sm;
     private final Shape shape;
     private final Color oldStrokeColor;

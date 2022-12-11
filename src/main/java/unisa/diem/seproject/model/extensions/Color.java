@@ -90,7 +90,7 @@ public class Color implements Serializable {
     }
 
     /**
-     * Make a color more transparent.
+     * Makes a color more transparent.
      * @param opacity The opacity to set.
      * @return The new color.
      */

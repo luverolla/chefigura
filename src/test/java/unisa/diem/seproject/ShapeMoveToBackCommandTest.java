@@ -9,7 +9,6 @@ import unisa.diem.seproject.model.commands.ShapeMoveToBackCommand;
 import unisa.diem.seproject.model.extensions.Point;
 import unisa.diem.seproject.model.shapes.RectangleShape;
 
-
 public class ShapeMoveToBackCommandTest {
     private final CommandManager cm = new CommandManager();
     private final ShapeManager sm = new ShapeManager(null, cm);

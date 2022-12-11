@@ -11,7 +11,6 @@ import unisa.diem.seproject.model.extensions.Point;
 import unisa.diem.seproject.model.shapes.RectangleShape;
 
 public class ShapeResizeCommandTest {
-
     private final CommandManager cm = new CommandManager();
     private final ShapeManager sm = new ShapeManager(null, cm);
     private final RectangleShape testRectangle = new RectangleShape(new Point(0, 0), new Point(10, 10));

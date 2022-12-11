@@ -9,8 +9,13 @@ import unisa.diem.seproject.model.ShapeManager;
 import unisa.diem.seproject.model.tools.SelectionTool;
 import unisa.diem.seproject.model.tools.AnchorPoint;
 
+/**
+ * Class that implements the center anchor point
+ * <p>
+ *     this point act as handle for moving shapes
+ * </p>
+ */
 public class CenterAnchorPoint implements AnchorPoint {
-
     private final Canvas canvas;
     private final ShapeManager sm;
     private double oldX;

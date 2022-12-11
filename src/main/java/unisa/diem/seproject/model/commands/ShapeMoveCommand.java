@@ -5,7 +5,6 @@ import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 
 public class ShapeMoveCommand implements Command {
-
     private final Shape shape;
     private final ShapeManager sm;
     private final double deltaX;

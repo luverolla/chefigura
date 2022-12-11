@@ -1,6 +1,7 @@
 package unisa.diem.seproject.model;
 
 import javafx.scene.canvas.GraphicsContext;
+
 import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.extensions.Point;
 
@@ -9,7 +10,6 @@ import unisa.diem.seproject.model.extensions.Point;
  * The bounds are rectangular regions surrounding a shape
  */
 public class Bounds {
-
     private static final int HANDLE_SIZE = 5;
     private static final int HANDLE_OFFSET = HANDLE_SIZE / 2;
     private static final int CROSS_SIZE = 10;

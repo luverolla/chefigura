@@ -8,7 +8,6 @@ import java.util.List;
  * Class that represents a drawing project, composed of one or more sheets
  */
 public class Project implements Serializable {
-
     @Serial
     private static final long serialVersionUID = 1L;
     private final List<Sheet> sheets;
@@ -21,6 +20,9 @@ public class Project implements Serializable {
         this.file = null;
     }
 
+    /**
+     * When loading a project from file, the command manager is not serialized, so it must be reinitialized manually
+     */
     @Serial
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();

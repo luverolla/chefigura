@@ -9,8 +9,13 @@ import unisa.diem.seproject.model.ShapeManager;
 import unisa.diem.seproject.model.tools.AnchorPoint;
 import unisa.diem.seproject.model.tools.SelectionTool;
 
+/**
+ * Class that implements the most above anchor point
+ * <p>
+ *     this point act as handle to stretch the shape from its most above bound
+ * </p>
+ */
 public class NAnchorPoint implements AnchorPoint {
-
     private final Canvas canvas;
     private final ShapeManager sm;
     private double oldY;

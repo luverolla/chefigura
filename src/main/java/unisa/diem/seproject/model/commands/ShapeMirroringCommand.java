@@ -5,7 +5,6 @@ import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 
 public class ShapeMirroringCommand implements Command {
-
     private final ShapeManager sm;
     private final Shape s;
     private final boolean horizontal;

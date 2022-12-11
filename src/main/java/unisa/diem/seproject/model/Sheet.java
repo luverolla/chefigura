@@ -1,5 +1,7 @@
 package unisa.diem.seproject.model;
 
+import java.io.Serial;
+import java.io.Serializable;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.canvas.Canvas;
@@ -10,17 +12,13 @@ import javafx.stage.Screen;
 import unisa.diem.seproject.Converter;
 import unisa.diem.seproject.model.extensions.Color;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 /**
  * Class that represents a sheet of a project
- *<p>
+ * <p>
  * Each sheet has its own canvas
  * </p>
  */
 public class Sheet implements Serializable {
-
     @Serial
     private static final long serialVersionUID = 1L;
     static final double DRAW_AREA_HEIGHT = 200;
@@ -30,7 +28,6 @@ public class Sheet implements Serializable {
     private transient Tool currentTool;
     private final ShapeManager shapeManager;
     public final transient DoubleProperty gridSizeProperty;
-
     private transient Canvas gridCanvas;
 
     public Sheet(CommandManager cm) {

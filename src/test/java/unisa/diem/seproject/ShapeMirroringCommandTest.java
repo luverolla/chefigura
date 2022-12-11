@@ -12,7 +12,6 @@ import unisa.diem.seproject.model.extensions.Point;
 import unisa.diem.seproject.model.shapes.LineSegmentShape;
 
 public class ShapeMirroringCommandTest {
-
     private final CommandManager cm = new CommandManager();
     private final ShapeManager sm = new ShapeManager(null, cm);
     private final LineSegmentShape testLine = new LineSegmentShape(Color.BLACK, new Point(10, 10), new Point(0, 0));

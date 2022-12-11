@@ -10,7 +10,6 @@ import unisa.diem.seproject.model.shapes.EllipseShape;
  * Tool to draw an ellipse
  */
 public class EllipseTool implements ClosedShapeTool {
-
     private Point center;
     private Point radius;
     private final ShapeManager sm;

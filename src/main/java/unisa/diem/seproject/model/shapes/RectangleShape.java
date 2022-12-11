@@ -8,14 +8,10 @@ import unisa.diem.seproject.model.extensions.Point;
 import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.BaseClosedShape;
 
-import java.io.IOException;
-import java.io.Serial;
-
 /**
  * Class that represents a rectangle
  */
 public class RectangleShape extends BaseClosedShape {
-
     private Point start;
     private Point end;
     private double angle;
@@ -115,43 +111,15 @@ public class RectangleShape extends BaseClosedShape {
         }
     }
 
+    /**
+     * This method is left empty since the rectangle is a symmetric shape
+     */
     @Override
-    public void mirrorHorizontal() {
-        /*
-        * this method is empty because the rectangle is symmetric with respect to the horizontal axis
-        */
-    }
+    public void mirrorHorizontal() {}
 
+    /**
+     * This method is left empty since the rectangle is a symmetric shape
+     */
     @Override
-    public void mirrorVertical() {
-        /*
-         * this method is empty because the rectangle is symmetric with respect to the vertical axis
-         */
-    }
-
-    @Serial
-    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
-        out.defaultWriteObject();
-        out.writeDouble(strokeColor.getRed());
-        out.writeDouble(strokeColor.getGreen());
-        out.writeDouble(strokeColor.getBlue());
-        out.writeDouble(strokeColor.getOpacity());
-        out.writeDouble(fillColor.getRed());
-        out.writeDouble(fillColor.getGreen());
-        out.writeDouble(fillColor.getBlue());
-        out.writeDouble(fillColor.getOpacity());
-        out.writeDouble(start.getX());
-        out.writeDouble(start.getY());
-        out.writeDouble(end.getX());
-        out.writeDouble(end.getY());
-    }
-
-    @Serial
-    private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        strokeColor = new Color(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble());
-        fillColor = new Color(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble());
-        start = new Point(in.readDouble(), in.readDouble());
-        end = new Point(in.readDouble(), in.readDouble());
-    }
+    public void mirrorVertical() {}
 }

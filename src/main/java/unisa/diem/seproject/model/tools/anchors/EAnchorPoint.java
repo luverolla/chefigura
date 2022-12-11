@@ -9,8 +9,13 @@ import unisa.diem.seproject.model.ShapeManager;
 import unisa.diem.seproject.model.tools.AnchorPoint;
 import unisa.diem.seproject.model.tools.SelectionTool;
 
+/**
+ * Class that implements the rightest anchor point
+ * <p>
+ *     this point act as handle to stretch the shape from its rightest bound
+ * </p>
+ */
 public class EAnchorPoint implements AnchorPoint {
-
     private final Canvas canvas;
     private final ShapeManager sm;
     private double oldX;

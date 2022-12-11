@@ -8,13 +8,10 @@ import unisa.diem.seproject.model.extensions.Color;
 import unisa.diem.seproject.model.BaseClosedShape;
 import unisa.diem.seproject.model.extensions.Point;
 
-import java.io.Serial;
-
 /**
- *
+ * Class that represents an ellipse with given center and radiuses
  */
 public class EllipseShape extends BaseClosedShape {
-
     private Point center;
     private double radiusX;
     private double radiusY;
@@ -113,44 +110,15 @@ public class EllipseShape extends BaseClosedShape {
         }
     }
 
+    /**
+     * This method is left empty since the ellipse is a symmetric shape
+     */
     @Override
-    public void mirrorHorizontal() {
-        /*
-         * this method is empty because the ellipse is symmetric with respect to the horizontal axis
-         */
-    }
+    public void mirrorHorizontal() {}
 
+    /**
+     * This method is left empty since the ellipse is a symmetric shape
+     */
     @Override
-    public void mirrorVertical() {
-        /*
-         * this method is empty because the ellipse is symmetric with respect to the vertical axis
-         */
-    }
-
-    @Serial
-    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
-        out.defaultWriteObject();
-        out.writeDouble(strokeColor.getRed());
-        out.writeDouble(strokeColor.getGreen());
-        out.writeDouble(strokeColor.getBlue());
-        out.writeDouble(strokeColor.getOpacity());
-        out.writeDouble(fillColor.getRed());
-        out.writeDouble(fillColor.getGreen());
-        out.writeDouble(fillColor.getBlue());
-        out.writeDouble(fillColor.getOpacity());
-        out.writeDouble(center.getX());
-        out.writeDouble(center.getY());
-        out.writeDouble(radiusX);
-        out.writeDouble(radiusY);
-    }
-
-    @Serial
-    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        strokeColor = new Color(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble());
-        fillColor = new Color(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble());
-        center = new Point(in.readDouble(), in.readDouble());
-        radiusX = in.readDouble();
-        radiusY = in.readDouble();
-    }
+    public void mirrorVertical() {}
 }

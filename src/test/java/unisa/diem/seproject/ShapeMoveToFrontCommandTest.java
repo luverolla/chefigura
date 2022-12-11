@@ -9,8 +9,6 @@ import unisa.diem.seproject.model.commands.ShapeMoveToFrontCommand;
 import unisa.diem.seproject.model.extensions.Point;
 import unisa.diem.seproject.model.shapes.RectangleShape;
 
-
-
 public class ShapeMoveToFrontCommandTest {
     private final CommandManager cm = new CommandManager();
     private final ShapeManager sm = new ShapeManager(null, cm);

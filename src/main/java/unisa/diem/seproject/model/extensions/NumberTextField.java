@@ -7,6 +7,9 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.TextField;
 
+/**
+ * Class that extends the JavaFX TextField class to allow only numbers to be entered
+ */
 public class NumberTextField extends TextField {
 
     private final NumberFormat nf;
@@ -36,19 +39,22 @@ public class NumberTextField extends TextField {
         setNumber(value);
     }
 
+    /**
+     * Initialize listener for properties changes
+     */
     private void initHandlers() {
-
         setOnAction(arg0 -> parseAndFormatInput());
-
         focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 parseAndFormatInput();
             }
         });
-
         numberProperty().addListener((observable, oldValue, newValue) -> setText(nf.format(newValue)));
     }
 
+    /**
+     * Parses input checking that only numbers are entered
+     */
     private void parseAndFormatInput() {
         try {
             String input = getText();

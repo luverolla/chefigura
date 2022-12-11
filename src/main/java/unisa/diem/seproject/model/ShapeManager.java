@@ -1,5 +1,9 @@
 package unisa.diem.seproject.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.canvas.GraphicsContext;
@@ -7,19 +11,13 @@ import javafx.scene.canvas.GraphicsContext;
 import unisa.diem.seproject.model.commands.*;
 import unisa.diem.seproject.model.extensions.Color;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Class that manages shapes operations
  * <p>
- * Implements the Composite pattern
+ * Implements the "Composite" pattern
  * </p>
  */
 public class ShapeManager implements Serializable {
-
     private final List<Shape> shapes;
     private transient GraphicsContext context;
     private final transient CommandManager commandManager;
@@ -71,10 +69,17 @@ public class ShapeManager implements Serializable {
         return shapes;
     }
 
+    /**
+     * Draw a shape that is not meant to be in the collection
+     * @param s the shape to draw
+     */
     public void drawNotPersistent(Shape s) {
         s.draw(context, zoomFactor);
     }
 
+    /**
+     * Clears the canvas and draw all shapes in the collection
+     */
     public void redraw() {
         if (context != null) {
             context.clearRect(0, 0, context.getCanvas().getWidth(), context.getCanvas().getHeight());
@@ -109,14 +114,6 @@ public class ShapeManager implements Serializable {
         shapes.remove(s);
         if (context != null)
             redraw();
-    }
-
-    public void clear() {
-        selectedShapeProperty.set(null);
-        shapes.clear();
-        if (context != null) {
-            redraw();
-        }
     }
 
     public void drawCommand(Shape s) {
@@ -200,6 +197,11 @@ public class ShapeManager implements Serializable {
         commandManager.execute(command);
     }
 
+    /**
+     * Call the mirror method for the given shape
+     * @param s the given shape
+     * @param horizontal true if the mirror is on the x-axis, false if it is on the y-axis
+     */
     public void mirror(Shape s, boolean horizontal) {
         if (horizontal) {
             s.mirrorHorizontal();

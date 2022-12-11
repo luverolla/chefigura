@@ -10,7 +10,6 @@ import unisa.diem.seproject.model.shapes.RectangleShape;
  * Tool to draw a rectangle
  */
 public class RectangleTool implements ClosedShapeTool {
-
     private Point start;
     private Point end;
     private Shape shape;

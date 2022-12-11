@@ -30,6 +30,8 @@ public class MainController {
     public NumberTextField angleField;
     public NumberTextField resizeField;
     public Label statusLabel;
+    public MenuItem menuOptionMirrorH;
+    public MenuItem menuOptionMirrorV;
     private Project project;
     private Map<String, Tool> toolMap;
     @FXML
@@ -71,19 +73,31 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        ObjectProperty<Shape> selShape = project.getSheet().shapeManager().selectedShapeProperty;
+        ObjectProperty<Shape> selShape = project.getSheet().shapeManager().selectedShapeProperty,
+                copiedShape = project.getSheet().shapeManager().copiedShapeProperty;
         initSheet(project.getSheet());
 
-        menuOptionCopy.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
-        menuOptionCut.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
-        menuOptionPaste.disableProperty().bind(project.getSheet().shapeManager().copiedShapeProperty.isNull());
-        menuOptionDelete.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
-        menuOptionMoveToFront.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
-        menuOptionMoveToBack.disableProperty().bind(project.getSheet().shapeManager().selectedShapeProperty.isNull());
+        menuOptionCopy.disableProperty().bind(selShape.isNull());
+        menuOptionCut.disableProperty().bind(selShape.isNull());
+        menuOptionDelete.disableProperty().bind(selShape.isNull());
+        menuOptionMoveToFront.disableProperty().bind(selShape.isNull());
+        menuOptionMoveToBack.disableProperty().bind(selShape.isNull());
+        menuOptionMirrorH.disableProperty().bind(selShape.isNull());
+        menuOptionMirrorV.disableProperty().bind(selShape.isNull());
+        menuOptionPaste.disableProperty().bind(copiedShape.isNull());
 
         gridSizeField.setNumber(BigDecimal.valueOf(project.getSheet().gridSizeProperty.getValue()));
+
         resizeField.setNumber(BigDecimal.ONE);
+        for (Node node : resizeField.getParent().getChildrenUnmodifiable())
+            node.disableProperty().bind(selShape.isNull());
+
         angleField.setNumber(BigDecimal.ZERO);
+        for (Node node : angleField.getParent().getChildrenUnmodifiable())
+            node.disableProperty().bind(selShape.isNull());
+
+        strokeColorPicker.setStyle("-fx-color-label-visible: false ;");
+        fillColorPicker.setStyle("-fx-color-label-visible: false ;");
 
         strokeColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             for(Tool t: toolMap.values()) {
@@ -188,12 +202,6 @@ public class MainController {
     }
 
     @FXML
-    public void onSheetClear() {
-        Sheet sheet = project.getSheet();
-        sheet.shapeManager().clear();
-    }
-
-    @FXML
     public void handleLoad() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Load project");
@@ -276,14 +284,20 @@ public class MainController {
     }
 
     @FXML
-    private void zoomIn() {
+    private void onZoomIn() {
         zoomFactor += ZOOM_STEP;
         zoom();
     }
 
     @FXML
-    private void zoomOut() {
+    private void onZoomOut() {
         zoomFactor -= ZOOM_STEP;
+        zoom();
+    }
+
+    @FXML
+    private void onResetZoom() {
+        zoomFactor = 1;
         zoom();
     }
 
