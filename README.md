@@ -15,3 +15,16 @@ Project Work for the Software Engineering course in the Master Degree "Informati
 - [Updated Sprint Backlog](https://docs.google.com/document/d/1DTkK0TwdU_PNtXiMamGJrplGIw2DcwVAMQ8bSixHLP8/edit?usp=sharing)
 - [Sprint Review (with Burndown Chart)](https://docs.google.com/document/d/1RMuoDxoCA4k4N0CQGtpPQ4Jcsn38Gqyr7et6dgfPFUI/edit?usp=sharing)
 - [Sprint Retrospective](https://docs.google.com/document/d/1e-XvOE9htJAhOySCZjL_f3haA7O6rEaMddonTWKBQkg/edit?usp=sharing)
+
+## Delivery #3 - Release Sprint #2
+- [Updated Product Backlog](https://docs.google.com/spreadsheets/d/17QRVXPW1ftofBgPbPWpHcSAowWuxmSET3bVF413mw94/edit?usp=sharing)
+- [Updated Sprint Backlog](https://docs.google.com/spreadsheets/d/1eaI30zxtapo89WUMCtskVFpp3ofvtkiusvDLnkknulo/edit?usp=sharing)
+- [Sprint Review (with Burndown Chart)](https://docs.google.com/document/d/1ybvFik99anrwtyExqf1MKkXmWGbsclsUjQ1aOiioTxc/edit?usp=sharing)
+- [Sprint Retrospective](https://docs.google.com/document/d/196TIWgOijjhhBQGV55P3bq_2bVaISD6mTw1-VtPbA9I/edit?usp=sharing)
+
+## Delivery #4 - Final Release
+- [Updated Product Backlog](https://docs.google.com/spreadsheets/d/1JQqEXMT-9-BVRIgjPSkH_Teve-aJXldSJq4ArN76bs4/edit?usp=sharing)
+- [Updated Sprint Backlog](https://docs.google.com/spreadsheets/d/13NAZHPtvQklisnWG0vjipPbsuUnBovDaPYbL2tyB6gw/edit?usp=sharing)
+- [Sprint Review (with Burndown Chart)](https://docs.google.com/document/d/1zQRefmmoUQyJA16Beg_NRkNniVS393pZKBRymz5A9uo/edit?usp=sharing)
+- [Sprint Retrospective](https://docs.google.com/document/d/1VjU2E_3McgKw2VsRSWDRf3x5bNlKGgFR4In1bSwFd78/edit?usp=sharing)
+- Final presentation in repository's root directory
