@@ -6,11 +6,10 @@ import java.util.Deque;
 /**
  * Class that handles command executions, undo and redo
  *<p>
- * Implements the Invoker class of the Command pattern
+ * Implements the "Invoker" class of the "Command" pattern
  * </p>
  */
 public class CommandManager {
-
     private final Deque<Command> commandStack;
     private final Deque<Command> undoStack;
 
@@ -33,11 +32,19 @@ public class CommandManager {
         undoStack.push(command);
     }
 
-    public Command lastExecutedCommand() { //Used for testing purposes only
+    public void redo() {
+        if (undoStack.isEmpty())
+            return;
+        Command command = undoStack.pop();
+        command.execute();
+        commandStack.push(command);
+    }
+
+    public Command lastExecutedCommand() {
         return commandStack.peekFirst();
     }
 
-    public Command lastUndoneCommand() { //Used for testing purposes only
+    public Command lastUndoneCommand() {
         return undoStack.peekFirst();
     }
 }

@@ -5,7 +5,7 @@ package unisa.diem.seproject;
  */
 public class Converter {
     /**
-     * Convert pixels to millimeters
+     * Converts pixels to millimeters
      * @param pix pixels
      * @param DPI screen resolution (dots per inch)
      * @return millimeters
@@ -15,7 +15,7 @@ public class Converter {
     }
 
     /**
-     * Convert millimeters to pixels
+     * Converts millimeters to pixels
      * @param mm millimeters
      * @param DPI screen resolution (dots per inch)
      * @return pixels

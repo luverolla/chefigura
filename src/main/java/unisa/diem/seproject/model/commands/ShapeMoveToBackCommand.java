@@ -4,26 +4,26 @@ import unisa.diem.seproject.model.Command;
 import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 
-public class ShapeResizeCommand implements Command {
+public class ShapeMoveToBackCommand implements Command {
     private final ShapeManager sm;
     private final Shape shape;
-    private final double resizeFactor;
+    private int oldZIndex;
 
-    public ShapeResizeCommand(ShapeManager sm, Shape shape, double resizeFactor) {
+    public ShapeMoveToBackCommand(ShapeManager sm, Shape shape) {
         this.sm = sm;
         this.shape = shape;
-        this.resizeFactor = resizeFactor;
     }
 
     @Override
     public void execute() {
-        sm.resize(shape, resizeFactor);
+        oldZIndex = shape.getZIndex();
+        sm.moveToBack(shape);
     }
 
     @Override
     public void rollback() {
-        sm.resize(shape, 1 / resizeFactor);
+        sm.moveToFront(shape);
+        shape.setZIndex(oldZIndex);
         sm.redraw();
     }
 }
-

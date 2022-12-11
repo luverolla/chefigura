@@ -2,14 +2,11 @@ package unisa.diem.seproject.model;
 
 /**
  * Generic command
+ * <p>
+ *     Implements the homonym class in the "Command" pattern
+ * </p>
  */
 public interface Command {
-    /**
-     * Execute the command
-     */
     void execute();
-    /**
-     * Rollback to state previous to command execution
-     */
     void rollback();
 }

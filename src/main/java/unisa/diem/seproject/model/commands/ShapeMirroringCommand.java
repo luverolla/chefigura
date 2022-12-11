@@ -4,22 +4,24 @@ import unisa.diem.seproject.model.Command;
 import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 
-public class ShapeDrawCommand implements Command {
-    private final Shape shape;
+public class ShapeMirroringCommand implements Command {
     private final ShapeManager sm;
+    private final Shape s;
+    private final boolean horizontal;
 
-    public ShapeDrawCommand(Shape s, ShapeManager sm) {
-        this.shape = s;
+    public ShapeMirroringCommand(ShapeManager sm, Shape s, boolean horizontal) {
         this.sm = sm;
+        this.s = s;
+        this.horizontal = horizontal;
     }
 
     @Override
     public void execute() {
-        sm.add(shape);
+        sm.mirror(s, horizontal);
     }
 
     @Override
     public void rollback() {
-        sm.remove(shape);
+        sm.mirror(s, horizontal);
     }
 }

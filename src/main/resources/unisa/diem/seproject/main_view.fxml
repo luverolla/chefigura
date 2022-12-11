@@ -5,17 +5,23 @@
 <?import javafx.scene.paint.Color?>
 
 <?import javafx.scene.input.KeyCodeCombination?>
+<?import unisa.diem.seproject.model.extensions.NumberTextField?>
+<?import javafx.geometry.Insets?>
 <VBox onKeyPressed="#resetTool" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unisa.diem.seproject.MainController">
     <MenuBar>
         <Menu mnemonicParsing="false" text="File">
             <MenuItem fx:id="fileChooserRef" mnemonicParsing="false" text="Load" onAction="#handleLoad" />
             <MenuItem mnemonicParsing="false" text="Save" onAction="#handleSave" />
-            <MenuItem mnemonicParsing="false" text="Clear" onAction="#onSheetClear" />
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
             <MenuItem mnemonicParsing="false" text="Undo" onAction="#onUndo">
                 <accelerator>
                     <KeyCodeCombination alt="UP" code="Z" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Redo" onAction="#onRedo">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="Z" control="UP" meta="UP" shift="DOWN" shortcut="DOWN" />
                 </accelerator>
             </MenuItem>
             <MenuItem fx:id="menuOptionCut" mnemonicParsing="false" text="Cut" onAction="#onCut">
@@ -38,58 +44,116 @@
                     <KeyCodeCombination alt="UP" code="BACK_SPACE" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                 </accelerator>
             </MenuItem>
+            <MenuItem fx:id="menuOptionMoveToFront" mnemonicParsing="false" text="Move to Front" onAction="#onMoveToFront">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="F" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                </accelerator>
+            </MenuItem>
+            <MenuItem fx:id="menuOptionMoveToBack" mnemonicParsing="false" text="Move to Back" onAction="#onMoveToBack">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="B" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                </accelerator>
+            </MenuItem>
+            <MenuItem fx:id="menuOptionMirrorH" mnemonicParsing="false" text="Mirror Horizontal" onAction="#onMirrorHorizontal" />
+            <MenuItem fx:id="menuOptionMirrorV" mnemonicParsing="false" text="Mirror Vertical" onAction="#onMirrorVertical" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="View">
+            <MenuItem mnemonicParsing="false" text="Zoom In" onAction="#onZoomIn">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="M" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Zoom Out" onAction="#onZoomOut">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="M" control="UP" meta="UP" shift="DOWN" shortcut="DOWN" />
+                </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Reset Zoom" onAction="#onResetZoom">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="DIGIT0" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                </accelerator>
+            </MenuItem>
         </Menu>
     </MenuBar>
 
     <!-- sheet + panels -->
     <GridPane VBox.Vgrow="ALWAYS" VBox.vgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints percentWidth="85" />
-            <ColumnConstraints percentWidth="15" />
+            <ColumnConstraints percentWidth="80" />
+            <ColumnConstraints percentWidth="20" />
         </columnConstraints>
 
-        <ScrollPane fx:id="canvasContainer" GridPane.vgrow="ALWAYS" />
+        <!-- scrollPane -->
+        <ScrollPane fx:id="canvasContainer" GridPane.vgrow="ALWAYS">
+            <StackPane fx:id="group" GridPane.vgrow="ALWAYS" />
+        </ScrollPane>
         <!-- right panel -->
         <StackPane alignment="TOP_RIGHT" GridPane.columnIndex="1">
             <!-- shapes palette -->
             <VBox prefHeight="200.0" prefWidth="100.0">
-                <Accordion>
-                    <panes>
-                        <TitledPane animated="false" text="Tools">
-                            <AnchorPane minHeight="0.0" minWidth="0.0">
-                                <VBox>
-                                    <Button mnemonicParsing="false" onAction="#selectTool" text="Rectangle" userData="rectangle" />
-                                    <Button mnemonicParsing="false" onAction="#selectTool" text="Ellipse" userData="ellipse" />
-                                    <Button mnemonicParsing="false" onAction="#selectTool" text="Line Segment" userData="segment" />
-                                    <Button mnemonicParsing="false" onAction="#selectTool" text="Selection" userData="selection" />
-                                </VBox>
-                            </AnchorPane>
-                        </TitledPane>
-                        <TitledPane animated="false" text="Colors">
-                            <AnchorPane minHeight="0.0" minWidth="0.0">
-                                <VBox>
-                                    <Label text="Stroke" />
-                                    <ColorPicker fx:id="strokeColorPicker">
-                                        <value>
-                                            <Color/>
-                                        </value>
-                                    </ColorPicker>
-                                    <Label text="Fill" />
-                                    <ColorPicker fx:id="fillColorPicker">
-                                        <value>
-                                            <Color opacity="0.0"/>
-                                        </value>
-                                    </ColorPicker>
-                                </VBox>
-                            </AnchorPane>
-                        </TitledPane>
-                    </panes>
-                </Accordion>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                    <VBox spacing="10">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <Button mnemonicParsing="false" onAction="#selectTool" text="Rectangle" userData="rectangle" />
+                        <Button mnemonicParsing="false" onAction="#selectTool" text="Ellipse" userData="ellipse" />
+                        <Button mnemonicParsing="false" onAction="#selectTool" text="Line Segment" userData="segment" />
+                        <Button mnemonicParsing="false" onAction="#selectTool" text="Selection" userData="selection" />
+
+                        <HBox spacing="5">
+                            <VBox>
+                                <Label text="Stroke" />
+                                <ColorPicker fx:id="strokeColorPicker" >
+                                    <value>
+                                        <Color/>
+                                    </value>
+                                </ColorPicker>
+                            </VBox>
+                            <VBox>
+                                <Label text="Fill" />
+                                <ColorPicker fx:id="fillColorPicker">
+                                    <value>
+                                        <Color opacity="0.0"/>
+                                    </value>
+                                </ColorPicker>
+                            </VBox>
+                        </HBox>
+
+                        <VBox spacing="5">
+                            <Label text="Set grid size (mm) or zero to hide" />
+                            <HBox>
+                                <NumberTextField fx:id="gridSizeField" promptText="Grid width" />
+                                <Button mnemonicParsing="false" onAction="#setGridSize" text="Set" />
+                            </HBox>
+                        </VBox>
+                        <VBox spacing="5">
+                            <Label text="Resize by factor" />
+                            <HBox>
+                                <NumberTextField fx:id="resizeField" promptText="scale factor" />
+                                <Button mnemonicParsing="false" onAction="#resizeSelected" text="Set" />
+                            </HBox>
+                        </VBox>
+                        <VBox spacing="5">
+                            <Label text="Rotate by angle (degrees)" />
+                            <HBox>
+                                <NumberTextField fx:id="angleField" promptText="rotation angle" />
+                                <Button mnemonicParsing="false" onAction="#rotateSelected" text="Set" />
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </AnchorPane>
             </VBox>
         </StackPane>
         <rowConstraints>
             <RowConstraints />
         </rowConstraints>
     </GridPane>
-    <HBox prefHeight="17.0" prefWidth="673.0" />
+    <HBox>
+        <padding>
+            <Insets bottom="5" left="10" right="10" top="5"/>
+        </padding>
+        <Label text="Current Tool Selected: " />
+        <Label fx:id="statusLabel" text="None" />
+    </HBox>
 </VBox>

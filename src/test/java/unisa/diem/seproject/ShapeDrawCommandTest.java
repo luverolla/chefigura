@@ -9,9 +9,8 @@ import unisa.diem.seproject.model.extensions.Point;
 import unisa.diem.seproject.model.shapes.RectangleShape;
 
 public class ShapeDrawCommandTest {
-
     private final CommandManager cm = new CommandManager();
-    private final Sheet sheet = new Sheet(SheetFormat.NONE, cm);
+    private final Sheet sheet = new Sheet(cm);
     private final Shape testRectangle = new RectangleShape(new Point(0, 0), new Point(10, 10));
     private final ShapeDrawCommand command = new ShapeDrawCommand(testRectangle, sheet.shapeManager());
 

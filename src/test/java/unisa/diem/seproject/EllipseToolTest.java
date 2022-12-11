@@ -8,7 +8,6 @@ import unisa.diem.seproject.model.ShapeManager;
 import unisa.diem.seproject.model.tools.EllipseTool;
 
 public class EllipseToolTest {
-
     private final CommandManager commandManager = new CommandManager();
     private final ShapeManager shapeManager = new ShapeManager(null, commandManager);
     private final EllipseTool ellipseTool = new EllipseTool(shapeManager);

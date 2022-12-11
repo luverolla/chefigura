@@ -1,21 +1,19 @@
 package unisa.diem.seproject.model.tools;
 
+import java.util.List;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
-
 import javafx.scene.input.MouseEvent;
+
 import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 import unisa.diem.seproject.model.Tool;
 import unisa.diem.seproject.model.tools.anchors.*;
 
-import java.util.List;
-
 /**
  * Tool to select a shape
  */
 public class SelectionTool implements Tool {
-
     private final ShapeManager shapeManager;
     private Shape selected;
     private final Canvas canvas;
@@ -27,10 +25,10 @@ public class SelectionTool implements Tool {
         this.canvas = canvas;
         this.anchorPoints = List.of(
                 new CenterAnchorPoint(this, canvas),
-                new NWAnchorPoint(this, canvas),
-                new NEAnchorPoint(this, canvas),
-                new SEAnchorPoint(this, canvas),
-                new SWAnchorPoint(this, canvas)
+                new WAnchorPoint(this, canvas),
+                new NAnchorPoint(this, canvas),
+                new EAnchorPoint(this, canvas),
+                new SAnchorPoint(this, canvas)
         );
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
             for (AnchorPoint anchorPoint : anchorPoints) {

@@ -3,7 +3,7 @@ package unisa.diem.seproject.model;
 /**
  * Generic tool
  *<p>
- * Implements the State pattern
+ * Implements the interface "State" of the homonym pattern
  * </p>
  */
 public interface Tool {
@@ -13,6 +13,7 @@ public interface Tool {
      * @param mouseY y coordinate of the mouse
      */
     void mouseDown(double mouseX, double mouseY);
+
     /**
      * Actions to be executed when the mouse is moved
      * @param mouseX x coordinate of the mouse
@@ -21,7 +22,7 @@ public interface Tool {
     void mouseMove(double mouseX, double mouseY);
 
     /**
-     * Clear the tool's state
+     * Resets the tool's internal state (e.g. already chosen points during shapes drawing)
      */
     void reset();
 }

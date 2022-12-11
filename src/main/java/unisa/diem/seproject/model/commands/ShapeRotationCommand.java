@@ -4,22 +4,24 @@ import unisa.diem.seproject.model.Command;
 import unisa.diem.seproject.model.Shape;
 import unisa.diem.seproject.model.ShapeManager;
 
-public class ShapeDrawCommand implements Command {
-    private final Shape shape;
+public class ShapeRotationCommand implements Command {
     private final ShapeManager sm;
+    private final Shape shape;
+    private final double angle;
 
-    public ShapeDrawCommand(Shape s, ShapeManager sm) {
-        this.shape = s;
+    public ShapeRotationCommand(ShapeManager sm, Shape s, double angle) {
         this.sm = sm;
+        this.shape = s;
+        this.angle = angle;
     }
 
     @Override
     public void execute() {
-        sm.add(shape);
+        sm.rotate(shape, angle);
     }
 
     @Override
     public void rollback() {
-        sm.remove(shape);
+        sm.rotate(shape, -angle);
     }
 }
