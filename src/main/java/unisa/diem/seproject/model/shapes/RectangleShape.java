@@ -52,7 +52,7 @@ public class RectangleShape extends BaseClosedShape {
 
     @Override
     public boolean contains(double mouseX, double mouseY, double zoomFactor) {
-        return mouseX / zoomFactor >= start.getX() && mouseX / zoomFactor <= end.getX() && mouseY / zoomFactor >= start.getY() && mouseY / zoomFactor <= end.getY();
+        return getBounds().contains(mouseX, mouseY, zoomFactor);
     }
 
     @Override
@@ -113,6 +113,17 @@ public class RectangleShape extends BaseClosedShape {
         } else {
             start = new Point(start.getX() + deltaX, start.getY() + deltaY);
         }
+    }
+
+    @Override
+    public void mirrorHorizontal() {
+        /*
+        * this method is empty because the rectangle is symmetric with respect to the horizontal axis
+        */
+    }
+
+    @Override
+    public void mirrorVertical() {
     }
 
     @Serial

@@ -27,7 +27,5 @@ public class ShapeStretchCommand implements Command {
     @Override
     public void rollback() {
         sm.stretch(shape, -deltaX, -deltaY, direction);
-        sm.redraw();
     }
-
 }

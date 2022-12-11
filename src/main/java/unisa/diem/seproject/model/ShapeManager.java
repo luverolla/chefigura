@@ -200,4 +200,18 @@ public class ShapeManager implements Serializable {
         commandManager.execute(command);
     }
 
+    public void mirror(Shape s, boolean horizontal) {
+        if (horizontal) {
+            s.mirrorHorizontal();
+        } else {
+            s.mirrorVertical();
+        }
+        if (context != null)
+            redraw();
+    }
+
+    public void mirrorCommand(Shape s, boolean horizontal) {
+        Command command = new ShapeMirroringCommand(this, s, horizontal);
+        commandManager.execute(command);
+    }
 }

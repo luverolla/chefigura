@@ -46,7 +46,7 @@ public class EllipseShape extends BaseClosedShape {
 
     @Override
     public boolean contains(double mouseX, double mouseY, double zoomFactor) {
-        return Math.pow(mouseX / zoomFactor - center.getX(), 2) / Math.pow(radiusX, 2) + Math.pow(mouseY / zoomFactor - center.getY(), 2) / Math.pow(radiusY, 2) <= 1;
+        return getBounds().contains(mouseX, mouseY, zoomFactor);
     }
 
     @Override
@@ -111,6 +111,17 @@ public class EllipseShape extends BaseClosedShape {
             radiusY -= deltaY / 2;
             center = new Point(center.getX() + deltaX / 2, center.getY() + deltaY / 2);
         }
+    }
+
+    @Override
+    public void mirrorHorizontal() {
+        /*
+         * this method is empty because the ellipse is symmetric with respect to the horizontal axis
+         */
+    }
+
+    @Override
+    public void mirrorVertical() {
     }
 
     @Serial

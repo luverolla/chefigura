@@ -28,8 +28,6 @@ public class SAnchorPoint implements AnchorPoint {
         if (sm.selectedShapeProperty.get() != null) {
             if (sm.selectedShapeProperty.get().getBounds().mouseOnSAnchorPoint(mouseX, mouseY, sm.getZoomFactor())) {
                 canvas.getScene().setCursor(Cursor.S_RESIZE);
-            } else {
-                canvas.getScene().setCursor(Cursor.DEFAULT);
             }
         }
     }

@@ -28,8 +28,6 @@ public class NAnchorPoint implements AnchorPoint {
         if (sm.selectedShapeProperty.get() != null) {
             if (sm.selectedShapeProperty.get().getBounds().mouseOnNAnchorPoint(mouseX, mouseY, sm.getZoomFactor())) {
                 canvas.getScene().setCursor(Cursor.N_RESIZE);
-            } else {
-                canvas.getScene().setCursor(Cursor.DEFAULT);
             }
         }
     }

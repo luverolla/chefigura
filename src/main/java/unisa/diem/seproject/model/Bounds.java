@@ -59,6 +59,16 @@ public class Bounds {
         return end.getY() - start.getY();
     }
 
+    public boolean contains(double mouseX, double mouseY, double zoomFactor) {
+        Point[] anchorPoints = getAnchorPoints();
+        double startX = (anchorPoints[0].getX() - getWidth() / 2);
+        double startY = (anchorPoints[3].getY() - getHeight() / 2);
+        double endX = (anchorPoints[2].getX() + getWidth() / 2);
+        double endY = (anchorPoints[1].getY() + getHeight() / 2);
+        return mouseX / zoomFactor >= startX && mouseX / zoomFactor <= endX &&
+                mouseY / zoomFactor >= startY && mouseY / zoomFactor <= endY;
+    }
+
     public boolean mouseOnCenter(double mouseX, double mouseY, double zoomFactor) {
         return (mouseX / zoomFactor >= center.getX() - 5 && mouseX / zoomFactor <= center.getX() + 5)
                 && (mouseY / zoomFactor >= center.getY() - 5 && mouseY / zoomFactor <= center.getY() + 5);

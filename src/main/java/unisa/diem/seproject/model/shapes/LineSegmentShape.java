@@ -26,6 +26,14 @@ public class LineSegmentShape extends BaseShape {
         this.angle = 0;
     }
 
+    public Point getStart() {
+        return start;
+    }
+
+    public Point getEnd() {
+        return end;
+    }
+
     @Override
     public void draw(GraphicsContext gc, double zoomFactor) {
         gc.save();
@@ -39,15 +47,7 @@ public class LineSegmentShape extends BaseShape {
 
     @Override
     public boolean contains(double mouseX, double mouseY, double zoomFactor) {
-        double startX = start.getX();
-        double startY = start.getY();
-        double endX = end.getX();
-        double endY = end.getY();
-        double minX = Math.min(startX, endX);
-        double minY = Math.min(startY, endY);
-        double maxX = Math.max(startX, endX);
-        double maxY = Math.max(startY, endY);
-        return (mouseX / zoomFactor >= minX && mouseX / zoomFactor <= maxX && mouseY / zoomFactor >= minY && mouseY / zoomFactor <= maxY);
+        return getBounds().contains(mouseX, mouseY, zoomFactor);
     }
 
     @Override
@@ -102,7 +102,6 @@ public class LineSegmentShape extends BaseShape {
         this.angle += angle;
     }
 
-
     @Override
     public Color getStrokeColor() {
         return strokeColor;
@@ -138,6 +137,20 @@ public class LineSegmentShape extends BaseShape {
             double newStartY = start.getY() + deltaY;
             defineStartAndEnd(newStartX, newStartY, end.getX(), end.getY());
         }
+    }
+
+    @Override
+    public void mirrorHorizontal() {
+        double newStartX = end.getX();
+        double newStartY = start.getY();
+        double newEndX = start.getX();
+        double newEndY = end.getY();
+        start = new Point(newStartX, newStartY);
+        end = new Point(newEndX, newEndY);
+    }
+
+    @Override
+    public void mirrorVertical() {
     }
 
     @Serial

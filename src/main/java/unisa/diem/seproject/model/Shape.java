@@ -45,6 +45,7 @@ public interface Shape extends Serializable, Comparable<Shape> {
     default int compareTo(Shape o) {
         return getZIndex() - o.getZIndex();
     }
-
     void stretch(double deltaX, double deltaY, int direction);
+    void mirrorHorizontal();
+    void mirrorVertical();
 }
