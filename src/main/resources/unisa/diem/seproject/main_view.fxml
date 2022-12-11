@@ -55,6 +55,8 @@
                     <KeyCodeCombination alt="UP" code="B" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                 </accelerator>
             </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Mirror Horizontal" onAction="#onMirrorHorizontal" />
+            <MenuItem mnemonicParsing="false" text="Mirror Vertical" onAction="#onMirrorVertical" />
         </Menu>
     </MenuBar>
 

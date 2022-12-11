@@ -248,6 +248,12 @@ public class MainController {
     public void onMoveToBack() {
         project.getSheet().shapeManager().moveToBackCommand(project.getSheet().shapeManager().selectedShapeProperty.get());
     }
+    public void onMirrorHorizontal() {
+        project.getSheet().shapeManager().mirrorCommand(project.getSheet().shapeManager().selectedShapeProperty.get(), true);
+    }
+    public void onMirrorVertical() {
+        project.getSheet().shapeManager().mirrorCommand(project.getSheet().shapeManager().selectedShapeProperty.get(), false);
+    }
 
     public void resetTool(KeyEvent keyEvent) {
         if(keyEvent.getCode() == KeyCode.ESCAPE) {
