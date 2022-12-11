@@ -59,30 +59,40 @@ public class Bounds {
         return end.getY() - start.getY();
     }
 
+    public boolean contains(double mouseX, double mouseY, double zoomFactor) {
+        Point[] anchorPoints = getAnchorPoints();
+        double startX = (anchorPoints[0].getX() - getWidth() / 2);
+        double startY = (anchorPoints[3].getY() - getHeight() / 2);
+        double endX = (anchorPoints[2].getX() + getWidth() / 2);
+        double endY = (anchorPoints[1].getY() + getHeight() / 2);
+        return mouseX / zoomFactor >= startX && mouseX / zoomFactor <= endX &&
+                mouseY / zoomFactor >= startY && mouseY / zoomFactor <= endY;
+    }
+
     public boolean mouseOnCenter(double mouseX, double mouseY, double zoomFactor) {
         return (mouseX / zoomFactor >= center.getX() - 5 && mouseX / zoomFactor <= center.getX() + 5)
                 && (mouseY / zoomFactor >= center.getY() - 5 && mouseY / zoomFactor <= center.getY() + 5);
     }
 
-    public boolean mouseOnNWAnchorPoint(double mouseX, double mouseY, double zoomFactor) {
+    public boolean mouseOnNAnchorPoint(double mouseX, double mouseY, double zoomFactor) {
         Point anchorPoint = getAnchorPoints()[0];
         return (mouseX / zoomFactor >= anchorPoint.getX() - 5 && mouseX / zoomFactor <= anchorPoint.getX() + 5)
                 && (mouseY / zoomFactor >= anchorPoint.getY() - 5 && mouseY / zoomFactor <= anchorPoint.getY() + 5);
     }
 
-    public boolean mouseOnNEAnchorPoint(double mouseX, double mouseY, double zoomFactor) {
+    public boolean mouseOnEAnchorPoint(double mouseX, double mouseY, double zoomFactor) {
         Point anchorPoint = getAnchorPoints()[1];
         return (mouseX / zoomFactor >= anchorPoint.getX() - 5 && mouseX / zoomFactor <= anchorPoint.getX() + 5)
                 && (mouseY / zoomFactor >= anchorPoint.getY() - 5 && mouseY / zoomFactor <= anchorPoint.getY() + 5);
     }
 
-    public boolean mouseOnSEAnchorPoint(double mouseX, double mouseY, double zoomFactor) {
+    public boolean mouseOnSAnchorPoint(double mouseX, double mouseY, double zoomFactor) {
         Point anchorPoint = getAnchorPoints()[2];
         return (mouseX / zoomFactor >= anchorPoint.getX() - 5 && mouseX / zoomFactor <= anchorPoint.getX() + 5)
                 && (mouseY / zoomFactor >= anchorPoint.getY() - 5 && mouseY / zoomFactor <= anchorPoint.getY() + 5);
     }
 
-    public boolean mouseOnSWAnchorPoint(double mouseX, double mouseY, double zoomFactor) {
+    public boolean mouseOnWAnchorPoint(double mouseX, double mouseY, double zoomFactor) {
         Point anchorPoint = getAnchorPoints()[3];
         return (mouseX / zoomFactor >= anchorPoint.getX() - 5 && mouseX / zoomFactor <= anchorPoint.getX() + 5)
                 && (mouseY / zoomFactor >= anchorPoint.getY() - 5 && mouseY / zoomFactor <= anchorPoint.getY() + 5);
